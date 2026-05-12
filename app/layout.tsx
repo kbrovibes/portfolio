@@ -11,10 +11,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Karthik Rajan — Engineering Manager",
   description:
-    "Engineering Manager at Amazon Neptune (AWS). 14+ years building distributed systems at scale. 30K+ servers, $100M+ ARR, 22 global regions.",
+    "Engineering Manager at Meta Blob Storage. 15+ years in distributed systems — Meta, Amazon Neptune, AWS. Built infrastructure serving billions at petabyte scale.",
   openGraph: {
     title: "Karthik Rajan",
-    description: "SDM @ Amazon Neptune · AWS · Building at scale since 2011",
+    description: "Engineering Manager @ Meta Blob Storage · Previously Amazon Neptune (14 yrs) · kbrovibes",
     type: "website",
   },
 };

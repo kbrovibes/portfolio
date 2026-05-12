@@ -36,3 +36,21 @@ body {
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.4); border-radius: 2px; }
+
+@keyframes float-orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(28px, -18px) scale(1.03); }
+  50% { transform: translate(-12px, 22px) scale(0.97); }
+  75% { transform: translate(16px, 8px) scale(1.01); }
+}
+
+@keyframes float-orb-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-20px, 15px) scale(1.02); }
+  66% { transform: translate(18px, -22px) scale(0.98); }
+}
+
+@keyframes float-orb-3 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(15px, -25px); }
+}

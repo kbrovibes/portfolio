@@ -29,23 +29,38 @@ const stat: Variants = {
 };
 
 const STATS = [
-  { value: "14+", label: "Years" },
+  { value: "15+", label: "Years" },
   { value: "25+", label: "Engineers" },
-  { value: "22", label: "AWS Regions" },
-  { value: "$100M+", label: "ARR" },
+  { value: "$100M+", label: "ARR Impact" },
+  { value: "30K+", label: "Servers" },
 ];
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background blobs */}
+      {/* Dot grid texture */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: "radial-gradient(rgba(139,92,246,0.18) 1.5px, transparent 1.5px)",
+          backgroundSize: "28px 28px",
+          maskImage:
+            "radial-gradient(ellipse 80% 80% at 50% 30%, black 20%, transparent 75%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 80% 80% at 50% 30%, black 20%, transparent 75%)",
+        }}
+      />
+
+      {/* Animated background blobs */}
       <div
         aria-hidden
         className="pointer-events-none absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(139,92,246,0.22) 0%, transparent 65%)",
+            "radial-gradient(circle, rgba(139,92,246,0.28) 0%, transparent 65%)",
           filter: "blur(60px)",
+          animation: "float-orb 22s ease-in-out infinite",
         }}
       />
       <div
@@ -53,17 +68,19 @@ export default function Hero() {
         className="pointer-events-none absolute -bottom-60 -right-20 w-[600px] h-[600px] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(236,72,153,0.16) 0%, transparent 65%)",
+            "radial-gradient(circle, rgba(236,72,153,0.2) 0%, transparent 65%)",
           filter: "blur(80px)",
+          animation: "float-orb-2 17s ease-in-out infinite",
         }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full"
+        className="pointer-events-none absolute top-1/3 right-1/4 w-[350px] h-[350px] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 65%)",
+            "radial-gradient(circle, rgba(0,130,251,0.12) 0%, transparent 65%)",
           filter: "blur(60px)",
+          animation: "float-orb-3 14s ease-in-out infinite",
         }}
       />
 
@@ -78,12 +95,12 @@ export default function Hero() {
           {/* Badge */}
           <motion.div variants={fadeUp} className="mb-8">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wide
-              bg-violet-500/10 border border-violet-500/20 text-violet-300">
+              bg-blue-500/10 border border-blue-500/20 text-blue-300">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
               </span>
-              Open to conversations
+              Engineering Manager · Meta · Blob Storage
             </span>
           </motion.div>
 
@@ -112,13 +129,12 @@ export default function Hero() {
             variants={fadeUp}
             className="text-lg sm:text-xl text-white/40 font-light leading-relaxed mb-3 max-w-2xl"
           >
-            Engineering Manager at{" "}
-            <span className="text-white/80 font-medium">Amazon Neptune · AWS</span>
-            {". "}
-            Leading 4 teams building the infrastructure behind the world&apos;s
-            largest managed graph database service —{" "}
-            <span className="text-white/80 font-medium">30K+ servers</span>,{" "}
-            <span className="text-white/80 font-medium">22 global regions</span>.
+            Currently at{" "}
+            <span className="text-white/80 font-medium">Meta Blob Storage</span>
+            {", "}building petabyte-scale infrastructure. Previously{" "}
+            <span className="text-white/80 font-medium">14 years at Amazon Neptune</span>{" "}
+            — SDE to leading 4 teams and{" "}
+            <span className="text-white/80 font-medium">60% of the org</span>.
           </motion.p>
 
           <motion.div
