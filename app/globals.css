@@ -62,6 +62,7 @@ body {
 [data-theme="neon"] { --theme-bg: #08001a; }
 [data-theme="aurora"] { --theme-bg: #020818; }
 [data-theme="claude"] { --theme-bg: #141414; }
+[data-theme="claudecli"] { --theme-bg: #0d0d0d; }
 
 body { background: var(--theme-bg); transition: background 0.3s ease; }
 

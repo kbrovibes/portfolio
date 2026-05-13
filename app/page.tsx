@@ -7,6 +7,7 @@ import BrutalTheme from "@/components/themes/brutal";
 import NeonTheme from "@/components/themes/neon";
 import AuroraTheme from "@/components/themes/aurora";
 import ClaudeCodeTheme from "@/components/themes/claude-code";
+import ClaudeCliTheme from "@/components/themes/claude-cli";
 
 export default function Home() {
   const { theme } = useTheme();
@@ -18,6 +19,7 @@ export default function Home() {
     theme === "brutal" ? <BrutalTheme /> :
     theme === "neon" ? <NeonTheme /> :
     theme === "claude" ? <ClaudeCodeTheme /> :
+    theme === "claudecli" ? <ClaudeCliTheme /> :
     <AuroraTheme />;
 
   return <main>{!mounted ? <MidnightTheme /> : <>{content}</>}</main>;
