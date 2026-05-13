@@ -61,6 +61,7 @@ body {
 [data-theme="brutal"] { --theme-bg: #f0f0e8; }
 [data-theme="neon"] { --theme-bg: #08001a; }
 [data-theme="aurora"] { --theme-bg: #020818; }
+[data-theme="claude"] { --theme-bg: #141414; }
 
 body { background: var(--theme-bg); transition: background 0.3s ease; }
 
@@ -84,4 +85,14 @@ body { background: var(--theme-bg); transition: background 0.3s ease; }
   0%, 95%, 100% { opacity: 1; }
   96% { opacity: 0.4; }
   98% { opacity: 0.8; }
+}
+
+@keyframes cc-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes cc-cursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }

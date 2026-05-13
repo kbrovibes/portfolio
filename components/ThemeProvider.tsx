@@ -1,9 +1,9 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 
-export type Theme = "midnight" | "terminal" | "brutal" | "neon" | "aurora";
+export type Theme = "midnight" | "terminal" | "brutal" | "neon" | "aurora" | "claude";
 
-const VALID: Theme[] = ["midnight", "terminal", "brutal", "neon", "aurora"];
+const VALID: Theme[] = ["midnight", "terminal", "brutal", "neon", "aurora", "claude"];
 
 interface Ctx { theme: Theme; setTheme: (t: Theme) => void; }
 const ThemeCtx = createContext<Ctx>({ theme: "midnight", setTheme: () => {} });

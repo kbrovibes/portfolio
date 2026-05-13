@@ -7,6 +7,7 @@ const OPTIONS: { id: Theme; label: string; icon: string }[] = [
   { id: "brutal", label: "Brutal", icon: "⚡" },
   { id: "neon", label: "Neon", icon: "🔮" },
   { id: "aurora", label: "Aurora", icon: "🌌" },
+  { id: "claude", label: "Claude Code", icon: "✦" },
 ];
 
 export default function ThemeSelector() {
