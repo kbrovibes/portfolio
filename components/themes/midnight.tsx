@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle } from "lucide-react";
+import { useState, Fragment } from "react";
+import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
 import { PERSONAL, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
 
@@ -38,15 +39,6 @@ const fadeUp: Variants = {
     opacity: 1,
     y: 0,
     transition: { duration: 0.7, ease: "easeOut" },
-  },
-};
-
-const statVariant: Variants = {
-  hidden: { opacity: 0, scale: 0.92 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
@@ -116,6 +108,68 @@ const timelineStyle: Record<string, {
   },
 };
 
+
+const EXPANSIONS: Record<string, { heading: string; body: string; highlights: string[] }> = {
+  meta: {
+    heading: "What I'm building at Meta",
+    body: "At Meta, I lead engineering for Blob Storage — the infrastructure moving exabytes of data in and out of Meta's global systems. This means ingestion pipelines from production services, large-scale exports feeding ML training and analytics, and reliability systems that operate at a scale where even tiny error rates translate to millions of failures. There's more I'm working on that I can't describe publicly — reach out if you're curious.",
+    highlights: [
+      "Exabyte-scale data movement: ingestion, egress, and cross-region replication at Meta scale",
+      "Reliability and throughput for storage infrastructure serving billions of users",
+      "Leading a distributed engineering org across multiple sites",
+      "Additional confidential infra projects — ask me",
+    ],
+  },
+  "neptune-sdm2": {
+    heading: "SDM II at Neptune · 2022–2025",
+    body: "My second chapter leading Neptune was about scaling the org and shipping high-profile launches. I owned four teams — Storage, Control Plane, AWS Integrations, and Global Expansion — covering 60% of Neptune engineering. Two flagship launches defined this period: Neptune Analytics (a new graph analytics engine at AWS re:Invent 2023) and GraphRAG (co-built with the Amazon Bedrock team, shipped at re:Invent 2024). I also rebuilt our operational model — moving from a flat on-call rotation to a tiered, follow-the-sun system that significantly reduced engineer toil.",
+    highlights: [
+      "Neptune Analytics — new graph analytics engine, shipped at re:Invent 2023",
+      "GraphRAG — co-built with Bedrock, shipped at re:Invent 2024",
+      "25+ engineers across 4 global teams — 60% of Neptune org",
+      "Tiered on-call + follow-the-sun operational overhaul",
+    ],
+  },
+  "neptune-sdm1": {
+    heading: "SDM I at Neptune · 2020–2022",
+    body: "I took the Neptune Storage team from 1 SDE to 15 across Seattle, Vancouver, and the Bay Area. During this period Neptune expanded from a handful of regions to 22, including FedRAMP GovCloud and AWS private cloud. The work I'm most proud of: a tiered NVMe caching layer that delivered 30% query speedup and contributed ~$4M in incremental ARR, and a bulk export feature that cut full-graph S3 export times from days to under three hours.",
+    highlights: [
+      "Scaled team 1 → 15 SDEs across three cities in two years",
+      "Neptune expanded to 22 AWS regions including GovCloud and private cloud",
+      "NVMe tiered cache: 30% query speedup, +$4M ARR",
+      "S3 bulk export: days → under 3 hours for full graph exports",
+    ],
+  },
+  "neptune-sde": {
+    heading: "SDE → Tech Lead · 2011–2019",
+    body: "Eight years as an IC before management. I architected Neptune's Control Plane — the distributed system that provisions, monitors, and manages 30K+ Neptune instances across all global regions. I led a TLS overhaul subsequently adopted by four other AWS services. Along the way I built Neptune's core enterprise feature set from scratch: multi-tenancy, encryption at rest, authentication primitives, and the benchmarking infrastructure used to safely certify every Neptune version release.",
+    highlights: [
+      "Control Plane: distributed orchestration for 30K+ global Neptune instances",
+      "TLS redesign adopted by 4 other AWS services post-launch",
+      "Enterprise feature set built from scratch: auth, encryption, multi-tenancy",
+      "Release certification infra still used for every Neptune version today",
+    ],
+  },
+  yahoo: {
+    heading: "Yahoo! Bangalore · Summer 2011",
+    body: "Before Amazon, I interned at Yahoo!'s Bangalore engineering center. My project was in ad quality: building malware detection signals to catch bad ads before they served to users. Three months, fast feedback loops, and my first real taste of production systems at scale. I graduated from NIT Calicut a few weeks later, joined Amazon, and haven't looked back.",
+    highlights: [
+      "Malware detection signals for Yahoo!'s ad quality pipeline",
+      "Ad classification features for the Bangalore ads platform",
+      "First exposure to production-scale systems engineering",
+    ],
+  },
+};
+
+const EDU_EXPANSION = {
+  heading: "NIT Calicut · 2007–2011",
+  body: "I studied Computer Science and Engineering at the National Institute of Technology, Calicut — one of India's premier engineering schools. Graduated in 2011 with a CGPA of 8.47/10. In my final year, I won the Mobme Codejam 2011, a national programming competition that led directly to my placement at Amazon. Best ROI on a weekend hackathon I've ever had.",
+  highlights: [
+    "CGPA 8.47/10",
+    "Winner, Mobme Codejam 2011 — national programming competition",
+    "Direct placement into Amazon from campus",
+  ],
+};
 
 // ── Nav ───────────────────────────────────────────────────────────────────────
 
@@ -194,34 +248,45 @@ function MidnightHero() {
       />
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
         <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl">
-          <motion.div variants={fadeUp} className="mb-8">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wide bg-blue-500/10 border border-blue-500/20 text-blue-300">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
-              </span>
-              Engineering Manager · Meta · Blob Storage
-            </span>
-          </motion.div>
-          <motion.h1 variants={fadeUp} className="text-6xl sm:text-7xl lg:text-[92px] font-black leading-[0.92] tracking-[-3px] mb-6">
+
+          {/* Name */}
+          <motion.h1 variants={fadeUp} className="text-6xl sm:text-7xl lg:text-[92px] font-black leading-[0.92] tracking-[-3px] mb-5">
             <span className="text-white">{PERSONAL.firstName}</span>
             <br />
             <span style={{ background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 55%, #3B82F6 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               {PERSONAL.lastName}
             </span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg sm:text-xl text-white/55 font-light leading-relaxed mb-2 max-w-2xl">
-            Moving <span className="text-white/85 font-medium">exabytes</span> in and out of Meta&apos;s infrastructure — neo-cloud support, org-wide reliability, and some things I can&apos;t talk about yet{" "}
-            <a href={`mailto:${PERSONAL.email}`} className="text-white/45 hover:text-white/80 underline underline-offset-2 transition-colors text-base">(ask me)</a>.
+
+          {/* Role — below name, prominent */}
+          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
+            <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+            </span>
+            <p className="text-xl sm:text-2xl font-semibold text-white/65">
+              Engineering Manager, Blob Storage{" "}
+              <span className="text-blue-400">@ Meta</span>
+            </p>
+          </motion.div>
+
+          {/* 2-liner description */}
+          <motion.p variants={fadeUp} className="text-lg sm:text-xl text-white/50 font-light leading-relaxed mb-2 max-w-2xl">
+            Moving <span className="text-white/80 font-medium">exabytes</span> in and out of Meta&apos;s infrastructure — org-wide reliability, and some things I can&apos;t talk about.
           </motion.p>
-          <motion.p variants={fadeUp} className="text-base text-white/30 font-light leading-relaxed mb-3 max-w-2xl">
-            <span className="text-white/50 font-medium">15 years</span> of engineering leadership across the industry.{" "}
-            <span className="text-white/50 font-medium">Ex-AWS Engineering Leader</span>, now at Meta Blob Storage.
+          <motion.p variants={fadeUp} className="text-base text-white/35 font-light leading-relaxed mb-3 max-w-2xl">
+            <span className="text-white/55 font-medium">15+ YOE</span>
+            <span className="text-white/20"> | </span>
+            <span className="text-white/55 font-medium">ex-AWS Engineering Leader</span>
           </motion.p>
+
+          {/* Location */}
           <motion.div variants={fadeUp} className="flex items-center gap-2 text-sm text-white/25 mb-12">
             <MapPin size={13} />
-            <span>{PERSONAL.location}</span>
+            <span>Seattle, WA</span>
           </motion.div>
+
+          {/* CTAs */}
           <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-16">
             <a href="#professional" className="group inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white transition-all duration-200"
               style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)" }}>
@@ -230,13 +295,16 @@ function MidnightHero() {
             </a>
             <a href={`mailto:${PERSONAL.email}`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm bg-white/[0.06] border border-white/[0.1] text-white/70 hover:bg-white/[0.1] hover:text-white hover:border-white/20 transition-all duration-200">
-              Say Hello
+              Let&apos;s vibe
             </a>
           </motion.div>
+
+          {/* Scroll hint */}
           <motion.div variants={fadeUp} className="flex items-center gap-3 text-white/20">
             <Zap size={12} className="text-violet-500/60" />
             <span className="text-xs tracking-widest uppercase">Scroll to explore</span>
           </motion.div>
+
         </motion.div>
       </div>
     </section>
@@ -246,10 +314,44 @@ function MidnightHero() {
 // ── Professional ──────────────────────────────────────────────────────────────
 
 function MidnightProfessional() {
+  const [expanded, setExpanded] = useState<string | null>(null);
+
+  const allEntries = [
+    ...TIMELINE,
+    {
+      id: "edu",
+      period: EDUCATION.period,
+      role: EDUCATION.degree,
+      company: EDUCATION.school,
+      location: EDUCATION.location,
+      current: false,
+      highlights: [EDUCATION.detail],
+    },
+  ];
+
+  const rows: Array<typeof allEntries[number][]> = [];
+  for (let i = 0; i < allEntries.length; i += 2) {
+    rows.push(allEntries.slice(i, i + 2));
+  }
+
+  const eduStyle = {
+    dotColor: "rgba(255,255,255,0.35)",
+    dotClass: "bg-white/20",
+    labelColor: "text-white/50",
+    bulletColor: "text-white/40",
+    cardClass: "bg-white/[0.02] border-white/[0.07] hover:border-white/[0.15] hover:bg-white/[0.04]",
+  };
+
   return (
     <section id="professional" className="py-28 px-6">
       <div className="max-w-6xl mx-auto">
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} className="mb-16">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mb-16"
+        >
           <p className="text-xs uppercase tracking-[0.25em] text-violet-400 font-semibold mb-4 flex items-center gap-3">
             <span className="block w-8 h-px bg-violet-500/50" />
             Career
@@ -263,75 +365,130 @@ function MidnightProfessional() {
           <p className="mt-4 text-white/35 text-base max-w-xl leading-relaxed">
             From Yahoo! Bangalore to Amazon to Meta — always deep in distributed systems, always building infrastructure that cannot fail.
           </p>
+          <p className="mt-3 text-white/18 text-xs tracking-wide">Click any card to read more</p>
         </motion.div>
 
-        <div className="max-w-3xl">
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="relative">
-              <div className="absolute top-6 bottom-20 pointer-events-none"
-                style={{ left: "5px", width: "2px", background: "linear-gradient(to bottom, #60a5fa, #8B5CF6 35%, #EC4899 75%, transparent)", opacity: 0.55 }}
-              />
-              <div className="space-y-3">
-                {TIMELINE.map((item) => {
-                  const s = timelineStyle[item.id] ?? timelineStyle["neptune-sdm2"];
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
+          {rows.map((pair, rowIdx) => {
+            const expandedEntry = pair.find((e) => e.id === expanded) ?? null;
+            const expansion = expandedEntry
+              ? expandedEntry.id === "edu"
+                ? EDU_EXPANSION
+                : EXPANSIONS[expandedEntry.id] ?? null
+              : null;
+
+            return (
+              <Fragment key={rowIdx}>
+                {pair.map((entry) => {
+                  const s = entry.id === "edu" ? eduStyle : (timelineStyle[entry.id] ?? timelineStyle["neptune-sdm2"]);
+                  const isExpanded = expanded === entry.id;
+
                   return (
-                    <motion.div key={item.id} variants={slideLeft} className="relative pl-9">
-                      <div className={`absolute left-0 top-[22px] w-3 h-3 rounded-full border-2 border-[#0a0a12] ${s.dotClass}`}
-                        style={item.current ? { boxShadow: `0 0 0 3px ${s.dotColor}30` } : {}}>
-                        {item.current && (
-                          <span className="absolute inset-0 rounded-full animate-ping opacity-50" style={{ background: s.dotColor }} />
-                        )}
-                      </div>
-                      <motion.div
-                        className={`rounded-2xl p-5 border transition-colors duration-300 ${s.cardClass}`}
-                        whileHover={{ scale: 1.015, y: -3, boxShadow: `0 12px 32px ${s.dotColor}25` }}
-                        transition={{ duration: 0.18, ease: "easeOut" }}
-                      >
-                        <div className="flex items-start justify-between mb-2">
-                          <div>
-                            <p className="text-[10px] text-white/25 font-mono tracking-wide mb-1">{item.period}</p>
-                            <h3 className="text-[15px] font-bold text-white leading-snug">{item.role}</h3>
-                            <p className={`text-sm font-medium mt-0.5 ${s.labelColor}`}>
-                              {item.company}<span className="text-white/25"> · {item.location}</span>
-                            </p>
-                          </div>
-                          {item.current && (
-                            <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-blue-400 mt-1 flex-shrink-0 ml-3">
-                              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                              Now
-                            </span>
+                    <motion.div
+                      key={entry.id}
+                      variants={slideLeft}
+                      className={`relative rounded-2xl p-5 border cursor-pointer select-none transition-colors duration-300 ${s.cardClass}`}
+                      style={isExpanded ? { boxShadow: `0 0 0 1px ${s.dotColor}50, 0 8px 24px ${s.dotColor}15` } : {}}
+                      whileHover={{ scale: 1.012, y: -3, boxShadow: `0 12px 32px ${s.dotColor}20` }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                      onClick={() => setExpanded(isExpanded ? null : entry.id)}
+                    >
+                      {entry.current && (
+                        <span className="absolute top-4 right-4 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-blue-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                          Now
+                        </span>
+                      )}
+
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className={`relative w-2.5 h-2.5 rounded-full flex-shrink-0 ${s.dotClass}`}
+                          style={entry.current ? { boxShadow: `0 0 0 3px ${s.dotColor}30` } : {}}>
+                          {entry.current && (
+                            <span className="absolute inset-0 rounded-full animate-ping opacity-50" style={{ background: s.dotColor }} />
                           )}
                         </div>
-                        <ul className="mt-3 space-y-1.5">
-                          {item.highlights.map((h) => (
-                            <li key={h} className="text-sm text-white/35 flex gap-2">
-                              <span className={`${s.bulletColor} opacity-60 mt-0.5 flex-shrink-0 text-[10px]`}>▸</span>
+                        <p className="text-[10px] text-white/25 font-mono tracking-wide">{entry.period}</p>
+                      </div>
+
+                      <h3 className="text-[15px] font-bold text-white leading-snug mb-0.5">{entry.role}</h3>
+                      <p className={`text-sm font-medium mb-3 ${s.labelColor}`}>
+                        {entry.company}
+                        <span className="text-white/25"> · {entry.location}</span>
+                      </p>
+
+                      <ul className="space-y-1 mb-4">
+                        {entry.highlights.slice(0, 2).map((h) => (
+                          <li key={h} className="text-xs text-white/30 flex gap-2">
+                            <span className={`${s.bulletColor} opacity-50 flex-shrink-0 mt-0.5 text-[10px]`}>▸</span>
+                            {h}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="flex items-center justify-between">
+                        <span className={`text-[10px] tracking-wide ${isExpanded ? s.labelColor : "text-white/15"} transition-colors`}>
+                          {isExpanded ? "collapse" : "read more"}
+                        </span>
+                        <motion.div
+                          animate={{ rotate: isExpanded ? 180 : 0 }}
+                          transition={{ duration: 0.25, ease: "easeOut" }}
+                        >
+                          <ChevronDown size={14} className={`${isExpanded ? s.labelColor : "text-white/20"} transition-colors`} />
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+
+                <AnimatePresence>
+                  {expandedEntry && expansion && (
+                    <motion.div
+                      key={`exp-${expandedEntry.id}`}
+                      className="md:col-span-2"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.32, ease: "easeOut" }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <div
+                        className="rounded-2xl p-6 border"
+                        style={{
+                          background: `${(expandedEntry.id === "edu" ? eduStyle : timelineStyle[expandedEntry.id])?.dotColor}08`,
+                          borderColor: `${(expandedEntry.id === "edu" ? eduStyle : timelineStyle[expandedEntry.id])?.dotColor}22`,
+                          borderLeftWidth: "3px",
+                          borderLeftColor: `${(expandedEntry.id === "edu" ? eduStyle : timelineStyle[expandedEntry.id])?.dotColor}70`,
+                        }}
+                      >
+                        <h4 className="text-base font-bold text-white mb-3">{expansion.heading}</h4>
+                        <p className="text-sm text-white/50 leading-relaxed mb-5">{expansion.body}</p>
+                        <ul className="grid sm:grid-cols-2 gap-2">
+                          {expansion.highlights.map((h) => (
+                            <li key={h} className="text-sm text-white/40 flex gap-2">
+                              <span
+                                className="flex-shrink-0 mt-0.5 text-[10px]"
+                                style={{ color: (expandedEntry.id === "edu" ? eduStyle : timelineStyle[expandedEntry.id])?.dotColor, opacity: 0.7 }}
+                              >
+                                ▸
+                              </span>
                               {h}
                             </li>
                           ))}
                         </ul>
-                      </motion.div>
+                      </div>
                     </motion.div>
-                  );
-                })}
-                <motion.div variants={slideLeft} className="relative pl-9">
-                  <div className="absolute left-0 top-[22px] w-3 h-3 rounded-full border-2 border-[#0a0a12] bg-white/20" />
-                  <motion.div
-                    className="rounded-2xl p-5 border border-white/[0.06] bg-white/[0.02] transition-colors duration-300 hover:border-white/[0.12]"
-                    whileHover={{ scale: 1.015, y: -3, boxShadow: "0 12px 32px rgba(255,255,255,0.06)" }}
-                    transition={{ duration: 0.18, ease: "easeOut" }}
-                  >
-                    <p className="text-[10px] text-white/25 font-mono tracking-wide mb-1">{EDUCATION.period}</p>
-                    <h3 className="text-[15px] font-bold text-white leading-snug">{EDUCATION.degree}</h3>
-                    <p className="text-sm font-medium text-white/50 mt-0.5">{EDUCATION.school} · {EDUCATION.location}</p>
-                    <p className="text-sm text-white/30 mt-2">{EDUCATION.detail}</p>
-                  </motion.div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-
-        </div>
+                  )}
+                </AnimatePresence>
+              </Fragment>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );
