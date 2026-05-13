@@ -1,17 +1,22 @@
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import Professional from "@/components/Professional";
-import BentoBox from "@/components/BentoBox";
-import Footer from "@/components/Footer";
+"use client";
+import { useState, useEffect } from "react";
+import { useTheme } from "@/components/ThemeProvider";
+import MidnightTheme from "@/components/themes/midnight";
+import TerminalTheme from "@/components/themes/terminal";
+import BrutalTheme from "@/components/themes/brutal";
+import NeonTheme from "@/components/themes/neon";
+import AuroraTheme from "@/components/themes/aurora";
 
 export default function Home() {
-  return (
-    <main>
-      <Nav />
-      <Hero />
-      <Professional />
-      <BentoBox />
-      <Footer />
-    </main>
-  );
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const content = !mounted || theme === "midnight" ? <MidnightTheme /> :
+    theme === "terminal" ? <TerminalTheme /> :
+    theme === "brutal" ? <BrutalTheme /> :
+    theme === "neon" ? <NeonTheme /> :
+    <AuroraTheme />;
+
+  return <main>{!mounted ? <MidnightTheme /> : <>{content}</>}</main>;
 }

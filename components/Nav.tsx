@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail } from "lucide-react";
+import ThemeSelector from "./ThemeSelector";
 
 function GitHubIcon({ size = 16 }: { size?: number }) {
   return (
@@ -77,6 +78,7 @@ export default function Nav() {
           >
             <Mail size={16} />
           </a>
+          <ThemeSelector />
           <a
             href="mailto:k4rthikr@gmail.com"
             className="ml-2 px-4 py-1.5 rounded-full text-xs font-semibold

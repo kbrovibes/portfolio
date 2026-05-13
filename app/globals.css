@@ -54,3 +54,34 @@ body {
   0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(15px, -25px); }
 }
+
+/* Theme backgrounds */
+:root { --theme-bg: #0a0a12; }
+[data-theme="terminal"] { --theme-bg: #000000; }
+[data-theme="brutal"] { --theme-bg: #f0f0e8; }
+[data-theme="neon"] { --theme-bg: #08001a; }
+[data-theme="aurora"] { --theme-bg: #020818; }
+
+body { background: var(--theme-bg); transition: background 0.3s ease; }
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes aurora-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes neon-flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.4; }
+  98% { opacity: 0.8; }
+}

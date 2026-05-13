@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,7 +12,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Karthik Rajan — Engineering Manager",
   description:
-    "Engineering Manager at Meta Blob Storage. 15+ years in distributed systems — Meta, Amazon Neptune, AWS. Built infrastructure serving billions at petabyte scale.",
+    "Engineering Manager at Meta Blob Storage. 15+ years in distributed systems at hyperscale.",
   openGraph: {
     title: "Karthik Rajan",
     description: "Engineering Manager @ Meta Blob Storage · Previously Amazon Neptune (14 yrs) · kbrovibes",
@@ -26,7 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
