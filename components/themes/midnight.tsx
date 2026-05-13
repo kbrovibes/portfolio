@@ -2,7 +2,7 @@
 
 import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, Mic } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
 import { PERSONAL, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
 
@@ -171,6 +171,152 @@ const EDU_EXPANSION = {
   ],
 };
 
+// ── Impact (stats + speaking) ─────────────────────────────────────────────────
+
+const IMPACT_STATS = [
+  { value: "$100M+", label: "ARR at Neptune peak", color: "#f59e0b" },
+  { value: "30K+", label: "servers managed", color: "#8B5CF6" },
+  { value: "22", label: "AWS regions shipped", color: "#60a5fa" },
+  { value: "25+", label: "engineers led", color: "#EC4899" },
+];
+
+const TALKS = [
+  {
+    year: "AWS re:Invent 2024",
+    title: "GraphRAG with Amazon Neptune",
+    description:
+      "Co-presented with the Amazon Bedrock team — combining knowledge graphs with LLMs for production-grade RAG at enterprise scale. Shipped live on stage in Las Vegas.",
+    tags: ["Amazon Bedrock", "GraphRAG", "Neptune Analytics"],
+    cardClass:
+      "bg-blue-500/[0.05] border-blue-500/[0.12] hover:border-blue-500/30",
+    tagClass: "bg-blue-500/10 text-blue-400/80 border-blue-500/15",
+    yearClass: "text-blue-400/70",
+    iconClass: "text-blue-400",
+    iconBg: "bg-blue-500/10",
+  },
+  {
+    year: "AWS re:Invent 2023",
+    title: "Neptune Analytics Launch",
+    description:
+      "Launched Neptune Analytics on stage — a purpose-built graph analytics engine with vector similarity search and petabyte-scale traversals. First time Neptune went live at the conference.",
+    tags: ["Graph Analytics", "Vector Search", "Amazon Neptune"],
+    cardClass:
+      "bg-violet-500/[0.05] border-violet-500/[0.12] hover:border-violet-500/30",
+    tagClass: "bg-violet-500/10 text-violet-400/80 border-violet-500/15",
+    yearClass: "text-violet-400/70",
+    iconClass: "text-violet-400",
+    iconBg: "bg-violet-500/10",
+  },
+];
+
+function MidnightImpact() {
+  return (
+    <section className="py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Stats strip */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={stagger}
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-20"
+        >
+          {IMPACT_STATS.map(({ value, label, color }) => (
+            <motion.div
+              key={label}
+              variants={fadeUp}
+              className="rounded-2xl p-5 border border-white/[0.06] bg-white/[0.02] text-center"
+            >
+              <p
+                className="text-3xl sm:text-4xl font-black mb-1.5"
+                style={{ color }}
+              >
+                {value}
+              </p>
+              <p className="text-[11px] text-white/30 uppercase tracking-[0.15em] leading-relaxed">
+                {label}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Speaking header */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="mb-10"
+        >
+          <p className="text-xs uppercase tracking-[0.25em] text-violet-400 font-semibold mb-4 flex items-center gap-3">
+            <span className="block w-8 h-px bg-violet-500/50" />
+            Speaking
+          </p>
+          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
+            On stage at{" "}
+            <span
+              style={{
+                background: "linear-gradient(135deg, #FF9900, #f59e0b)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              re:Invent
+            </span>
+          </h2>
+          <p className="mt-4 text-white/35 text-base max-w-xl leading-relaxed">
+            Two consecutive years presenting at AWS&apos;s flagship conference —
+            both times shipping products live on stage.
+          </p>
+        </motion.div>
+
+        {/* Talk cards */}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid md:grid-cols-2 gap-4"
+        >
+          {TALKS.map((talk) => (
+            <motion.div
+              key={talk.year}
+              variants={tileAnim}
+              className={`rounded-2xl p-6 border transition-all duration-300 ${talk.cardClass}`}
+            >
+              <div className="flex items-start justify-between mb-5">
+                <div className={`p-2.5 rounded-xl ${talk.iconBg}`}>
+                  <Mic size={18} className={talk.iconClass} />
+                </div>
+                <span
+                  className={`text-[10px] font-bold uppercase tracking-widest ${talk.yearClass}`}
+                >
+                  {talk.year}
+                </span>
+              </div>
+              <h4 className="text-lg font-bold text-white mb-2">{talk.title}</h4>
+              <p className="text-sm text-white/40 leading-relaxed mb-4">
+                {talk.description}
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {talk.tags.map((t) => (
+                  <span
+                    key={t}
+                    className={`px-2 py-0.5 rounded-md text-[10px] font-medium border ${talk.tagClass}`}
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // ── Nav ───────────────────────────────────────────────────────────────────────
 
 function MidnightNav() {
@@ -212,6 +358,10 @@ function MidnightNav() {
           </a>
           <a href={`mailto:${PERSONAL.email}`} className="text-white/40 hover:text-white/90 transition-colors" aria-label="Email">
             <Mail size={16} />
+          </a>
+          <a href="/karthik-rajan-resume.pdf" download
+            className="text-white/40 hover:text-white/90 transition-colors" aria-label="Download Resume" title="Download Resume">
+            <Download size={16} />
           </a>
           <ThemeSelector />
           <a href={`mailto:${PERSONAL.email}`}
@@ -297,6 +447,11 @@ function MidnightHero() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm bg-white/[0.06] border border-white/[0.1] text-white/70 hover:bg-white/[0.1] hover:text-white hover:border-white/20 transition-all duration-200">
               Let&apos;s vibe
             </a>
+            <a href="/karthik-rajan-resume.pdf" download
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-medium text-sm bg-white/[0.03] border border-white/[0.07] text-white/40 hover:bg-white/[0.07] hover:text-white/70 hover:border-white/14 transition-all duration-200">
+              <Download size={13} />
+              Resume
+            </a>
           </motion.div>
 
           {/* Scroll hint */}
@@ -330,8 +485,8 @@ function MidnightProfessional() {
   ];
 
   const rows: Array<typeof allEntries[number][]> = [];
-  for (let i = 0; i < allEntries.length; i += 2) {
-    rows.push(allEntries.slice(i, i + 2));
+  for (let i = 0; i < allEntries.length; i += 3) {
+    rows.push(allEntries.slice(i, i + 3));
   }
 
   const eduStyle = {
@@ -373,15 +528,24 @@ function MidnightProfessional() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
           {rows.map((pair, rowIdx) => {
-            const expandedEntry = pair.find((e) => e.id === expanded) ?? null;
+            const expandedIdx = pair.findIndex((e) => e.id === expanded);
+            const expandedEntry = expandedIdx >= 0 ? pair[expandedIdx] : null;
             const expansion = expandedEntry
               ? expandedEntry.id === "edu"
                 ? EDU_EXPANSION
                 : EXPANSIONS[expandedEntry.id] ?? null
               : null;
+            const expandedStyle = expandedEntry
+              ? expandedEntry.id === "edu"
+                ? eduStyle
+                : timelineStyle[expandedEntry.id] ?? timelineStyle["neptune-sdm2"]
+              : null;
+            // Triangle points up to the card that opened it; col centers: 0→16.67%, 1→50%, 2→83.33%
+            const trianglePositions = ["16.67%", "50%", "83.33%"];
+            const triangleLeft = expandedIdx >= 0 ? trianglePositions[expandedIdx] ?? "50%" : "50%";
 
             return (
               <Fragment key={rowIdx}>
@@ -447,40 +611,54 @@ function MidnightProfessional() {
                 })}
 
                 <AnimatePresence>
-                  {expandedEntry && expansion && (
+                  {expandedEntry && expansion && expandedStyle && (
                     <motion.div
                       key={`exp-${expandedEntry.id}`}
-                      className="md:col-span-2"
+                      className="md:col-span-3"
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.32, ease: "easeOut" }}
                       style={{ overflow: "hidden" }}
                     >
-                      <div
-                        className="rounded-2xl p-6 border"
-                        style={{
-                          background: `${(expandedEntry.id === "edu" ? eduStyle : timelineStyle[expandedEntry.id])?.dotColor}08`,
-                          borderColor: `${(expandedEntry.id === "edu" ? eduStyle : timelineStyle[expandedEntry.id])?.dotColor}22`,
-                          borderLeftWidth: "3px",
-                          borderLeftColor: `${(expandedEntry.id === "edu" ? eduStyle : timelineStyle[expandedEntry.id])?.dotColor}70`,
-                        }}
-                      >
-                        <h4 className="text-base font-bold text-white mb-3">{expansion.heading}</h4>
-                        <p className="text-sm text-white/50 leading-relaxed mb-5">{expansion.body}</p>
-                        <ul className="grid sm:grid-cols-2 gap-2">
-                          {expansion.highlights.map((h) => (
-                            <li key={h} className="text-sm text-white/40 flex gap-2">
-                              <span
-                                className="flex-shrink-0 mt-0.5 text-[10px]"
-                                style={{ color: (expandedEntry.id === "edu" ? eduStyle : timelineStyle[expandedEntry.id])?.dotColor, opacity: 0.7 }}
-                              >
-                                ▸
-                              </span>
-                              {h}
-                            </li>
-                          ))}
-                        </ul>
+                      {/* Callout: triangle pointing up to the card that opened this */}
+                      <div className="relative pt-3">
+                        <div
+                          className="hidden md:block absolute top-0 -translate-x-1/2"
+                          style={{
+                            left: triangleLeft,
+                            width: 0,
+                            height: 0,
+                            borderLeft: "10px solid transparent",
+                            borderRight: "10px solid transparent",
+                            borderBottom: `10px solid ${expandedStyle.dotColor}55`,
+                          }}
+                        />
+                        <div
+                          className="rounded-2xl p-6 border"
+                          style={{
+                            background: `${expandedStyle.dotColor}08`,
+                            borderColor: `${expandedStyle.dotColor}22`,
+                            borderLeftWidth: "3px",
+                            borderLeftColor: `${expandedStyle.dotColor}70`,
+                          }}
+                        >
+                          <h4 className="text-base font-bold text-white mb-3">{expansion.heading}</h4>
+                          <p className="text-sm text-white/50 leading-relaxed mb-5">{expansion.body}</p>
+                          <ul className="grid sm:grid-cols-2 gap-2">
+                            {expansion.highlights.map((h) => (
+                              <li key={h} className="text-sm text-white/40 flex gap-2">
+                                <span
+                                  className="flex-shrink-0 mt-0.5 text-[10px]"
+                                  style={{ color: expandedStyle.dotColor, opacity: 0.7 }}
+                                >
+                                  ▸
+                                </span>
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
                     </motion.div>
                   )}
@@ -650,6 +828,7 @@ export default function MidnightTheme() {
       <MidnightNav />
       <MidnightHero />
       <MidnightProfessional />
+      <MidnightImpact />
       <MidnightBento />
       <MidnightFooter />
     </>
