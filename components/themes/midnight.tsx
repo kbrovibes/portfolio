@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, Layers, Rocket, Users } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
-import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, TECH_GROUPS } from "@/lib/portfolio-data";
+import { PERSONAL, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 
@@ -116,31 +116,6 @@ const timelineStyle: Record<string, {
   },
 };
 
-const techIcons: Record<string, React.ElementType> = {
-  "Cloud & Infra": Layers,
-  "Languages": Zap,
-  "Graph & Data": Rocket,
-  "Frontend & AI": Users,
-};
-
-const techColors: Record<string, string> = {
-  "Cloud & Infra": "violet",
-  "Languages": "pink",
-  "Graph & Data": "blue",
-  "Frontend & AI": "violet",
-};
-
-const colorMap: Record<string, string> = {
-  violet: "bg-violet-500/10 text-violet-300 border-violet-500/20",
-  pink: "bg-pink-500/10 text-pink-300 border-pink-500/20",
-  blue: "bg-blue-500/10 text-blue-300 border-blue-500/20",
-};
-
-const iconColorMap: Record<string, string> = {
-  violet: "text-violet-400",
-  pink: "text-pink-400",
-  blue: "text-blue-400",
-};
 
 // ── Nav ───────────────────────────────────────────────────────────────────────
 
@@ -235,19 +210,19 @@ function MidnightHero() {
               {PERSONAL.lastName}
             </span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg sm:text-xl text-white/40 font-light leading-relaxed mb-3 max-w-2xl">
-            Currently at{" "}
-            <span className="text-white/80 font-medium">Meta Blob Storage</span>
-            {", "}building petabyte-scale infrastructure. Previously{" "}
-            <span className="text-white/80 font-medium">14 years at Amazon Neptune</span>{" "}
-            — SDE to leading 4 teams and{" "}
-            <span className="text-white/80 font-medium">60% of the org</span>.
+          <motion.p variants={fadeUp} className="text-lg sm:text-xl text-white/55 font-light leading-relaxed mb-2 max-w-2xl">
+            Moving <span className="text-white/85 font-medium">exabytes</span> in and out of Meta&apos;s infrastructure — neo-cloud support, org-wide reliability, and some things I can&apos;t talk about yet{" "}
+            <a href={`mailto:${PERSONAL.email}`} className="text-white/45 hover:text-white/80 underline underline-offset-2 transition-colors text-base">(ask me)</a>.
+          </motion.p>
+          <motion.p variants={fadeUp} className="text-base text-white/30 font-light leading-relaxed mb-3 max-w-2xl">
+            <span className="text-white/50 font-medium">15 years</span> of engineering leadership across the industry.{" "}
+            <span className="text-white/50 font-medium">Ex-AWS Engineering Leader</span>, now at Meta Blob Storage.
           </motion.p>
           <motion.div variants={fadeUp} className="flex items-center gap-2 text-sm text-white/25 mb-12">
             <MapPin size={13} />
             <span>{PERSONAL.location}</span>
           </motion.div>
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-20">
+          <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-16">
             <a href="#professional" className="group inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white transition-all duration-200"
               style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)" }}>
               View My Work
@@ -258,18 +233,7 @@ function MidnightHero() {
               Say Hello
             </a>
           </motion.div>
-          <motion.div variants={container} className="grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.06]">
-            {HERO_STATS.map(({ value, label }) => (
-              <motion.div key={label} variants={statVariant} className="flex flex-col items-center justify-center py-5 px-4 bg-[#0a0a12] hover:bg-white/[0.03] transition-colors">
-                <span className="text-2xl sm:text-3xl font-black tracking-tight mb-1"
-                  style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                  {value}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.15em] text-white/30 font-semibold">{label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-          <motion.div variants={fadeUp} className="mt-16 flex items-center gap-3 text-white/20">
+          <motion.div variants={fadeUp} className="flex items-center gap-3 text-white/20">
             <Zap size={12} className="text-violet-500/60" />
             <span className="text-xs tracking-widest uppercase">Scroll to explore</span>
           </motion.div>
@@ -301,7 +265,7 @@ function MidnightProfessional() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-[1fr_360px] gap-12">
+        <div className="max-w-3xl">
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="relative">
               <div className="absolute top-6 bottom-20 pointer-events-none"
@@ -318,7 +282,11 @@ function MidnightProfessional() {
                           <span className="absolute inset-0 rounded-full animate-ping opacity-50" style={{ background: s.dotColor }} />
                         )}
                       </div>
-                      <div className={`rounded-2xl p-5 border transition-all duration-300 ${s.cardClass}`}>
+                      <motion.div
+                        className={`rounded-2xl p-5 border transition-colors duration-300 ${s.cardClass}`}
+                        whileHover={{ scale: 1.015, y: -3, boxShadow: `0 12px 32px ${s.dotColor}25` }}
+                        transition={{ duration: 0.18, ease: "easeOut" }}
+                      >
                         <div className="flex items-start justify-between mb-2">
                           <div>
                             <p className="text-[10px] text-white/25 font-mono tracking-wide mb-1">{item.period}</p>
@@ -342,43 +310,27 @@ function MidnightProfessional() {
                             </li>
                           ))}
                         </ul>
-                      </div>
+                      </motion.div>
                     </motion.div>
                   );
                 })}
                 <motion.div variants={slideLeft} className="relative pl-9">
                   <div className="absolute left-0 top-[22px] w-3 h-3 rounded-full border-2 border-[#0a0a12] bg-white/20" />
-                  <div className="rounded-2xl p-5 border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.03] transition-all duration-300">
+                  <motion.div
+                    className="rounded-2xl p-5 border border-white/[0.06] bg-white/[0.02] transition-colors duration-300 hover:border-white/[0.12]"
+                    whileHover={{ scale: 1.015, y: -3, boxShadow: "0 12px 32px rgba(255,255,255,0.06)" }}
+                    transition={{ duration: 0.18, ease: "easeOut" }}
+                  >
                     <p className="text-[10px] text-white/25 font-mono tracking-wide mb-1">{EDUCATION.period}</p>
                     <h3 className="text-[15px] font-bold text-white leading-snug">{EDUCATION.degree}</h3>
                     <p className="text-sm font-medium text-white/50 mt-0.5">{EDUCATION.school} · {EDUCATION.location}</p>
                     <p className="text-sm text-white/30 mt-2">{EDUCATION.detail}</p>
-                  </div>
+                  </motion.div>
                 </motion.div>
               </div>
             </div>
           </motion.div>
 
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }} className="space-y-4">
-            <motion.p variants={fadeUp} className="text-xs uppercase tracking-[0.2em] text-white/30 font-semibold mb-6">Tech Stack</motion.p>
-            {TECH_GROUPS.map(({ label, items }) => {
-              const color = techColors[label] ?? "violet";
-              const Icon = techIcons[label] ?? Layers;
-              return (
-                <motion.div key={label} variants={fadeUp} className="rounded-2xl p-5 border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.1] transition-all duration-300">
-                  <div className="flex items-center gap-2.5 mb-4">
-                    <Icon size={15} className={iconColorMap[color]} />
-                    <span className="text-sm font-semibold text-white/70">{label}</span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {items.map((item) => (
-                      <span key={item} className={`px-2.5 py-1 rounded-lg text-xs font-medium border ${colorMap[color]}`}>{item}</span>
-                    ))}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
         </div>
       </div>
     </section>
@@ -397,13 +349,13 @@ function MidnightBento() {
             AI Projects
           </p>
           <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
-            Thinks{" "}
+            Built for fun.{" "}
             <span style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-              natively in AI
+              Ships in prod.
             </span>
           </h2>
           <p className="mt-4 text-white/35 text-base max-w-xl leading-relaxed">
-            I don&apos;t bolt AI onto products. I architect from the model out — Claude, agents, and LLMs as the core, not the feature.
+            Vibe coded on weekends. AI-native from day one — Claude at the core, not bolted on after the fact.
           </p>
         </motion.div>
 
