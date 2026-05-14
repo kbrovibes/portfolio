@@ -2,8 +2,8 @@
 
 import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, Mic } from "lucide-react";
-import ThemeSelector from "@/components/ThemeSelector";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, Mic, RefreshCw } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 import { PERSONAL, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
@@ -363,11 +363,9 @@ function MidnightNav() {
             className="text-white/40 hover:text-white/90 transition-colors" aria-label="Download Resume" title="Download Resume">
             <Download size={16} />
           </a>
-          <ThemeSelector />
-          <a href={`mailto:${PERSONAL.email}`}
-            className="ml-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-white/[0.06] border border-white/[0.1] text-white/70 hover:bg-violet-500/20 hover:border-violet-500/40 hover:text-violet-300 transition-all duration-200">
-            Get in touch
-          </a>
+          <button onClick={() => window.location.reload()} className="text-white/40 hover:text-white/90 transition-colors" aria-label="Refresh page">
+            <RefreshCw size={15} />
+          </button>
         </motion.div>
       </div>
     </motion.nav>
@@ -431,9 +429,15 @@ function MidnightHero() {
           </motion.p>
 
           {/* Location */}
-          <motion.div variants={fadeUp} className="flex items-center gap-2 text-sm text-white/25 mb-12">
+          <motion.div variants={fadeUp} className="flex items-center gap-2 text-sm text-white/25 mb-8">
             <MapPin size={13} />
             <span>Seattle, WA</span>
+          </motion.div>
+
+          {/* Theme toggle */}
+          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
+            <span className="text-[11px] text-white/25 uppercase tracking-widest">View as</span>
+            <ThemeToggle />
           </motion.div>
 
           {/* CTAs */}
