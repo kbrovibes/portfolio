@@ -560,10 +560,11 @@ function MidnightProfessional() {
                 {pair.map((entry) => {
                   const s = entry.id === "edu" ? eduStyle : (timelineStyle[entry.id] ?? timelineStyle["neptune-sdm2"]);
                   const isExpanded = expanded === entry.id;
+                  const entryExp = entry.id === "edu" ? EDU_EXPANSION : EXPANSIONS[entry.id] ?? null;
 
                   return (
+                    <Fragment key={entry.id}>
                     <motion.div
-                      key={entry.id}
                       variants={slideLeft}
                       className={`relative rounded-2xl p-5 border cursor-pointer select-none transition-colors duration-300 ${s.cardClass}`}
                       style={isExpanded ? { boxShadow: `0 0 0 1px ${s.dotColor}50, 0 8px 24px ${s.dotColor}15` } : {}}
@@ -603,18 +604,59 @@ function MidnightProfessional() {
                         ))}
                       </ul>
 
-                      <div className="flex items-center justify-between">
-                        <span className={`text-[10px] tracking-wide ${isExpanded ? s.labelColor : "text-white/15"} transition-colors`}>
-                          {isExpanded ? "collapse" : "read more"}
+                      <div className="flex items-center justify-between mt-1">
+                        <span className={`inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full border transition-all duration-200 ${
+                          isExpanded
+                            ? `${s.labelColor} border-current/20 bg-white/[0.04]`
+                            : "text-white/50 border-white/[0.12] hover:text-white/75 hover:border-white/25"
+                        }`}>
+                          {isExpanded ? "Collapse" : "Read more"}
+                          <motion.span
+                            animate={{ rotate: isExpanded ? 180 : 0 }}
+                            transition={{ duration: 0.22, ease: "easeOut" }}
+                            style={{ display: "inline-flex" }}
+                          >
+                            <ChevronDown size={11} />
+                          </motion.span>
                         </span>
-                        <motion.div
-                          animate={{ rotate: isExpanded ? 180 : 0 }}
-                          transition={{ duration: 0.25, ease: "easeOut" }}
-                        >
-                          <ChevronDown size={14} className={`${isExpanded ? s.labelColor : "text-white/20"} transition-colors`} />
-                        </motion.div>
                       </div>
                     </motion.div>
+
+                    {/* Mobile: expand inline right below this card */}
+                    <AnimatePresence>
+                      {isExpanded && entryExp && (
+                        <motion.div
+                          key={`mob-${entry.id}`}
+                          className="md:hidden"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.32, ease: "easeOut" }}
+                          style={{ overflow: "hidden" }}
+                        >
+                          <div className="pt-3">
+                            <div className="rounded-2xl p-5 border" style={{
+                              background: `${s.dotColor}08`,
+                              borderColor: `${s.dotColor}22`,
+                              borderLeftWidth: "3px",
+                              borderLeftColor: `${s.dotColor}70`,
+                            }}>
+                              <h4 className="text-sm font-bold text-white mb-2">{entryExp.heading}</h4>
+                              <p className="text-xs text-white/50 leading-relaxed mb-4">{entryExp.body}</p>
+                              <ul className="space-y-1.5">
+                                {entryExp.highlights.map((h) => (
+                                  <li key={h} className="text-xs text-white/40 flex gap-2">
+                                    <span className="flex-shrink-0 mt-0.5 text-[10px]" style={{ color: s.dotColor, opacity: 0.7 }}>▸</span>
+                                    {h}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                    </Fragment>
                   );
                 })}
 
@@ -622,7 +664,7 @@ function MidnightProfessional() {
                   {expandedEntry && expansion && expandedStyle && (
                     <motion.div
                       key={`exp-${expandedEntry.id}`}
-                      className="md:col-span-3"
+                      className="hidden md:block md:col-span-3"
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
