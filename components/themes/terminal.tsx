@@ -52,7 +52,7 @@ function TerminalNav() {
   return (
     <div style={{ ...MONO, background: "#000", borderBottom: `1px solid ${BORDER}`, position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 48, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ color: GREEN, fontSize: 13 }}>
+        <span style={{ color: GREEN, fontSize: 12 }}>
           <span style={{ color: GRAY }}>[</span>karthik@meta ~<span style={{ color: GRAY }}>]</span>
           <span style={{ color: WHITE, marginLeft: 8 }}>$ portfolio --interactive</span>
         </span>
@@ -119,7 +119,7 @@ function TerminalHero() {
                 {line.text}
               </span>
             ) : (
-              <span style={{ fontSize: 17, color: line.color || "transparent" }}>
+              <span style={{ fontSize: 15, color: line.color || "transparent" }}>
                 {line.text}
                 {line.cursor && (
                   <span style={{ display: "inline-block", width: 12, height: 22, background: GREEN, marginLeft: 2, verticalAlign: "middle", animation: "blink 1s step-end infinite" }} />
@@ -137,7 +137,7 @@ function TerminalHero() {
           animate="visible"
           style={{ marginTop: 28 }}
         >
-          <div style={{ color: GREEN, fontSize: 15, marginBottom: 10 }}>
+          <div style={{ color: GREEN, fontSize: 14, marginBottom: 10 }}>
             karthik@meta:~$ <span style={{ color: "#fff" }}>set-theme</span>
           </div>
           <ThemeToggle />
@@ -158,7 +158,7 @@ function TerminalCareer() {
       viewport={{ once: true, margin: "-60px" }}
       style={{ ...MONO, paddingLeft: 24, paddingRight: 24, paddingBottom: 60, maxWidth: 1100, margin: "0 auto" }}
     >
-      <p style={{ color: GREEN, fontSize: 17, marginBottom: 20 }}>karthik@meta:~$ cat career.log</p>
+      <p style={{ color: GREEN, fontSize: 15, marginBottom: 20 }}>karthik@meta:~$ cat career.log</p>
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         {TIMELINE.map((item, i) => {
           const borderColor = item.id === "meta" ? GREEN : item.id === "yahoo" ? "#a855f7" : BORDER;
@@ -175,16 +175,16 @@ function TerminalCareer() {
               {/* Top border */}
               <div style={{ padding: "8px 16px", borderBottom: `1px solid ${borderColor}`, display: "flex", alignItems: "center", gap: 12 }}>
                 {item.current && (
-                  <span style={{ color: GREEN, fontSize: 13, fontWeight: 700, animation: "blink 1.5s ease infinite" }}>[ACTIVE]</span>
+                  <span style={{ color: GREEN, fontSize: 12, fontWeight: 700, animation: "blink 1.5s ease infinite" }}>[ACTIVE]</span>
                 )}
-                <span style={{ color: item.current ? GREEN : GRAY, fontSize: 14 }}>{item.period}</span>
+                <span style={{ color: item.current ? GREEN : GRAY, fontSize: 13 }}>{item.period}</span>
               </div>
               {/* Content */}
               <div style={{ padding: "10px 16px" }}>
-                <p style={{ color: "#fff", fontSize: 16, fontWeight: 700, marginBottom: 2 }}>{item.role}</p>
-                <p style={{ color: borderColor, fontSize: 15, marginBottom: 8 }}>{item.company} · {item.location}</p>
+                <p style={{ color: "#fff", fontSize: 15, fontWeight: 700, marginBottom: 2 }}>{item.role}</p>
+                <p style={{ color: borderColor, fontSize: 14, marginBottom: 8 }}>{item.company} · {item.location}</p>
                 {item.highlights.map((h, j) => (
-                  <p key={j} style={{ color: WHITE, fontSize: 14, marginBottom: 3 }}>
+                  <p key={j} style={{ color: WHITE, fontSize: 13, marginBottom: 3 }}>
                     <span style={{ color: SOFT }}>▸ </span>{h}
                   </p>
                 ))}
@@ -195,9 +195,9 @@ function TerminalCareer() {
         {/* Education */}
         <motion.div variants={sectionIn} initial="hidden" whileInView="visible" viewport={{ once: true }}
           style={{ border: `1px solid ${BORDER_DIM}`, padding: "10px 16px" }}>
-          <p style={{ color: GRAY, fontSize: 14, marginBottom: 2 }}>{EDUCATION.period}</p>
-          <p style={{ color: WHITE, fontSize: 16, fontWeight: 700, marginBottom: 2 }}>{EDUCATION.degree}</p>
-          <p style={{ color: GRAY, fontSize: 14 }}>{EDUCATION.school} · {EDUCATION.detail}</p>
+          <p style={{ color: GRAY, fontSize: 13, marginBottom: 2 }}>{EDUCATION.period}</p>
+          <p style={{ color: WHITE, fontSize: 15, fontWeight: 700, marginBottom: 2 }}>{EDUCATION.degree}</p>
+          <p style={{ color: GRAY, fontSize: 13 }}>{EDUCATION.school} · {EDUCATION.detail}</p>
         </motion.div>
       </div>
     </motion.section>
@@ -215,12 +215,12 @@ function TerminalProjects() {
       viewport={{ once: true, margin: "-60px" }}
       style={{ ...MONO, paddingLeft: 24, paddingRight: 24, paddingBottom: 60, maxWidth: 1100, margin: "0 auto" }}
     >
-      <p style={{ color: GREEN, fontSize: 17, marginBottom: 16 }}>karthik@meta:~$ ls -la ~/projects/</p>
-      <p style={{ color: GRAY, fontSize: 14, marginBottom: 12 }}>total {PROJECTS.length}</p>
+      <p style={{ color: GREEN, fontSize: 15, marginBottom: 16 }}>karthik@meta:~$ ls -la ~/projects/</p>
+      <p style={{ color: GRAY, fontSize: 13, marginBottom: 12 }}>total {PROJECTS.length}</p>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {PROJECTS.map((p, i) => (
           <motion.div key={p.id} custom={i} variants={lineIn} initial="hidden" whileInView="visible" viewport={{ once: true }}
-            style={{ display: "flex", alignItems: "baseline", gap: 16, fontSize: 15 }}>
+            style={{ display: "flex", alignItems: "baseline", gap: 16, fontSize: 14 }}>
             <span style={{ color: GRAY, flexShrink: 0 }}>drwxr-xr-x</span>
             {p.url ? (
               <a href={p.url} target="_blank" rel="noopener noreferrer"
@@ -230,7 +230,7 @@ function TerminalProjects() {
             ) : (
               <span style={{ color: GREEN, fontWeight: 700, minWidth: 120 }}>{p.title}/</span>
             )}
-            <span style={{ color: GRAY, fontSize: 14 }}>{p.description}</span>
+            <span style={{ color: GRAY, fontSize: 13 }}>{p.description}</span>
           </motion.div>
         ))}
       </div>
@@ -243,11 +243,11 @@ function TerminalProjects() {
 function TerminalFooter() {
   return (
     <footer style={{ ...MONO, borderTop: `1px solid ${BORDER}`, paddingTop: 32, paddingBottom: 40, paddingLeft: 24, paddingRight: 24, maxWidth: 1100, margin: "0 auto" }}>
-      <p style={{ color: GREEN, fontSize: 17, marginBottom: 6 }}>karthik@meta:~$ echo $CONTACT</p>
-      <p style={{ color: SOFT, fontSize: 15, marginBottom: 16 }}>
+      <p style={{ color: GREEN, fontSize: 15, marginBottom: 6 }}>karthik@meta:~$ echo $CONTACT</p>
+      <p style={{ color: SOFT, fontSize: 14, marginBottom: 16 }}>
         {PERSONAL.email} | linkedin.com/in/k4rthikr | github.com/kbrovibes
       </p>
-      <p style={{ color: GREEN, fontSize: 17 }}>
+      <p style={{ color: GREEN, fontSize: 15 }}>
         karthik@meta:~$&nbsp;
         <span style={{ display: "inline-block", width: 12, height: 20, background: GREEN, verticalAlign: "middle", animation: "blink 1s step-end infinite" }} />
       </p>
