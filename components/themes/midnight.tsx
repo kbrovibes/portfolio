@@ -420,12 +420,16 @@ function MidnightHero() {
 
           {/* 2-liner description */}
           <motion.p variants={fadeUp} className="text-lg sm:text-xl text-white/50 font-light leading-relaxed mb-2 max-w-2xl">
-            Moving <span className="text-white/80 font-medium">exabytes</span> in and out of Meta&apos;s infrastructure — org-wide reliability, and some things I can&apos;t talk about.
+            Building Meta&apos;s{" "}
+            <span className="text-white/80 font-medium">Data Transfer Infrastructure</span>
+            {" "}— moving <span className="text-white/80 font-medium">exabytes</span> reliably, one byte at a time.
           </motion.p>
           <motion.p variants={fadeUp} className="text-base text-white/35 font-light leading-relaxed mb-3 max-w-2xl">
             <span className="text-white/55 font-medium">15+ YOE</span>
-            <span className="text-white/20"> | </span>
+            <span className="text-white/20"> · </span>
             <span className="text-white/55 font-medium">ex-AWS Engineering Leader</span>
+            <span className="text-white/20"> · </span>
+            <span className="text-white/30 italic">some things I still can&apos;t talk about</span>
           </motion.p>
 
           {/* Location */}

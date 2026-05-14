@@ -88,15 +88,13 @@ function TerminalNav() {
 
 function TerminalHero() {
   const lines = [
-    { text: `karthik@meta:~$ whoami`, color: GREEN },
-    { text: `> ${PERSONAL.name.toUpperCase()}`, color: "#fff", big: true },
-    { text: `> ${PERSONAL.title} @ ${PERSONAL.company}`, color: GREEN },
+    { text: `karthik@meta:~$ cat /etc/motd`, color: GREEN },
+    { text: PERSONAL.name.toUpperCase(), color: "#fff", big: true },
+    { text: `  ${PERSONAL.title} @ ${PERSONAL.company}`, color: GREEN },
+    { text: `  Data Transfer Infra — moving 1EB one byte at a time`, color: SOFT },
     { text: "", color: "" },
-    { text: `karthik@meta:~$ cat stats.env`, color: GREEN },
-    { text: `YEARS_EXPERIENCE=${HERO_STATS[0].value}`, color: SOFT },
-    { text: `ENGINEERS_LED=${HERO_STATS[1].value}`, color: SOFT },
-    { text: `ARR_IMPACT=${HERO_STATS[2].value}`, color: SOFT },
-    { text: `SERVERS_MANAGED=${HERO_STATS[3].value}`, color: SOFT },
+    { text: `karthik@meta:~$ uptime`, color: GREEN },
+    { text: ` up ${HERO_STATS[0].value} yrs  |  team: ${HERO_STATS[1].value} engineers  |  arr delta: ${HERO_STATS[2].value}  |  infra: ${HERO_STATS[3].value} servers`, color: SOFT },
     { text: "", color: "" },
     { text: `karthik@meta:~$ `, color: GREEN, cursor: true },
   ];
