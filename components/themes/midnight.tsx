@@ -2,7 +2,7 @@
 
 import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, Mic, RefreshCw } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, Mic, RefreshCw, Users, Layers, TrendingUp } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { PERSONAL, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
 
@@ -111,30 +111,30 @@ const timelineStyle: Record<string, {
 
 const EXPANSIONS: Record<string, { heading: string; body: string; highlights: string[] }> = {
   meta: {
-    heading: "What I'm building at Meta",
-    body: "At Meta, I lead engineering for Blob Storage — the infrastructure moving exabytes of data in and out of Meta's global systems. This means ingestion pipelines from production services, large-scale exports feeding ML training and analytics, and reliability systems that operate at a scale where even tiny error rates translate to millions of failures. There's more I'm working on that I can't describe publicly — reach out if you're curious.",
+    heading: "What my team does at Meta",
+    body: "My org at Meta owns Blob Storage infrastructure — the systems moving exabytes of data in and out of Meta's global infrastructure. My engineers work on ingestion pipelines from production services, large-scale data exports that feed ML training and analytics workloads, and the reliability layer underneath it all. At the scale Meta operates, even tiny error rates translate to millions of failures — so the team builds for both correctness and throughput simultaneously. There's more I can't describe publicly — reach out if you're curious.",
     highlights: [
       "Exabyte-scale data movement: ingestion, egress, and cross-region replication at Meta scale",
       "Reliability and throughput for storage infrastructure serving billions of users",
-      "Leading a distributed engineering org across multiple sites",
+      "Distributed engineering org spanning multiple sites",
       "Additional confidential infra projects — ask me",
     ],
   },
   "neptune-sdm2": {
     heading: "SDM II at Neptune · 2022–2025",
-    body: "My second chapter leading Neptune was about scaling the org and shipping high-profile launches. I owned four teams — Storage, Control Plane, AWS Integrations, and Global Expansion — covering 60% of Neptune engineering. Two flagship launches defined this period: Neptune Analytics (a new graph analytics engine at AWS re:Invent 2023) and GraphRAG (co-built with the Amazon Bedrock team, shipped at re:Invent 2024). I also rebuilt our operational model — moving from a flat on-call rotation to a tiered, follow-the-sun system that significantly reduced engineer toil.",
+    body: "In my second tour leading Neptune, I owned four teams covering 60% of Neptune engineering — Storage, Control Plane, AWS Integrations, and Global Expansion. My org shipped two flagship launches: Neptune Analytics (a new graph analytics engine unveiled at re:Invent 2023) and GraphRAG (built in partnership with the Amazon Bedrock org and shipped at re:Invent 2024). I also rebuilt the on-call model from scratch — moving from a flat rotation to a tiered, follow-the-sun system. Engineer on-call satisfaction went from 50% to over 90%.",
     highlights: [
       "Neptune Analytics — new graph analytics engine, shipped at re:Invent 2023",
-      "GraphRAG — co-built with Bedrock, shipped at re:Invent 2024",
+      "GraphRAG — built with Bedrock, shipped live at re:Invent 2024",
       "25+ engineers across 4 global teams — 60% of Neptune org",
-      "Tiered on-call + follow-the-sun operational overhaul",
+      "Tiered on-call + follow-the-sun: satisfaction 50% → 90%",
     ],
   },
   "neptune-sdm1": {
     heading: "SDM I at Neptune · 2020–2022",
-    body: "I took the Neptune Storage team from 1 SDE to 15 across Seattle, Vancouver, and the Bay Area. During this period Neptune expanded from a handful of regions to 22, including FedRAMP GovCloud and AWS private cloud. The work I'm most proud of: a tiered NVMe caching layer that delivered 30% query speedup and contributed ~$4M in incremental ARR, and a bulk export feature that cut full-graph S3 export times from days to under three hours.",
+    body: "I built the Neptune Storage team from one engineer to fifteen across Seattle, Vancouver, and the Bay Area. My team expanded Neptune's regional footprint from six to 22 AWS regions, including FedRAMP GovCloud and private cloud. The two outcomes I'm most proud of: my engineers delivered a tiered NVMe caching layer that drove 30% query speedup and contributed ~$4M in incremental ARR, and a bulk export feature that cut full-graph S3 exports from days to under three hours.",
     highlights: [
-      "Scaled team 1 → 15 SDEs across three cities in two years",
+      "Team scaled 1 → 15 SDEs across three cities in two years",
       "Neptune expanded to 22 AWS regions including GovCloud and private cloud",
       "NVMe tiered cache: 30% query speedup, +$4M ARR",
       "S3 bulk export: days → under 3 hours for full graph exports",
@@ -142,17 +142,17 @@ const EXPANSIONS: Record<string, { heading: string; body: string; highlights: st
   },
   "neptune-sde": {
     heading: "SDE → Tech Lead · 2011–2019",
-    body: "Eight years as an IC before management. I architected Neptune's Control Plane — the distributed system that provisions, monitors, and manages 30K+ Neptune instances across all global regions. I led a TLS overhaul subsequently adopted by four other AWS services. Along the way I built Neptune's core enterprise feature set from scratch: multi-tenancy, encryption at rest, authentication primitives, and the benchmarking infrastructure used to safely certify every Neptune version release.",
+    body: "Eight years as IC and tech lead — the foundation for everything that came after. As tech lead I owned Neptune's Control Plane architecture, drove a TLS overhaul that was subsequently adopted by four other AWS services, and led the team that built Neptune's core enterprise feature set from scratch: multi-tenancy, encryption at rest, authentication primitives, and the release certification infrastructure. Those systems have remained in production across every Neptune version since.",
     highlights: [
       "Control Plane: distributed orchestration for 30K+ global Neptune instances",
       "TLS redesign adopted by 4 other AWS services post-launch",
-      "Enterprise feature set built from scratch: auth, encryption, multi-tenancy",
-      "Release certification infra still used for every Neptune version today",
+      "Enterprise feature set: auth, encryption, multi-tenancy — built from scratch",
+      "Release certification infra still in use for every Neptune version today",
     ],
   },
   yahoo: {
     heading: "Yahoo! Bangalore · Summer 2011",
-    body: "Before Amazon, I interned at Yahoo!'s Bangalore engineering center. My project was in ad quality: building malware detection signals to catch bad ads before they served to users. Three months, fast feedback loops, and my first real taste of production systems at scale. I graduated from NIT Calicut a few weeks later, joined Amazon, and haven't looked back.",
+    body: "Before Amazon, I interned at Yahoo!'s Bangalore engineering center working on ad quality pipelines — malware detection signals to catch bad ads before they served to users. Three months, tight feedback loops, first real exposure to production systems at scale. Graduated from NIT Calicut a few weeks later, joined Amazon, and the rest is what's on this page.",
     highlights: [
       "Malware detection signals for Yahoo!'s ad quality pipeline",
       "Ad classification features for the Bangalore ads platform",
@@ -420,16 +420,16 @@ function MidnightHero() {
 
           {/* 2-liner description */}
           <motion.p variants={fadeUp} className="text-lg sm:text-xl text-white/50 font-light leading-relaxed mb-2 max-w-2xl">
-            Building Meta&apos;s{" "}
+            Leading the engineering teams behind Meta&apos;s{" "}
             <span className="text-white/80 font-medium">Data Transfer Infrastructure</span>
             {" "}— moving <span className="text-white/80 font-medium">exabytes</span> reliably, one byte at a time.
           </motion.p>
           <motion.p variants={fadeUp} className="text-base text-white/35 font-light leading-relaxed mb-3 max-w-2xl">
-            <span className="text-white/55 font-medium">15+ YOE</span>
+            <span className="text-white/55 font-medium">15+ years</span>
             <span className="text-white/20"> · </span>
             <span className="text-white/55 font-medium">ex-AWS Engineering Leader</span>
             <span className="text-white/20"> · </span>
-            <span className="text-white/30 italic">some things I still can&apos;t talk about</span>
+            <span className="text-white/30 italic">I don&apos;t build stuff — I help great teams build terrific stuff</span>
           </motion.p>
 
           {/* Location */}
@@ -468,6 +468,79 @@ function MidnightHero() {
             <span className="text-xs tracking-widest uppercase">Scroll to explore</span>
           </motion.div>
 
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ── Strengths ─────────────────────────────────────────────────────────────────
+
+const STRENGTHS = [
+  {
+    icon: Users,
+    color: "#60a5fa",
+    title: "Teams that compound",
+    body: "I've scaled engineering orgs from 1 to 30+ across multiple geographies. Not by adding headcount — by structuring work so each engineer multiplies the team's output. The metric I optimize for is org velocity, not individual throughput.",
+  },
+  {
+    icon: Layers,
+    color: "#8B5CF6",
+    title: "Foundations, not features",
+    body: "I push teams toward systems that become platforms. Neptune's Control Plane became the shared foundation for DocumentDB, Timestream, and MemoryDB. Good infrastructure has a multiplier effect — I build the infrastructure that lets other teams build faster.",
+  },
+  {
+    icon: TrendingUp,
+    color: "#10b981",
+    title: "Data before opinion",
+    body: "Every major call has a model behind it. On-call redesign moved satisfaction from 50% to 90% — I measured it first. Region expansion became metadata-driven, zero code changes per region — I designed for that scale before we needed it.",
+  },
+];
+
+function MidnightStrengths() {
+  return (
+    <section className="py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mb-12"
+        >
+          <p className="text-xs uppercase tracking-[0.25em] text-violet-400 font-semibold mb-4 flex items-center gap-3">
+            <span className="block w-8 h-px bg-violet-500/50" />
+            What I bring
+          </p>
+          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
+            How I lead
+          </h2>
+        </motion.div>
+
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-5"
+        >
+          {STRENGTHS.map(({ icon: Icon, color, title, body }) => (
+            <motion.div
+              key={title}
+              variants={fadeUp}
+              className="rounded-2xl p-6 border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-300"
+              style={{ borderTopColor: `${color}40`, borderTopWidth: 2 }}
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-5"
+                style={{ background: `${color}15` }}
+              >
+                <Icon size={20} style={{ color }} />
+              </div>
+              <h3 className="text-base font-bold text-white mb-3">{title}</h3>
+              <p className="text-sm text-white/40 leading-relaxed">{body}</p>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
@@ -520,13 +593,13 @@ function MidnightProfessional() {
             Career
           </p>
           <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
-            15 years building{" "}
+            15 years leading{" "}
             <span style={{ background: "linear-gradient(135deg, #0082fb, #8B5CF6 50%, #EC4899)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               at hyperscale
             </span>
           </h2>
           <p className="mt-4 text-white/35 text-base max-w-xl leading-relaxed">
-            From Yahoo! Bangalore to Amazon to Meta — always deep in distributed systems, always building infrastructure that cannot fail.
+            From Yahoo! Bangalore to Amazon to Meta — always deep in distributed systems, always building teams that build infrastructure that cannot fail.
           </p>
           <p className="mt-3 text-white/18 text-xs tracking-wide">Click any card to read more</p>
         </motion.div>
@@ -595,14 +668,18 @@ function MidnightProfessional() {
                         <span className="text-white/25"> · {entry.location}</span>
                       </p>
 
-                      <ul className="space-y-1 mb-4">
-                        {entry.highlights.slice(0, 2).map((h) => (
-                          <li key={h} className="text-xs text-white/30 flex gap-2">
-                            <span className={`${s.bulletColor} opacity-50 flex-shrink-0 mt-0.5 text-[10px]`}>▸</span>
-                            {h}
-                          </li>
-                        ))}
-                      </ul>
+                      {"narrative" in entry && entry.narrative ? (
+                        <p className="text-xs text-white/35 leading-relaxed mb-4 line-clamp-3">{entry.narrative as string}</p>
+                      ) : (
+                        <ul className="space-y-1 mb-4">
+                          {entry.highlights.slice(0, 2).map((h) => (
+                            <li key={h} className="text-xs text-white/30 flex gap-2">
+                              <span className={`${s.bulletColor} opacity-50 flex-shrink-0 mt-0.5 text-[10px]`}>▸</span>
+                              {h}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
 
                       <div className="flex items-center justify-between mt-1">
                         <span className={`inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full border transition-all duration-200 ${
@@ -877,6 +954,7 @@ export default function MidnightTheme() {
     <>
       <MidnightNav />
       <MidnightHero />
+      <MidnightStrengths />
       <MidnightProfessional />
       <MidnightImpact />
       <MidnightBento />

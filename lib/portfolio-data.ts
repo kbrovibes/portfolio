@@ -25,6 +25,8 @@ export const TIMELINE = [
     company: "Meta",
     location: "Seattle, WA",
     current: true,
+    narrative:
+      "Leading the team building Meta's exabyte-scale data transfer infrastructure. My org owns the plumbing that moves data in and out of Meta's global systems — ingestion from production services, large-scale exports feeding ML training pipelines, and reliability systems that operate at the edge of what distributed infrastructure can do.",
     highlights: [
       "Leading infrastructure engineering for Meta Blob Storage at petabyte scale",
       "Driving large-scale data transfer systems serving billions of users",
@@ -38,6 +40,8 @@ export const TIMELINE = [
     company: "Amazon Neptune · AWS",
     location: "Seattle, WA",
     current: false,
+    narrative:
+      "Led four of Neptune's seven teams through the database's highest-profile era. My org shipped Neptune Analytics at re:Invent 2023 and co-delivered GraphRAG with Amazon Bedrock at re:Invent 2024. Rebuilt the on-call model from the ground up — tiered rotation, follow-the-sun coverage — and drove engineer satisfaction from 50% to over 90%.",
     highlights: [
       "Managed 25+ engineers across 4 global teams — 60% of Neptune org",
       "Launched Neptune Analytics at AWS re:Invent 2023",
@@ -52,6 +56,8 @@ export const TIMELINE = [
     company: "Amazon Neptune · AWS",
     location: "Vancouver, BC",
     current: false,
+    narrative:
+      "Built the Neptune Storage team from one engineer to fifteen — across Seattle, Vancouver, and the Bay Area — while simultaneously scaling Neptune from 6 to 22 AWS regions. My team delivered the NVMe cache layer that drove 30% query speedup and ~$4M in incremental ARR, and cut full-graph S3 exports from days to under three hours.",
     highlights: [
       "Scaled storage team 1 → 15 SDEs across Seattle, Vancouver, Bay Area",
       "Expanded Neptune to 22 AWS Regions including GovCloud & Private Cloud",
@@ -66,6 +72,8 @@ export const TIMELINE = [
     company: "Amazon · AWS",
     location: "Seattle, WA",
     current: false,
+    narrative:
+      "Eight years as IC and tech lead — the foundation for everything that came after. As tech lead, I owned Neptune's Control Plane architecture, drove a TLS overhaul adopted by four other AWS services, and built the core enterprise feature set from scratch. Those systems have been in production across every Neptune version since.",
     highlights: [
       "Architected Neptune's Control Plane managing 30K+ global servers",
       "Led TLS redesign adopted across 4+ AWS services",
@@ -80,6 +88,8 @@ export const TIMELINE = [
     company: "Yahoo! Bangalore",
     location: "Bangalore, India",
     current: false,
+    narrative:
+      "Three months at Yahoo!'s Bangalore engineering center, working on ad quality pipelines — malware detection signals to catch bad ads before they served. First real exposure to production systems at scale. Graduated from NIT Calicut a few weeks later and joined Amazon.",
     highlights: [
       "Improved ad quality pipeline through malware detection and classification",
       "Worked on ad signal generation at Yahoo!'s Bangalore engineering center",
