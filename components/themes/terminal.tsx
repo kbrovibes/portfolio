@@ -147,62 +147,6 @@ function TerminalHero() {
   );
 }
 
-// ── Career ────────────────────────────────────────────────────────────────────
-
-function TerminalCareer() {
-  return (
-    <motion.section
-      variants={sectionIn}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      style={{ ...MONO, paddingLeft: 24, paddingRight: 24, paddingBottom: 60, maxWidth: 1100, margin: "0 auto" }}
-    >
-      <p style={{ color: GREEN, fontSize: 15, marginBottom: 20 }}>karthik@meta:~$ cat career.log</p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        {TIMELINE.map((item, i) => {
-          const borderColor = item.id === "meta" ? GREEN : item.id === "yahoo" ? "#a855f7" : BORDER;
-          return (
-            <motion.div
-              key={item.id}
-              custom={i}
-              variants={lineIn}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              style={{ border: `1px solid ${borderColor}`, borderRadius: 0 }}
-            >
-              {/* Top border */}
-              <div style={{ padding: "8px 16px", borderBottom: `1px solid ${borderColor}`, display: "flex", alignItems: "center", gap: 12 }}>
-                {item.current && (
-                  <span style={{ color: GREEN, fontSize: 12, fontWeight: 700, animation: "blink 1.5s ease infinite" }}>[ACTIVE]</span>
-                )}
-                <span style={{ color: item.current ? GREEN : GRAY, fontSize: 13 }}>{item.period}</span>
-              </div>
-              {/* Content */}
-              <div style={{ padding: "10px 16px" }}>
-                <p style={{ color: "#fff", fontSize: 15, fontWeight: 700, marginBottom: 2 }}>{item.role}</p>
-                <p style={{ color: borderColor, fontSize: 14, marginBottom: 8 }}>{item.company} · {item.location}</p>
-                {item.highlights.map((h, j) => (
-                  <p key={j} style={{ color: WHITE, fontSize: 13, marginBottom: 3 }}>
-                    <span style={{ color: SOFT }}>▸ </span>{h}
-                  </p>
-                ))}
-              </div>
-            </motion.div>
-          );
-        })}
-        {/* Education */}
-        <motion.div variants={sectionIn} initial="hidden" whileInView="visible" viewport={{ once: true }}
-          style={{ border: `1px solid ${BORDER_DIM}`, padding: "10px 16px" }}>
-          <p style={{ color: GRAY, fontSize: 13, marginBottom: 2 }}>{EDUCATION.period}</p>
-          <p style={{ color: WHITE, fontSize: 15, fontWeight: 700, marginBottom: 2 }}>{EDUCATION.degree}</p>
-          <p style={{ color: GRAY, fontSize: 13 }}>{EDUCATION.school} · {EDUCATION.detail}</p>
-        </motion.div>
-      </div>
-    </motion.section>
-  );
-}
 
 // ── Leadership ────────────────────────────────────────────────────────────────
 
@@ -268,6 +212,63 @@ function TerminalLeadership() {
   );
 }
 
+// ── Career ────────────────────────────────────────────────────────────────────
+
+function TerminalCareer() {
+  return (
+    <motion.section
+      variants={sectionIn}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      style={{ ...MONO, paddingLeft: 24, paddingRight: 24, paddingBottom: 60, maxWidth: 1100, margin: "0 auto" }}
+    >
+      <p style={{ color: GREEN, fontSize: 15, marginBottom: 20 }}>karthik@meta:~$ cat career.log</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        {TIMELINE.map((item, i) => {
+          const borderColor = item.id === "meta" ? GREEN : item.id === "yahoo" ? "#a855f7" : BORDER;
+          return (
+            <motion.div
+              key={item.id}
+              custom={i}
+              variants={lineIn}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              style={{ border: `1px solid ${borderColor}`, borderRadius: 0 }}
+            >
+              {/* Top border */}
+              <div style={{ padding: "8px 16px", borderBottom: `1px solid ${borderColor}`, display: "flex", alignItems: "center", gap: 12 }}>
+                {item.current && (
+                  <span style={{ color: GREEN, fontSize: 12, fontWeight: 700, animation: "blink 1.5s ease infinite" }}>[ACTIVE]</span>
+                )}
+                <span style={{ color: item.current ? GREEN : GRAY, fontSize: 13 }}>{item.period}</span>
+              </div>
+              {/* Content */}
+              <div style={{ padding: "10px 16px" }}>
+                <p style={{ color: "#fff", fontSize: 15, fontWeight: 700, marginBottom: 2 }}>{item.role}</p>
+                <p style={{ color: borderColor, fontSize: 14, marginBottom: 8 }}>{item.company} · {item.location}</p>
+                {item.highlights.map((h, j) => (
+                  <p key={j} style={{ color: WHITE, fontSize: 13, marginBottom: 3 }}>
+                    <span style={{ color: SOFT }}>▸ </span>{h}
+                  </p>
+                ))}
+              </div>
+            </motion.div>
+          );
+        })}
+        {/* Education */}
+        <motion.div variants={sectionIn} initial="hidden" whileInView="visible" viewport={{ once: true }}
+          style={{ border: `1px solid ${BORDER_DIM}`, padding: "10px 16px" }}>
+          <p style={{ color: GRAY, fontSize: 13, marginBottom: 2 }}>{EDUCATION.period}</p>
+          <p style={{ color: WHITE, fontSize: 15, fontWeight: 700, marginBottom: 2 }}>{EDUCATION.degree}</p>
+          <p style={{ color: GRAY, fontSize: 13 }}>{EDUCATION.school} · {EDUCATION.detail}</p>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+}
+
 // ── Projects ──────────────────────────────────────────────────────────────────
 
 function TerminalProjects() {
@@ -327,8 +328,8 @@ export default function TerminalTheme() {
       <TerminalNav />
       <div style={{ paddingTop: 48 }}>
         <TerminalHero />
-        <TerminalCareer />
         <TerminalLeadership />
+        <TerminalCareer />
         <TerminalProjects />
         <TerminalFooter />
       </div>

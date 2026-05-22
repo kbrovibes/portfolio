@@ -2,7 +2,7 @@
 
 import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, Mic, RefreshCw, Users, Layers, TrendingUp, Rocket, Bot, BookOpen } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, Mic, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { PERSONAL, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
 
@@ -426,7 +426,7 @@ function MidnightHero() {
             </a>
             <a href={`mailto:${PERSONAL.email}`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm bg-white/[0.06] border border-white/[0.1] text-white/70 hover:bg-white/[0.1] hover:text-white hover:border-white/20 transition-all duration-200">
-              Let&apos;s vibe
+              Get in touch
             </a>
             <a href="/karthik-rajan-resume.pdf" download
               className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-medium text-sm bg-white/[0.03] border border-white/[0.07] text-white/40 hover:bg-white/[0.07] hover:text-white/70 hover:border-white/14 transition-all duration-200">
@@ -507,7 +507,7 @@ function MidnightStrengths() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
           {STRENGTHS.map(({ icon: Icon, color, title, body }) => (
             <motion.div
@@ -864,6 +864,26 @@ function MidnightBento() {
             <div className="flex flex-wrap gap-1.5">
               {["Claude AI", "Next.js", "TypeScript"].map((t) => (
                 <span key={t} className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-amber-500/10 text-amber-400/80 border border-amber-500/15">{t}</span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* superhero-stories */}
+          <motion.div variants={tileAnim} className="group relative rounded-3xl p-7 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-indigo-500/30 hover:bg-indigo-500/[0.03] transition-all duration-300">
+            <div className="flex items-start justify-between mb-6">
+              <div className="p-2.5 rounded-xl bg-indigo-500/10"><BookOpen size={20} className="text-indigo-400" /></div>
+              <a href="https://github.com/kbrovibes/superhero-stories" target="_blank" rel="noopener noreferrer"
+                className="p-1.5 rounded-lg bg-white/[0.04] text-white/30 hover:text-indigo-400 hover:bg-indigo-500/10 transition-all">
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">superhero-stories</h3>
+            <p className="text-sm text-white/40 leading-relaxed mb-5">
+              108 original superhero stories across 20 heroes — AI-generated, fully static. Marvel, DC, and Avengers universes. Built for my kids.
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {["Claude AI", "Shell", "Static"].map((t) => (
+                <span key={t} className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-indigo-500/10 text-indigo-400/80 border border-indigo-500/15">{t}</span>
               ))}
             </div>
           </motion.div>

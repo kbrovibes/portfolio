@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Karthik Rajan",
-    description: "Engineering Manager @ Meta Blob Storage · Previously Amazon Neptune (14 yrs) · kbrovibes",
+    description: "Engineering Manager, Storage Infra @ Meta · Previously Amazon Neptune (14 yrs) · kbrovibes",
     type: "website",
   },
   icons: {
