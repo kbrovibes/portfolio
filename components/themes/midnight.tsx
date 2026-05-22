@@ -2,7 +2,7 @@
 
 import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, Mic, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { PERSONAL, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
 
@@ -170,125 +170,6 @@ const EDU_EXPANSION = {
     "Direct placement into Amazon from campus",
   ],
 };
-
-// ── Impact (stats + speaking) ─────────────────────────────────────────────────
-
-const IMPACT_STATS = [
-  { value: "$100M+", label: "ARR at Neptune peak", color: "#f59e0b" },
-  { value: "30K+", label: "servers managed", color: "#8B5CF6" },
-  { value: "22", label: "AWS regions shipped", color: "#60a5fa" },
-  { value: "25+", label: "engineers led", color: "#EC4899" },
-];
-
-const TALKS = [
-  {
-    year: "AWS re:Invent 2024",
-    title: "GraphRAG with Amazon Neptune",
-    description:
-      "Co-presented with the Amazon Bedrock team — combining knowledge graphs with LLMs for production-grade RAG at enterprise scale. Shipped live on stage in Las Vegas.",
-    tags: ["Amazon Bedrock", "GraphRAG", "Neptune Analytics"],
-    cardClass:
-      "bg-blue-500/[0.05] border-blue-500/[0.12] hover:border-blue-500/30",
-    tagClass: "bg-blue-500/10 text-blue-400/80 border-blue-500/15",
-    yearClass: "text-blue-400/70",
-    iconClass: "text-blue-400",
-    iconBg: "bg-blue-500/10",
-  },
-  {
-    year: "AWS re:Invent 2023",
-    title: "Neptune Analytics Launch",
-    description:
-      "Launched Neptune Analytics on stage — a purpose-built graph analytics engine with vector similarity search and petabyte-scale traversals. First time Neptune went live at the conference.",
-    tags: ["Graph Analytics", "Vector Search", "Amazon Neptune"],
-    cardClass:
-      "bg-violet-500/[0.05] border-violet-500/[0.12] hover:border-violet-500/30",
-    tagClass: "bg-violet-500/10 text-violet-400/80 border-violet-500/15",
-    yearClass: "text-violet-400/70",
-    iconClass: "text-violet-400",
-    iconBg: "bg-violet-500/10",
-  },
-];
-
-function MidnightImpact() {
-  return (
-    <section className="py-20 px-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Speaking header */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          className="mb-10"
-        >
-          <p className="text-xs uppercase tracking-[0.25em] text-violet-400 font-semibold mb-4 flex items-center gap-3">
-            <span className="block w-8 h-px bg-violet-500/50" />
-            Speaking
-          </p>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
-            On stage at{" "}
-            <span
-              style={{
-                background: "linear-gradient(135deg, #FF9900, #f59e0b)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              re:Invent
-            </span>
-          </h2>
-          <p className="mt-4 text-white/35 text-base max-w-xl leading-relaxed">
-            Two consecutive years presenting at AWS&apos;s flagship conference —
-            both times shipping products live on stage.
-          </p>
-        </motion.div>
-
-        {/* Talk cards */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          className="grid md:grid-cols-2 gap-4"
-        >
-          {TALKS.map((talk) => (
-            <motion.div
-              key={talk.year}
-              variants={tileAnim}
-              className={`rounded-2xl p-6 border transition-all duration-300 ${talk.cardClass}`}
-            >
-              <div className="flex items-start justify-between mb-5">
-                <div className={`p-2.5 rounded-xl ${talk.iconBg}`}>
-                  <Mic size={18} className={talk.iconClass} />
-                </div>
-                <span
-                  className={`text-[10px] font-bold uppercase tracking-widest ${talk.yearClass}`}
-                >
-                  {talk.year}
-                </span>
-              </div>
-              <h4 className="text-lg font-bold text-white mb-2">{talk.title}</h4>
-              <p className="text-sm text-white/40 leading-relaxed mb-4">
-                {talk.description}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {talk.tags.map((t) => (
-                  <span
-                    key={t}
-                    className={`px-2 py-0.5 rounded-md text-[10px] font-medium border ${talk.tagClass}`}
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
 // ── Nav ───────────────────────────────────────────────────────────────────────
 
@@ -788,15 +669,15 @@ function MidnightProfessional() {
 
 function MidnightBento() {
   return (
-    <section id="projects" className="py-14 px-6">
+    <section id="projects" className="py-10 px-6">
       <div className="max-w-6xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7, ease: "easeOut" }} className="mb-8">
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7, ease: "easeOut" }} className="mb-6">
           <p className="text-xs uppercase tracking-[0.25em] text-violet-400 font-semibold mb-3 flex items-center gap-3">
             <span className="block w-8 h-px bg-violet-500/50" />
             Side Projects
           </p>
-          <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
-            Personal projects
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            Personal Projects
           </h2>
           <p className="mt-3 text-white/30 text-sm max-w-xl leading-relaxed">
             Vibe coded on free time — mostly to make my own life easier. Claude at the core, shipped to prod because why not.
@@ -806,16 +687,16 @@ function MidnightBento() {
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-auto">
           {/* stonkbro */}
-          <motion.div variants={tileAnim} className="group relative rounded-3xl p-5 border overflow-hidden bg-gradient-to-br from-emerald-500/[0.04] to-transparent border-emerald-500/[0.12] hover:border-emerald-500/25 transition-all duration-300">
-            <div className="flex items-start justify-between mb-5">
-              <div className="p-2.5 rounded-xl bg-emerald-500/10"><ChartLine size={20} className="text-emerald-400" /></div>
+          <motion.div variants={tileAnim} className="group relative rounded-2xl p-4 border overflow-hidden bg-gradient-to-br from-emerald-500/[0.04] to-transparent border-emerald-500/[0.12] hover:border-emerald-500/25 transition-all duration-300">
+            <div className="flex items-start justify-between mb-3">
+              <div className="p-2 rounded-xl bg-emerald-500/10"><ChartLine size={16} className="text-emerald-400" /></div>
               <a href="https://stonkbro.vercel.app" target="_blank" rel="noopener noreferrer"
                 className="p-1.5 rounded-lg bg-white/[0.04] text-white/30 hover:text-emerald-400 hover:bg-emerald-500/10 transition-all group-hover:scale-105">
                 <ArrowUpRight size={14} />
               </a>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">stonkbro</h3>
-            <p className="text-sm text-white/40 leading-relaxed mb-5">
+            <h3 className="text-sm font-bold text-white mb-1">stonkbro</h3>
+            <p className="text-xs text-white/40 leading-relaxed mb-3">
               AI-powered options trading copilot. Live market data, PMCC scanner, real signals — built with Claude + Yahoo Finance. Not financial advice, definitely financial vibes.
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -826,16 +707,16 @@ function MidnightBento() {
           </motion.div>
 
           {/* snobaddy */}
-          <motion.div variants={tileAnim} className="group relative rounded-3xl p-5 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-pink-500/30 hover:bg-pink-500/[0.03] transition-all duration-300">
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-2.5 rounded-xl bg-pink-500/10"><Shuffle size={20} className="text-pink-400" /></div>
+          <motion.div variants={tileAnim} className="group relative rounded-2xl p-4 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-pink-500/30 hover:bg-pink-500/[0.03] transition-all duration-300">
+            <div className="flex items-start justify-between mb-3">
+              <div className="p-2 rounded-xl bg-pink-500/10"><Shuffle size={16} className="text-pink-400" /></div>
               <a href="https://snobaddy.vercel.app" target="_blank" rel="noopener noreferrer"
                 className="p-1.5 rounded-lg bg-white/[0.04] text-white/30 hover:text-pink-400 hover:bg-pink-500/10 transition-all">
                 <ArrowUpRight size={14} />
               </a>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">snobaddy</h3>
-            <p className="text-sm text-white/40 leading-relaxed mb-5">
+            <h3 className="text-sm font-bold text-white mb-1">snobaddy</h3>
+            <p className="text-xs text-white/40 leading-relaxed mb-3">
               Real-time sports club scheduling and court management. AI-assisted rotation and matchmaking — an engineering marvel the club didn&apos;t know it needed.
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -846,13 +727,13 @@ function MidnightBento() {
           </motion.div>
 
           {/* taxbro */}
-          <motion.div variants={tileAnim} className="group relative rounded-3xl p-5 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-amber-500/30 hover:bg-amber-500/[0.03] transition-all duration-300">
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-2.5 rounded-xl bg-amber-500/10"><DollarSign size={20} className="text-amber-400" /></div>
+          <motion.div variants={tileAnim} className="group relative rounded-2xl p-4 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-amber-500/30 hover:bg-amber-500/[0.03] transition-all duration-300">
+            <div className="flex items-start justify-between mb-3">
+              <div className="p-2 rounded-xl bg-amber-500/10"><DollarSign size={16} className="text-amber-400" /></div>
               <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400/60">Claude-powered</span>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">taxbro</h3>
-            <p className="text-sm text-white/40 leading-relaxed mb-5">
+            <h3 className="text-sm font-bold text-white mb-1">taxbro</h3>
+            <p className="text-xs text-white/40 leading-relaxed mb-3">
               AI-powered tax research assistant. Ask complex questions, get reasoning-backed answers. Built with Claude for workflows where accuracy actually matters.
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -863,16 +744,16 @@ function MidnightBento() {
           </motion.div>
 
           {/* superhero-stories */}
-          <motion.div variants={tileAnim} className="group relative rounded-3xl p-5 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-indigo-500/30 hover:bg-indigo-500/[0.03] transition-all duration-300">
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-2.5 rounded-xl bg-indigo-500/10"><BookOpen size={20} className="text-indigo-400" /></div>
+          <motion.div variants={tileAnim} className="group relative rounded-2xl p-4 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-indigo-500/30 hover:bg-indigo-500/[0.03] transition-all duration-300">
+            <div className="flex items-start justify-between mb-3">
+              <div className="p-2 rounded-xl bg-indigo-500/10"><BookOpen size={16} className="text-indigo-400" /></div>
               <a href="https://github.com/kbrovibes/superhero-stories" target="_blank" rel="noopener noreferrer"
                 className="p-1.5 rounded-lg bg-white/[0.04] text-white/30 hover:text-indigo-400 hover:bg-indigo-500/10 transition-all">
                 <ArrowUpRight size={14} />
               </a>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">superhero-stories</h3>
-            <p className="text-sm text-white/40 leading-relaxed mb-5">
+            <h3 className="text-sm font-bold text-white mb-1">superhero-stories</h3>
+            <p className="text-xs text-white/40 leading-relaxed mb-3">
               108 original superhero stories across 20 heroes — AI-generated, fully static. Marvel, DC, and Avengers universes. Built for my kids.
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -883,12 +764,12 @@ function MidnightBento() {
           </motion.div>
 
           {/* kbrovibes */}
-          <motion.div variants={tileAnim} className="group relative rounded-3xl p-5 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-violet-500/20 transition-all duration-300">
-            <div className="mb-4">
-              <span className="text-xl font-bold" style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>kb</span>
-              <span className="text-xl font-bold text-white">rovibes</span>
+          <motion.div variants={tileAnim} className="group relative rounded-2xl p-4 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-violet-500/20 transition-all duration-300">
+            <div className="mb-3">
+              <span className="text-base font-bold" style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>kb</span>
+              <span className="text-base font-bold text-white">rovibes</span>
             </div>
-            <p className="text-sm text-white/40 leading-relaxed max-w-md mb-5">
+            <p className="text-xs text-white/40 leading-relaxed max-w-md mb-3">
               GitHub org for weekend vibe-coding sessions. Real tools, real data, real AI — zero stakeholders, zero meetings. This is what happens when an infrastructure engineer builds product.
             </p>
             <a href={PERSONAL.github} target="_blank" rel="noopener noreferrer"
@@ -952,7 +833,6 @@ export default function MidnightTheme() {
       <MidnightHero />
       <MidnightStrengths />
       <MidnightProfessional />
-      <MidnightImpact />
       <MidnightBento />
       <MidnightFooter />
     </>
