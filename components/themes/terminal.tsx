@@ -280,8 +280,8 @@ function TerminalProjects() {
       viewport={{ once: true, margin: "-60px" }}
       style={{ ...MONO, paddingLeft: 24, paddingRight: 24, paddingBottom: 60, maxWidth: 1100, margin: "0 auto" }}
     >
-      <p style={{ color: GREEN, fontSize: 15, marginBottom: 16 }}>karthik@meta:~$ ls -la ~/projects/</p>
-      <p style={{ color: GRAY, fontSize: 13, marginBottom: 12 }}>total {PROJECTS.length}</p>
+      <p style={{ color: GREEN, fontSize: 15, marginBottom: 8 }}>karthik@meta:~$ ls ~/side-projects/</p>
+      <p style={{ color: GRAY, fontSize: 12, marginBottom: 16 }}># personal projects — vibe coded on free time, mostly to scratch my own itch</p>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {PROJECTS.map((p, i) => (
           <motion.div key={p.id} custom={i} variants={lineIn} initial="hidden" whileInView="visible" viewport={{ once: true }}

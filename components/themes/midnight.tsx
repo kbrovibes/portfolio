@@ -788,32 +788,26 @@ function MidnightProfessional() {
 
 function MidnightBento() {
   return (
-    <section id="projects" className="py-28 px-6">
+    <section id="projects" className="py-14 px-6">
       <div className="max-w-6xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7, ease: "easeOut" }} className="mb-14">
-          <p className="text-xs uppercase tracking-[0.25em] text-violet-400 font-semibold mb-4 flex items-center gap-3">
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7, ease: "easeOut" }} className="mb-8">
+          <p className="text-xs uppercase tracking-[0.25em] text-violet-400 font-semibold mb-3 flex items-center gap-3">
             <span className="block w-8 h-px bg-violet-500/50" />
-            AI Projects
+            Side Projects
           </p>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
-            Built for fun.{" "}
-            <span style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-              Ships in prod.
-            </span>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
+            Personal projects
           </h2>
-          <p className="mt-4 text-white/35 text-base max-w-xl leading-relaxed">
-            Vibe coded on weekends. AI-native from day one — Claude at the core, not bolted on after the fact.
+          <p className="mt-3 text-white/30 text-sm max-w-xl leading-relaxed">
+            Vibe coded on free time — mostly to make my own life easier. Claude at the core, shipped to prod because why not.
           </p>
         </motion.div>
 
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-auto">
           {/* stonkbro */}
-          <motion.div variants={tileAnim} className="lg:col-span-2 group relative rounded-3xl p-7 border overflow-hidden bg-gradient-to-br from-emerald-500/[0.07] to-transparent border-emerald-500/[0.15] hover:border-emerald-500/35 transition-all duration-300">
-            <div className="pointer-events-none absolute -top-16 -right-16 w-48 h-48 rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(16,185,129,0.14) 0%, transparent 70%)", filter: "blur(30px)" }}
-            />
-            <div className="flex items-start justify-between mb-6">
+          <motion.div variants={tileAnim} className="group relative rounded-3xl p-5 border overflow-hidden bg-gradient-to-br from-emerald-500/[0.04] to-transparent border-emerald-500/[0.12] hover:border-emerald-500/25 transition-all duration-300">
+            <div className="flex items-start justify-between mb-5">
               <div className="p-2.5 rounded-xl bg-emerald-500/10"><ChartLine size={20} className="text-emerald-400" /></div>
               <a href="https://stonkbro.vercel.app" target="_blank" rel="noopener noreferrer"
                 className="p-1.5 rounded-lg bg-white/[0.04] text-white/30 hover:text-emerald-400 hover:bg-emerald-500/10 transition-all group-hover:scale-105">
@@ -832,8 +826,8 @@ function MidnightBento() {
           </motion.div>
 
           {/* snobaddy */}
-          <motion.div variants={tileAnim} className="group relative rounded-3xl p-7 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-pink-500/30 hover:bg-pink-500/[0.03] transition-all duration-300">
-            <div className="flex items-start justify-between mb-6">
+          <motion.div variants={tileAnim} className="group relative rounded-3xl p-5 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-pink-500/30 hover:bg-pink-500/[0.03] transition-all duration-300">
+            <div className="flex items-start justify-between mb-4">
               <div className="p-2.5 rounded-xl bg-pink-500/10"><Shuffle size={20} className="text-pink-400" /></div>
               <a href="https://snobaddy.vercel.app" target="_blank" rel="noopener noreferrer"
                 className="p-1.5 rounded-lg bg-white/[0.04] text-white/30 hover:text-pink-400 hover:bg-pink-500/10 transition-all">
@@ -852,8 +846,8 @@ function MidnightBento() {
           </motion.div>
 
           {/* taxbro */}
-          <motion.div variants={tileAnim} className="group relative rounded-3xl p-7 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-amber-500/30 hover:bg-amber-500/[0.03] transition-all duration-300">
-            <div className="flex items-start justify-between mb-6">
+          <motion.div variants={tileAnim} className="group relative rounded-3xl p-5 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-amber-500/30 hover:bg-amber-500/[0.03] transition-all duration-300">
+            <div className="flex items-start justify-between mb-4">
               <div className="p-2.5 rounded-xl bg-amber-500/10"><DollarSign size={20} className="text-amber-400" /></div>
               <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400/60">Claude-powered</span>
             </div>
@@ -869,8 +863,8 @@ function MidnightBento() {
           </motion.div>
 
           {/* superhero-stories */}
-          <motion.div variants={tileAnim} className="group relative rounded-3xl p-7 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-indigo-500/30 hover:bg-indigo-500/[0.03] transition-all duration-300">
-            <div className="flex items-start justify-between mb-6">
+          <motion.div variants={tileAnim} className="group relative rounded-3xl p-5 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-indigo-500/30 hover:bg-indigo-500/[0.03] transition-all duration-300">
+            <div className="flex items-start justify-between mb-4">
               <div className="p-2.5 rounded-xl bg-indigo-500/10"><BookOpen size={20} className="text-indigo-400" /></div>
               <a href="https://github.com/kbrovibes/superhero-stories" target="_blank" rel="noopener noreferrer"
                 className="p-1.5 rounded-lg bg-white/[0.04] text-white/30 hover:text-indigo-400 hover:bg-indigo-500/10 transition-all">
@@ -889,13 +883,10 @@ function MidnightBento() {
           </motion.div>
 
           {/* kbrovibes */}
-          <motion.div variants={tileAnim} className="lg:col-span-2 group relative rounded-3xl p-7 border overflow-hidden bg-gradient-to-br from-violet-500/[0.06] to-transparent border-violet-500/[0.12] hover:border-violet-500/30 transition-all duration-300">
-            <div className="pointer-events-none absolute -bottom-12 -right-12 w-40 h-40 rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)", filter: "blur(30px)" }}
-            />
-            <div className="mb-5">
-              <span className="text-4xl font-black" style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>kb</span>
-              <span className="text-4xl font-black text-white">rovibes</span>
+          <motion.div variants={tileAnim} className="group relative rounded-3xl p-5 border overflow-hidden bg-white/[0.02] border-white/[0.07] hover:border-violet-500/20 transition-all duration-300">
+            <div className="mb-4">
+              <span className="text-xl font-bold" style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>kb</span>
+              <span className="text-xl font-bold text-white">rovibes</span>
             </div>
             <p className="text-sm text-white/40 leading-relaxed max-w-md mb-5">
               GitHub org for weekend vibe-coding sessions. Real tools, real data, real AI — zero stakeholders, zero meetings. This is what happens when an infrastructure engineer builds product.
