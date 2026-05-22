@@ -2,7 +2,7 @@
 
 import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, Mic, RefreshCw, Users, Layers, TrendingUp } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, Mic, RefreshCw, Users, Layers, TrendingUp, Rocket, Bot, BookOpen } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { PERSONAL, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
 
@@ -213,33 +213,6 @@ function MidnightImpact() {
   return (
     <section className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        {/* Stats strip */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={stagger}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-20"
-        >
-          {IMPACT_STATS.map(({ value, label, color }) => (
-            <motion.div
-              key={label}
-              variants={fadeUp}
-              className="rounded-2xl p-5 border border-white/[0.06] bg-white/[0.02] text-center"
-            >
-              <p
-                className="text-3xl sm:text-4xl font-black mb-1.5"
-                style={{ color }}
-              >
-                {value}
-              </p>
-              <p className="text-[11px] text-white/30 uppercase tracking-[0.15em] leading-relaxed">
-                {label}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-
         {/* Speaking header */}
         <motion.div
           variants={fadeUp}
@@ -494,6 +467,18 @@ const STRENGTHS = [
     color: "#10b981",
     title: "Data before opinion",
     body: "Every major call has a model behind it. On-call redesign moved satisfaction from 50% to 90% — I measured it first. Region expansion became metadata-driven, zero code changes per region — I designed for that scale before we needed it.",
+  },
+  {
+    icon: Rocket,
+    color: "#f97316",
+    title: "Engineers as founders",
+    body: "I give each engineer their own problem space — the customer context, the success metric, and the keys. In the agent era that means enabling every person to run a squad of AI agents that multiplies their output. Mini-startups inside a large org ship things large orgs can't.",
+  },
+  {
+    icon: RefreshCw,
+    color: "#06b6d4",
+    title: "Prototype. Land. Iterate.",
+    body: "Ship a working v1 in days, not quarters. The prototype teaches you more than the spec. I build teams comfortable with rough edges — because when agent-assisted development makes prototypes nearly free, the winning move is to put something real in front of users first.",
   },
 ];
 

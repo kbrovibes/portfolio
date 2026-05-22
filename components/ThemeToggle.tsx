@@ -6,13 +6,13 @@ export default function ThemeToggle() {
   const isMidnight = theme === "midnight";
 
   const base: React.CSSProperties = {
-    padding: "8px 20px",
+    padding: "4px 10px",
     borderRadius: 999,
     border: "none",
     cursor: "pointer",
-    fontSize: 13,
+    fontSize: 10,
     fontWeight: 600,
-    letterSpacing: "0.02em",
+    letterSpacing: "0.03em",
     transition: "all 0.2s ease",
     outline: "none",
     whiteSpace: "nowrap" as const,
@@ -25,7 +25,7 @@ export default function ThemeToggle() {
       borderRadius: 999,
       border: "1px solid rgba(255,255,255,0.1)",
       backgroundColor: "rgba(255,255,255,0.04)",
-      padding: 3,
+      padding: 2,
     }}>
       <button
         onClick={() => setTheme("midnight")}

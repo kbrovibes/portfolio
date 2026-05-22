@@ -2,7 +2,7 @@ export const PERSONAL = {
   name: "Karthik Rajan",
   firstName: "Karthik",
   lastName: "Rajan",
-  title: "Engineering Manager, Blob Storage",
+  title: "Engineering Manager, Storage Infra @ Meta",
   company: "Meta",
   location: "Snoqualmie, Washington",
   email: "k4rthikr@gmail.com",
@@ -132,6 +132,15 @@ export const PROJECTS = [
     url: null,
     tags: ["Claude AI", "Next.js", "TypeScript"],
     color: "amber",
+  },
+  {
+    id: "superhero-stories",
+    title: "superhero-stories",
+    description:
+      "108 original superhero stories across 20 heroes — fully static web app generated with AI. Marvel + DC + Avengers universes.",
+    url: "https://github.com/kbrovibes/superhero-stories",
+    tags: ["Claude AI", "Shell", "Static"],
+    color: "indigo",
   },
   {
     id: "kbrovibes",

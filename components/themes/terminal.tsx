@@ -204,6 +204,70 @@ function TerminalCareer() {
   );
 }
 
+// ── Leadership ────────────────────────────────────────────────────────────────
+
+const LEADERSHIP = [
+  {
+    key: "founders",
+    label: "engineers-as-founders",
+    value: "Give each engineer their own problem space — customer context, success metric, the keys. Enable them to run squads of AI agents that multiply their output. Mini-startups inside a large org ship things large orgs can't.",
+  },
+  {
+    key: "prototype",
+    label: "prototype-land-iterate",
+    value: "Ship a working v1 in days, not quarters. The prototype teaches you more than the spec. When agent-assisted dev makes prototypes nearly free, put something real in front of users first and iterate from there.",
+  },
+  {
+    key: "compound",
+    label: "teams-that-compound",
+    value: "Scaled orgs from 1 to 30+ across multiple geographies — not by headcount, but by structuring work so each engineer multiplies the team's output. Metric: org velocity, not individual throughput.",
+  },
+  {
+    key: "foundations",
+    label: "foundations-not-features",
+    value: "Neptune's Control Plane became the shared foundation for DocumentDB, Timestream, and MemoryDB. Good infrastructure has a multiplier effect — build the layer that lets other teams build faster.",
+  },
+  {
+    key: "data",
+    label: "data-before-opinion",
+    value: "On-call redesign moved satisfaction from 50% to 90% — measured first, changed second. Region expansion became metadata-driven, zero code changes per region — designed for that scale before we needed it.",
+  },
+];
+
+function TerminalLeadership() {
+  return (
+    <motion.section
+      variants={sectionIn}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      style={{ ...MONO, paddingLeft: 24, paddingRight: 24, paddingBottom: 60, maxWidth: 1100, margin: "0 auto" }}
+    >
+      <p style={{ color: GREEN, fontSize: 15, marginBottom: 20 }}>karthik@meta:~$ cat leadership.md</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {LEADERSHIP.map((item, i) => (
+          <motion.div
+            key={item.key}
+            custom={i}
+            variants={lineIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            style={{ border: `1px solid ${BORDER}`, padding: "10px 14px" }}
+          >
+            <p style={{ color: SOFT, fontSize: 13, marginBottom: 4 }}>
+              <span style={{ color: GRAY }}>## </span>{item.label}
+            </p>
+            <p style={{ color: WHITE, fontSize: 13, lineHeight: 1.6 }}>
+              <span style={{ color: GREEN }}>▸ </span>{item.value}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+    </motion.section>
+  );
+}
+
 // ── Projects ──────────────────────────────────────────────────────────────────
 
 function TerminalProjects() {
@@ -264,6 +328,7 @@ export default function TerminalTheme() {
       <div style={{ paddingTop: 48 }}>
         <TerminalHero />
         <TerminalCareer />
+        <TerminalLeadership />
         <TerminalProjects />
         <TerminalFooter />
       </div>
