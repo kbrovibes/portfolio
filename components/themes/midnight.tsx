@@ -249,11 +249,37 @@ function MidnightHero() {
       <div aria-hidden className="pointer-events-none absolute top-1/3 right-1/4 w-[350px] h-[350px] rounded-full"
         style={{ background: "radial-gradient(circle, rgba(0,130,251,0.12) 0%, transparent 65%)", filter: "blur(60px)", animation: "float-orb-3 14s ease-in-out infinite" }}
       />
+      {/* Portrait — right-anchored ghost, all breakpoints, smaller on mobile */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute right-0 top-[18%] h-[45%] w-[38%] lg:top-[17%] lg:h-[65%] lg:w-[52%]"
+          style={{
+            maskImage: "radial-gradient(ellipse 78% 82% at 62% 34%, black 22%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.2) 72%, transparent 88%)",
+            WebkitMaskImage: "radial-gradient(ellipse 78% 82% at 62% 34%, black 22%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.2) 72%, transparent 88%)",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/photo/profile-headshot.png"
+            alt=""
+            className="absolute right-0 top-0 h-full w-full object-cover object-center"
+            style={{ opacity: 0.7, filter: "contrast(1.25) brightness(1.15) saturate(1.1)" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(59,130,246,0.06) 50%, rgba(236,72,153,0.05) 100%)", mixBlendMode: "color" }}
+          />
+          {/* edge softeners — top and bottom */}
+          <div className="absolute inset-x-0 top-0 h-[22%]" style={{ background: "linear-gradient(to bottom, #0a0a12 0%, transparent 100%)" }} />
+          <div className="absolute inset-x-0 bottom-0 h-[22%]" style={{ background: "linear-gradient(to top, #0a0a12 0%, transparent 100%)" }} />
+        </div>
+      </div>
+
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
-        <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl">
+        <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl pr-[36%] lg:pr-0">
 
           {/* Name */}
-          <motion.h1 variants={fadeUp} className="text-6xl sm:text-7xl lg:text-[92px] font-black leading-[0.92] tracking-[-3px] mb-5">
+          <motion.h1 variants={fadeUp} className="text-5xl sm:text-7xl lg:text-[92px] font-black leading-[0.92] tracking-[-3px] mb-5">
             <span className="text-white">{PERSONAL.firstName}</span>
             <br />
             <span style={{ background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 55%, #3B82F6 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
@@ -267,19 +293,19 @@ function MidnightHero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
             </span>
-            <p className="text-xl sm:text-2xl font-semibold text-white/65">
+            <p className="text-lg sm:text-2xl font-semibold text-white/65">
               Engineering Manager, Blob Storage{" "}
               <span className="text-blue-400">@ Meta</span>
             </p>
           </motion.div>
 
           {/* 2-liner description */}
-          <motion.p variants={fadeUp} className="text-lg sm:text-xl text-white/50 font-light leading-relaxed mb-2 max-w-2xl">
+          <motion.p variants={fadeUp} className="text-base sm:text-xl text-white/50 font-light leading-relaxed mb-2 max-w-2xl">
             Leading the engineering teams behind Meta&apos;s{" "}
             <span className="text-white/80 font-medium">Data Transfer Infrastructure</span>
             {" "}— moving <span className="text-white/80 font-medium">exabytes</span> reliably, one byte at a time.
           </motion.p>
-          <motion.p variants={fadeUp} className="text-base text-white/35 font-light leading-relaxed mb-3 max-w-2xl">
+          <motion.p variants={fadeUp} className="text-sm text-white/35 font-light leading-relaxed mb-3 max-w-2xl">
             <span className="text-white/55 font-medium">15+ years</span>
             <span className="text-white/20"> · </span>
             <span className="text-white/55 font-medium">ex-AWS Engineering Leader</span>
@@ -288,7 +314,7 @@ function MidnightHero() {
           </motion.p>
 
           {/* Location */}
-          <motion.div variants={fadeUp} className="flex items-center gap-2 text-sm text-white/25 mb-8">
+          <motion.div variants={fadeUp} className="flex items-center gap-2 text-xs text-white/25 mb-8">
             <MapPin size={13} />
             <span>Seattle, WA</span>
           </motion.div>
