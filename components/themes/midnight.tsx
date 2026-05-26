@@ -4,7 +4,7 @@ import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import { PERSONAL, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
+import { PERSONAL, TIMELINE, EDUCATION, PROJECTS, SHIPPED_PROJECTS } from "@/lib/portfolio-data";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 
@@ -299,21 +299,46 @@ function MidnightHero() {
           </motion.div>
 
           {/* CTAs */}
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-16">
-            <a href="#professional" className="group inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white transition-all duration-200"
-              style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)" }}>
-              View My Work
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a href={`mailto:${PERSONAL.email}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm bg-white/[0.06] border border-white/[0.1] text-white/70 hover:bg-white/[0.1] hover:text-white hover:border-white/20 transition-all duration-200">
-              Get in touch
-            </a>
-            <a href="/karthik-rajan-resume.pdf" download
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-medium text-sm bg-white/[0.03] border border-white/[0.07] text-white/40 hover:bg-white/[0.07] hover:text-white/70 hover:border-white/14 transition-all duration-200">
-              <Download size={13} />
-              Resume
-            </a>
+          <motion.div variants={fadeUp} className="flex flex-col gap-3 mb-16">
+            {/* Primary CTA */}
+            <div>
+              <a href="#professional" className="group inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white transition-all duration-200"
+                style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)" }}>
+                View My Work
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+
+            {/* Section jump nav */}
+            <div className="flex flex-wrap gap-2">
+              {[
+                { href: "#professional", label: "Career" },
+                { href: "#leadership", label: "How I Lead" },
+                { href: "#shipped", label: "Shipped Projects", icon: <Rocket size={11} /> },
+                { href: "#projects", label: "Side Projects" },
+                { href: "/blog", label: "Writing", icon: <BookOpen size={11} /> },
+              ].map(({ href, label, icon }) => (
+                <a key={href} href={href}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium bg-white/[0.04] border border-white/[0.08] text-white/50 hover:bg-white/[0.08] hover:text-white/80 hover:border-white/[0.15] transition-all duration-200">
+                  {icon}
+                  {label}
+                </a>
+              ))}
+            </div>
+
+            {/* Utility */}
+            <div className="flex flex-wrap gap-2">
+              <a href={`mailto:${PERSONAL.email}`}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm bg-white/[0.06] border border-white/[0.1] text-white/60 hover:bg-white/[0.1] hover:text-white hover:border-white/20 transition-all duration-200">
+                <Mail size={13} />
+                Get in touch
+              </a>
+              <a href="/karthik-rajan-resume.pdf" download
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm bg-white/[0.03] border border-white/[0.07] text-white/40 hover:bg-white/[0.07] hover:text-white/60 transition-all duration-200">
+                <Download size={13} />
+                Resume
+              </a>
+            </div>
           </motion.div>
 
           {/* Scroll hint */}
@@ -365,7 +390,7 @@ const STRENGTHS = [
 
 function MidnightStrengths() {
   return (
-    <section className="py-20 px-6">
+    <section id="leadership" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
           variants={fadeUp}
@@ -665,6 +690,148 @@ function MidnightProfessional() {
   );
 }
 
+// ── Shipped ───────────────────────────────────────────────────────────────────
+
+const shippedColorConfig: Record<string, { cardClass: string; accentClass: string; badgeClass: string; tagClass: string }> = {
+  amber:   { cardClass: "bg-amber-500/[0.04] border-amber-500/20 hover:border-amber-500/35",   accentClass: "text-amber-400",   badgeClass: "bg-amber-500/10 text-amber-400/80 border-amber-500/20",   tagClass: "bg-amber-500/[0.07] text-amber-400/60 border-amber-500/15" },
+  blue:    { cardClass: "bg-blue-500/[0.04] border-blue-500/20 hover:border-blue-500/35",       accentClass: "text-blue-400",    badgeClass: "bg-blue-500/10 text-blue-400/80 border-blue-500/20",       tagClass: "bg-blue-500/[0.07] text-blue-400/60 border-blue-500/15" },
+  violet:  { cardClass: "bg-violet-500/[0.04] border-violet-500/20 hover:border-violet-500/35", accentClass: "text-violet-400",  badgeClass: "bg-violet-500/10 text-violet-400/80 border-violet-500/20", tagClass: "bg-violet-500/[0.07] text-violet-400/60 border-violet-500/15" },
+  emerald: { cardClass: "bg-emerald-500/[0.04] border-emerald-500/20 hover:border-emerald-500/35", accentClass: "text-emerald-400", badgeClass: "bg-emerald-500/10 text-emerald-400/80 border-emerald-500/20", tagClass: "bg-emerald-500/[0.07] text-emerald-400/60 border-emerald-500/15" },
+  pink:    { cardClass: "bg-pink-500/[0.04] border-pink-500/20 hover:border-pink-500/35",       accentClass: "text-pink-400",    badgeClass: "bg-pink-500/10 text-pink-400/80 border-pink-500/20",       tagClass: "bg-pink-500/[0.07] text-pink-400/60 border-pink-500/15" },
+  indigo:  { cardClass: "bg-indigo-500/[0.04] border-indigo-500/20 hover:border-indigo-500/35", accentClass: "text-indigo-400",  badgeClass: "bg-indigo-500/10 text-indigo-400/80 border-indigo-500/20", tagClass: "bg-indigo-500/[0.07] text-indigo-400/60 border-indigo-500/15" },
+  sky:     { cardClass: "bg-sky-500/[0.04] border-sky-500/20 hover:border-sky-500/35",         accentClass: "text-sky-400",     badgeClass: "bg-sky-500/10 text-sky-400/80 border-sky-500/20",         tagClass: "bg-sky-500/[0.07] text-sky-400/60 border-sky-500/15" },
+  rose:    { cardClass: "bg-rose-500/[0.04] border-rose-500/20 hover:border-rose-500/35",       accentClass: "text-rose-400",    badgeClass: "bg-rose-500/10 text-rose-400/80 border-rose-500/20",       tagClass: "bg-rose-500/[0.07] text-rose-400/60 border-rose-500/15" },
+  teal:    { cardClass: "bg-teal-500/[0.04] border-teal-500/20 hover:border-teal-500/35",       accentClass: "text-teal-400",    badgeClass: "bg-teal-500/10 text-teal-400/80 border-teal-500/20",       tagClass: "bg-teal-500/[0.07] text-teal-400/60 border-teal-500/15" },
+};
+
+const SHIPPED_INITIAL = 6;
+
+function MidnightShipped() {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? SHIPPED_PROJECTS : SHIPPED_PROJECTS.slice(0, SHIPPED_INITIAL);
+
+  return (
+    <section id="shipped" className="py-24 px-6">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mb-16"
+        >
+          <p className="text-xs uppercase tracking-[0.25em] text-violet-400 font-semibold mb-4 flex items-center gap-3">
+            <span className="block w-8 h-px bg-violet-500/50" />
+            Shipped
+          </p>
+          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
+            Projects I&apos;ve shipped
+          </h2>
+          <p className="mt-4 text-white/35 text-base max-w-xl leading-relaxed">
+            Fourteen years shipping at Amazon and Meta. These are the ones that moved the needle.
+          </p>
+          <p className="mt-2 text-white/18 text-xs tracking-wide">Click any card to read more</p>
+        </motion.div>
+
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          {visible.map((project) => {
+            const style = shippedColorConfig[project.color] ?? shippedColorConfig.amber;
+            const isOpen = expandedId === project.id;
+            return (
+              <motion.div
+                key={project.id}
+                variants={tileAnim}
+                layout
+                className={`rounded-2xl border transition-all duration-300 cursor-pointer ${style.cardClass}`}
+                onClick={() => setExpandedId(isOpen ? null : project.id)}
+              >
+                <div className="p-5">
+                  <div className="flex items-start justify-between gap-2 mb-4">
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${style.badgeClass}`}>
+                      {project.era}
+                    </span>
+                    <ChevronDown
+                      size={14}
+                      className={`${style.accentClass} shrink-0 mt-0.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                    />
+                  </div>
+                  <h3 className="text-base font-bold text-white mb-1">{project.title}</h3>
+                  <p className={`text-xs font-medium ${style.accentClass} mb-3`}>{project.roleLabel}</p>
+                  <p className="text-sm text-white/45 leading-relaxed mb-4">{project.tagline}</p>
+                  <div className={`text-xs font-semibold ${style.accentClass} opacity-80`}>{project.impact}</div>
+
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-4 mt-4 border-t border-white/[0.06]">
+                          <p className="text-sm text-white/55 leading-relaxed mb-4">{project.body}</p>
+                          <div className="flex flex-wrap gap-1.5 mb-4">
+                            {project.tags.map((tag) => (
+                              <span key={tag} className={`px-2 py-0.5 rounded text-[10px] font-medium border ${style.tagClass}`}>{tag}</span>
+                            ))}
+                          </div>
+                          {project.refs.length > 0 && (
+                            <div className="flex flex-col gap-1.5">
+                              {project.refs.map((ref) => (
+                                <a
+                                  key={ref.url}
+                                  href={ref.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className={`inline-flex items-center gap-1.5 text-xs ${style.accentClass} hover:opacity-100 opacity-70 underline underline-offset-2 transition-opacity`}
+                                >
+                                  <ArrowUpRight size={10} />
+                                  {ref.label}
+                                </a>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {!showAll && SHIPPED_PROJECTS.length > SHIPPED_INITIAL && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-8 text-center"
+          >
+            <button
+              onClick={() => setShowAll(true)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium bg-white/[0.04] border border-white/[0.08] text-white/50 hover:bg-white/[0.08] hover:text-white/80 hover:border-white/[0.15] transition-all duration-200"
+            >
+              <Rocket size={13} />
+              See {SHIPPED_PROJECTS.length - SHIPPED_INITIAL} more projects
+            </button>
+          </motion.div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 // ── BentoBox ──────────────────────────────────────────────────────────────────
 
 function MidnightBento() {
@@ -831,8 +998,9 @@ export default function MidnightTheme() {
     <>
       <MidnightNav />
       <MidnightHero />
-      <MidnightStrengths />
       <MidnightProfessional />
+      <MidnightStrengths />
+      <MidnightShipped />
       <MidnightBento />
       <MidnightFooter />
     </>
