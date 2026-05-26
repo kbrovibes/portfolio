@@ -269,28 +269,34 @@ function MidnightHero() {
         </div>
       </div>
 
-      {/* Mobile bubble — centered top, fades out on desktop */}
-      <div aria-hidden className="pointer-events-none absolute top-[11%] left-1/2 -translate-x-1/2 opacity-100 scale-100 lg:opacity-0 lg:scale-75 transition-all duration-500">
-        <div className="relative w-40 h-40 rounded-full overflow-hidden"
-          style={{ boxShadow: "0 0 0 1.5px rgba(139,92,246,0.28), 0 0 0 6px rgba(139,92,246,0.07), 0 20px 52px rgba(0,0,0,0.65)" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/photo/profile-headshot.png"
-            alt=""
-            className="w-full h-full object-cover"
-            style={{ objectPosition: "center 8%", opacity: 0.88, filter: "contrast(1.2) brightness(1.1) saturate(1.1)" }}
-          />
-          {/* inner vignette — no hard circle border */}
-          <div className="absolute inset-0 rounded-full"
-            style={{ background: "radial-gradient(circle, transparent 40%, rgba(10,10,18,0.4) 70%, rgba(10,10,18,0.9) 100%)" }} />
-        </div>
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-56 lg:pt-24 pb-20 w-full">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
         <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl">
 
-          {/* Name */}
-          <motion.h1 variants={fadeUp} className="text-5xl sm:text-7xl lg:text-[92px] font-black leading-[0.92] tracking-[-3px] mb-5">
+          {/* Mobile: centered bubble + name — in document flow, never overlaps */}
+          <motion.div variants={fadeUp} className="flex flex-col items-center text-center mb-8 lg:hidden">
+            <div className="relative w-[136px] h-[136px] rounded-full overflow-hidden mb-5"
+              style={{ boxShadow: "0 0 0 1.5px rgba(139,92,246,0.28), 0 0 0 6px rgba(139,92,246,0.07), 0 20px 52px rgba(0,0,0,0.65)" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photo/profile-headshot.png"
+                alt="Karthik Rajan"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: "center 8%", opacity: 0.88, filter: "contrast(1.2) brightness(1.1) saturate(1.1)" }}
+              />
+              <div className="absolute inset-0 rounded-full"
+                style={{ background: "radial-gradient(circle, transparent 40%, rgba(10,10,18,0.4) 70%, rgba(10,10,18,0.9) 100%)" }} />
+            </div>
+            <h1 className="text-5xl font-black leading-[0.9] tracking-[-2.5px]">
+              <span className="text-white">{PERSONAL.firstName}</span>
+              <br />
+              <span style={{ background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 55%, #3B82F6 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                {PERSONAL.lastName}
+              </span>
+            </h1>
+          </motion.div>
+
+          {/* Desktop name */}
+          <motion.h1 variants={fadeUp} className="hidden lg:block text-[92px] font-black leading-[0.92] tracking-[-3px] mb-5">
             <span className="text-white">{PERSONAL.firstName}</span>
             <br />
             <span style={{ background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 55%, #3B82F6 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
