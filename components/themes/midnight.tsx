@@ -250,7 +250,7 @@ function MidnightHero() {
       {/* Portrait — right-anchored ghost, all breakpoints, smaller on mobile */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute right-0 top-[18%] h-[45%] w-[38%] lg:top-[17%] lg:h-[65%] lg:w-[52%]"
+          className="absolute right-[-3%] top-[10%] h-[58%] w-[46%] lg:right-0 lg:top-[17%] lg:h-[65%] lg:w-[52%]"
           style={{
             maskImage: "radial-gradient(ellipse 78% 82% at 62% 34%, black 22%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.2) 72%, transparent 88%)",
             WebkitMaskImage: "radial-gradient(ellipse 78% 82% at 62% 34%, black 22%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.2) 72%, transparent 88%)",
@@ -260,16 +260,17 @@ function MidnightHero() {
           <img
             src="/photo/profile-headshot.png"
             alt=""
-            className="absolute right-0 top-0 h-full w-full object-cover object-center"
+            className="absolute right-0 top-0 h-full w-full object-cover object-top scale-[0.72] origin-[58%_12%] lg:scale-100 lg:origin-center"
             style={{ opacity: 0.7, filter: "contrast(1.25) brightness(1.15) saturate(1.1)" }}
           />
           <div
             className="absolute inset-0"
             style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(59,130,246,0.06) 50%, rgba(236,72,153,0.05) 100%)", mixBlendMode: "color" }}
           />
-          {/* edge softeners — top and bottom */}
-          <div className="absolute inset-x-0 top-0 h-[22%]" style={{ background: "linear-gradient(to bottom, #0a0a12 0%, transparent 100%)" }} />
-          <div className="absolute inset-x-0 bottom-0 h-[22%]" style={{ background: "linear-gradient(to top, #0a0a12 0%, transparent 100%)" }} />
+          {/* edge softeners */}
+          <div className="absolute inset-x-0 top-0 h-[28%]" style={{ background: "linear-gradient(to bottom, #0a0a12 0%, transparent 100%)" }} />
+          <div className="absolute inset-x-0 bottom-0 h-[28%]" style={{ background: "linear-gradient(to top, #0a0a12 0%, transparent 100%)" }} />
+          <div className="absolute inset-y-0 left-0 w-[18%] lg:hidden" style={{ background: "linear-gradient(to right, #0a0a12 0%, transparent 100%)" }} />
         </div>
       </div>
 
