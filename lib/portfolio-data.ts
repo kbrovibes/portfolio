@@ -143,6 +143,15 @@ export const PROJECTS = [
     color: "indigo",
   },
   {
+    id: "portfolio",
+    title: "this portfolio",
+    description:
+      "The site you're looking at. Midnight dark theme, terminal CLI mode, framer-motion throughout. Built with Claude Code in live sessions.",
+    url: "https://github.com/kbrovibes/portfolio",
+    tags: ["Next.js", "Framer Motion", "Claude Code", "Tailwind"],
+    color: "violet",
+  },
+  {
     id: "kbrovibes",
     title: "kbrovibes",
     description:

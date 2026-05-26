@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, type Variants, AnimatePresence } from 
 import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { PERSONAL, TIMELINE, EDUCATION, PROJECTS, SHIPPED_PROJECTS } from "@/lib/portfolio-data";
+import { BLOG_POSTS } from "@/lib/blog-data";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 
@@ -283,7 +284,7 @@ function MidnightHero() {
             <span className="text-white/20"> · </span>
             <span className="text-white/55 font-medium">ex-AWS Engineering Leader</span>
             <span className="text-white/20"> · </span>
-            <span className="text-white/30 italic">I don&apos;t build stuff — I help great teams build terrific stuff</span>
+            <span className="text-white/30 italic">I stay close to the metal — the best managers can still read the diff</span>
           </motion.p>
 
           {/* Location */}
@@ -298,46 +299,36 @@ function MidnightHero() {
             <ThemeToggle />
           </motion.div>
 
-          {/* CTAs */}
-          <motion.div variants={fadeUp} className="flex flex-col gap-3 mb-16">
-            {/* Primary CTA */}
-            <div>
-              <a href="#professional" className="group inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white transition-all duration-200"
-                style={{ background: "linear-gradient(135deg, #8B5CF6, #EC4899)" }}>
-                View My Work
-                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
-
-            {/* Section jump nav */}
-            <div className="flex flex-wrap gap-2">
-              {[
-                { href: "#professional", label: "Career" },
-                { href: "#leadership", label: "How I Lead" },
-                { href: "#shipped", label: "Shipped Projects", icon: <Rocket size={11} /> },
-                { href: "#projects", label: "Side Projects" },
-                { href: "/blog", label: "Writing", icon: <BookOpen size={11} /> },
-              ].map(({ href, label, icon }) => (
-                <a key={href} href={href}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium bg-white/[0.04] border border-white/[0.08] text-white/50 hover:bg-white/[0.08] hover:text-white/80 hover:border-white/[0.15] transition-all duration-200">
-                  {icon}
-                  {label}
-                </a>
-              ))}
-            </div>
-
-            {/* Utility */}
-            <div className="flex flex-wrap gap-2">
+          {/* CTAs — minimal two-row */}
+          <motion.div variants={fadeUp} className="flex flex-col gap-4 mb-16">
+            {/* Action buttons — consistent ghost pills */}
+            <div className="flex flex-wrap gap-3">
               <a href={`mailto:${PERSONAL.email}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm bg-white/[0.06] border border-white/[0.1] text-white/60 hover:bg-white/[0.1] hover:text-white hover:border-white/20 transition-all duration-200">
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm bg-white/[0.06] border border-white/[0.12] text-white/70 hover:bg-white/[0.1] hover:text-white hover:border-white/25 transition-all duration-200">
                 <Mail size={13} />
                 Get in touch
               </a>
               <a href="/karthik-rajan-resume.pdf" download
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm bg-white/[0.03] border border-white/[0.07] text-white/40 hover:bg-white/[0.07] hover:text-white/60 transition-all duration-200">
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm bg-white/[0.03] border border-white/[0.08] text-white/45 hover:bg-white/[0.07] hover:text-white/70 hover:border-white/15 transition-all duration-200">
                 <Download size={13} />
                 Resume
               </a>
+            </div>
+
+            {/* Section nav — plain text links, no button chrome */}
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+              {[
+                { href: "#professional", label: "Career" },
+                { href: "#leadership", label: "How I Lead" },
+                { href: "#shipped", label: "Shipped" },
+                { href: "#projects", label: "Projects" },
+                { href: "/blog", label: "Blog" },
+              ].map(({ href, label }) => (
+                <a key={href} href={href}
+                  className="text-xs text-white/30 hover:text-white/70 transition-colors duration-200 tracking-wide">
+                  {label}
+                </a>
+              ))}
             </div>
           </motion.div>
 
@@ -740,46 +731,96 @@ function MidnightShipped() {
         </motion.div>
 
         {/* Card grid — fixed height, no in-place expansion */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-        >
-          {visible.map((project) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {visible.map((project, idx) => {
             const style = shippedColorConfig[project.color] ?? shippedColorConfig.amber;
             const isSelected = selectedId === project.id;
             return (
-              <motion.div
-                key={project.id}
-                variants={tileAnim}
-                className={`rounded-2xl border transition-all duration-200 cursor-pointer select-none ${
-                  isSelected
-                    ? `${style.cardClass} ring-1 ${style.ringClass}`
-                    : `${style.cardClass}`
-                }`}
-                onClick={() => handleSelect(project.id)}
-              >
-                <div className="p-5 h-full flex flex-col">
-                  <div className="flex items-start justify-between gap-2 mb-4">
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${style.badgeClass}`}>
-                      {project.era}
-                    </span>
-                    <ArrowUpRight
-                      size={13}
-                      className={`shrink-0 mt-0.5 transition-opacity duration-200 ${isSelected ? `${style.accentClass} opacity-100` : "text-white/20 opacity-60"}`}
-                    />
+              <Fragment key={project.id}>
+                <motion.div
+                  initial={{ opacity: 0, y: 24, scale: 0.97 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: Math.min(idx % 3, 2) * 0.08 }}
+                  className={`rounded-2xl border transition-all duration-200 cursor-pointer select-none ${
+                    isSelected
+                      ? `${style.cardClass} ring-1 ${style.ringClass}`
+                      : `${style.cardClass}`
+                  }`}
+                  onClick={() => handleSelect(project.id)}
+                >
+                  <div className="p-5 h-full flex flex-col">
+                    <div className="flex items-start justify-between gap-2 mb-4">
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${style.badgeClass}`}>
+                        {project.era}
+                      </span>
+                      <ArrowUpRight
+                        size={13}
+                        className={`shrink-0 mt-0.5 transition-opacity duration-200 ${isSelected ? `${style.accentClass} opacity-100` : "text-white/20 opacity-60"}`}
+                      />
+                    </div>
+                    <h3 className="text-base font-bold text-white mb-1">{project.title}</h3>
+                    <p className={`text-xs font-medium ${style.accentClass} mb-3`}>{project.roleLabel}</p>
+                    <p className="text-sm text-white/45 leading-relaxed flex-1">{project.tagline}</p>
+                    <p className={`mt-4 text-xs font-semibold ${style.accentClass} opacity-75`}>{project.impact}</p>
                   </div>
-                  <h3 className="text-base font-bold text-white mb-1">{project.title}</h3>
-                  <p className={`text-xs font-medium ${style.accentClass} mb-3`}>{project.roleLabel}</p>
-                  <p className="text-sm text-white/45 leading-relaxed flex-1">{project.tagline}</p>
-                  <p className={`mt-4 text-xs font-semibold ${style.accentClass} opacity-75`}>{project.impact}</p>
-                </div>
-              </motion.div>
+                </motion.div>
+
+                {/* Mobile-only: inline panel right after the tapped card */}
+                <AnimatePresence>
+                  {isSelected && (
+                    <motion.div
+                      key={`mobile-panel-${project.id}`}
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.28, ease: "easeOut" }}
+                      className={`col-span-full sm:hidden rounded-2xl border overflow-hidden ${style.cardClass}`}
+                    >
+                      <div className={`h-0.5 w-full ${style.barClass}`} />
+                      <div className="p-5">
+                        <div className="flex items-start justify-between gap-4 mb-4">
+                          <div>
+                            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${style.badgeClass} inline-block mb-2`}>{project.era}</span>
+                            <h3 className="text-lg font-black text-white">{project.title}</h3>
+                            <p className={`text-sm font-medium ${style.accentClass} mt-0.5`}>{project.roleLabel}</p>
+                          </div>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setSelectedId(null); }}
+                            className="shrink-0 p-1.5 rounded-lg bg-white/[0.04] text-white/30 hover:text-white/70 transition-all"
+                            aria-label="Close"
+                          >
+                            <ChevronDown size={14} />
+                          </button>
+                        </div>
+                        <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border mb-4 ${style.badgeClass}`}>
+                          <Zap size={11} />
+                          <span className="text-xs font-semibold">{project.impact}</span>
+                        </div>
+                        <p className="text-sm text-white/60 leading-relaxed mb-4">{project.body}</p>
+                        <div className="flex flex-wrap gap-1.5 mb-3">
+                          {project.tags.map((tag) => (
+                            <span key={tag} className={`px-2 py-0.5 rounded text-[10px] font-medium border ${style.tagClass}`}>{tag}</span>
+                          ))}
+                        </div>
+                        {project.refs.length > 0 && (
+                          <div className="flex flex-col gap-1.5">
+                            {project.refs.map((ref) => (
+                              <a key={ref.url} href={ref.url} target="_blank" rel="noopener noreferrer"
+                                className={`inline-flex items-center gap-1.5 text-xs ${style.accentClass} opacity-70 hover:opacity-100 transition-opacity`}>
+                                <ArrowUpRight size={11} />{ref.label}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </Fragment>
             );
           })}
-        </motion.div>
+        </div>
 
         {/* Show more */}
         {!showAll && SHIPPED_PROJECTS.length > SHIPPED_INITIAL && (
@@ -800,7 +841,8 @@ function MidnightShipped() {
           </motion.div>
         )}
 
-        {/* Detail inspector panel — appears below the grid */}
+        {/* Desktop inspector panel — hidden on mobile (mobile uses inline panels above) */}
+        <div className="hidden sm:block">
         <AnimatePresence mode="wait">
           {selected && (() => {
             const style = shippedColorConfig[selected.color] ?? shippedColorConfig.amber;
@@ -878,6 +920,78 @@ function MidnightShipped() {
             );
           })()}
         </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Blog ─────────────────────────────────────────────────────────────────────
+
+function MidnightBlog() {
+  return (
+    <section id="blog" className="py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-10"
+        >
+          <p className="text-xs uppercase tracking-[0.25em] text-violet-400 font-semibold mb-4 flex items-center gap-3">
+            <span className="block w-8 h-px bg-violet-500/50" />
+            Blog
+          </p>
+          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
+            Things I&apos;ve written
+          </h2>
+        </motion.div>
+
+        <div className="flex flex-col gap-4">
+          {BLOG_POSTS.map((post, idx) => (
+            <motion.div
+              key={post.slug}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: idx * 0.08 }}
+            >
+              <a href={`/blog/${post.slug}`} className="block group">
+                <article
+                  className="relative rounded-2xl border border-white/[0.07] overflow-hidden transition-all duration-300 group-hover:border-violet-500/30"
+                  style={{ background: "rgba(255,255,255,0.02)" }}
+                >
+                  <div className={`h-1 w-full bg-gradient-to-r ${post.coverAccent}`} />
+                  <div className="p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xl font-black text-white mb-1 group-hover:text-violet-200 transition-colors">{post.title}</h3>
+                      <p className="text-sm text-amber-400/70 italic mb-2">{post.subtitle}</p>
+                      <p className="text-sm text-white/40 leading-relaxed line-clamp-2">{post.description}</p>
+                    </div>
+                    <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-1 shrink-0">
+                      <span className="text-xs text-white/25">{new Date(post.date).toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span>
+                      <span className="text-xs text-white/25">{post.readTime}</span>
+                      <span className="text-sm text-violet-400/60 group-hover:text-violet-400 transition-colors font-medium mt-1">Read →</span>
+                    </div>
+                  </div>
+                </article>
+              </a>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-6 text-center"
+        >
+          <a href="/blog" className="text-xs text-white/25 hover:text-white/50 transition-colors tracking-widest uppercase">
+            View all posts →
+          </a>
+        </motion.div>
       </div>
     </section>
   );
@@ -1052,6 +1166,7 @@ export default function MidnightTheme() {
       <MidnightProfessional />
       <MidnightStrengths />
       <MidnightShipped />
+      <MidnightBlog />
       <MidnightBento />
       <MidnightFooter />
     </>

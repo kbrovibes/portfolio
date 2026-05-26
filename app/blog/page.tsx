@@ -4,7 +4,7 @@ import { BLOG_POSTS } from "@/lib/blog-data";
 import { ArrowLeft, Clock, Tag } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Writing — Karthik Rajan",
+  title: "Blog — Karthik Rajan",
   description: "Thoughts on engineering leadership, distributed systems, and the occasional trip down memory lane.",
 };
 
@@ -33,7 +33,7 @@ export default function BlogIndex() {
             <span>karthikrajan.dev</span>
           </Link>
           <span className="text-sm font-semibold text-white/60">
-            Writing<span className="text-violet-400">.</span>
+            Blog<span className="text-violet-400">.</span>
           </span>
         </div>
       </nav>
@@ -43,7 +43,7 @@ export default function BlogIndex() {
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.25em] text-violet-400 font-semibold mb-4 flex items-center gap-3">
             <span className="block w-8 h-px bg-violet-500/50" />
-            Writing
+            Blog
           </p>
           <h1 className="text-5xl sm:text-6xl font-black tracking-tight text-white mb-4">
             Things I&apos;ve written
