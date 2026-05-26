@@ -247,10 +247,10 @@ function MidnightHero() {
       <div aria-hidden className="pointer-events-none absolute top-1/3 right-1/4 w-[350px] h-[350px] rounded-full"
         style={{ background: "radial-gradient(circle, rgba(0,130,251,0.12) 0%, transparent 65%)", filter: "blur(60px)", animation: "float-orb-3 14s ease-in-out infinite" }}
       />
-      {/* Portrait — right-anchored ghost, all breakpoints, smaller on mobile */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* Desktop ghost portrait — fades out on mobile */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden opacity-0 lg:opacity-100 transition-opacity duration-500">
         <div
-          className="absolute right-[-3%] top-[10%] h-[58%] w-[46%] lg:right-0 lg:top-[17%] lg:h-[65%] lg:w-[52%]"
+          className="absolute right-0 top-[17%] h-[65%] w-[52%]"
           style={{
             maskImage: "radial-gradient(ellipse 78% 82% at 62% 34%, black 22%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.2) 72%, transparent 88%)",
             WebkitMaskImage: "radial-gradient(ellipse 78% 82% at 62% 34%, black 22%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.2) 72%, transparent 88%)",
@@ -260,22 +260,34 @@ function MidnightHero() {
           <img
             src="/photo/profile-headshot.png"
             alt=""
-            className="absolute right-0 top-0 h-full w-full object-cover object-top scale-[0.72] origin-[58%_12%] lg:scale-100 lg:origin-center"
+            className="absolute right-0 top-0 h-full w-full object-cover object-center"
             style={{ opacity: 0.7, filter: "contrast(1.25) brightness(1.15) saturate(1.1)" }}
           />
-          <div
-            className="absolute inset-0"
-            style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(59,130,246,0.06) 50%, rgba(236,72,153,0.05) 100%)", mixBlendMode: "color" }}
-          />
-          {/* edge softeners */}
-          <div className="absolute inset-x-0 top-0 h-[28%]" style={{ background: "linear-gradient(to bottom, #0a0a12 0%, transparent 100%)" }} />
-          <div className="absolute inset-x-0 bottom-0 h-[28%]" style={{ background: "linear-gradient(to top, #0a0a12 0%, transparent 100%)" }} />
-          <div className="absolute inset-y-0 left-0 w-[18%] lg:hidden" style={{ background: "linear-gradient(to right, #0a0a12 0%, transparent 100%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(59,130,246,0.06) 50%, rgba(236,72,153,0.05) 100%)", mixBlendMode: "color" }} />
+          <div className="absolute inset-x-0 top-0 h-[22%]" style={{ background: "linear-gradient(to bottom, #0a0a12 0%, transparent 100%)" }} />
+          <div className="absolute inset-x-0 bottom-0 h-[22%]" style={{ background: "linear-gradient(to top, #0a0a12 0%, transparent 100%)" }} />
         </div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
-        <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl pr-[36%] lg:pr-0">
+      {/* Mobile bubble — centered top, fades out on desktop */}
+      <div aria-hidden className="pointer-events-none absolute top-[11%] left-1/2 -translate-x-1/2 opacity-100 scale-100 lg:opacity-0 lg:scale-75 transition-all duration-500">
+        <div className="relative w-40 h-40 rounded-full overflow-hidden"
+          style={{ boxShadow: "0 0 0 1.5px rgba(139,92,246,0.28), 0 0 0 6px rgba(139,92,246,0.07), 0 20px 52px rgba(0,0,0,0.65)" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/photo/profile-headshot.png"
+            alt=""
+            className="w-full h-full object-cover"
+            style={{ objectPosition: "center 8%", opacity: 0.88, filter: "contrast(1.2) brightness(1.1) saturate(1.1)" }}
+          />
+          {/* inner vignette — no hard circle border */}
+          <div className="absolute inset-0 rounded-full"
+            style={{ background: "radial-gradient(circle, transparent 40%, rgba(10,10,18,0.4) 70%, rgba(10,10,18,0.9) 100%)" }} />
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-56 lg:pt-24 pb-20 w-full">
+        <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl">
 
           {/* Name */}
           <motion.h1 variants={fadeUp} className="text-5xl sm:text-7xl lg:text-[92px] font-black leading-[0.92] tracking-[-3px] mb-5">
