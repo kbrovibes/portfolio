@@ -692,28 +692,33 @@ function MidnightProfessional() {
 
 // ── Shipped ───────────────────────────────────────────────────────────────────
 
-const shippedColorConfig: Record<string, { cardClass: string; accentClass: string; badgeClass: string; tagClass: string }> = {
-  amber:   { cardClass: "bg-amber-500/[0.04] border-amber-500/20 hover:border-amber-500/35",   accentClass: "text-amber-400",   badgeClass: "bg-amber-500/10 text-amber-400/80 border-amber-500/20",   tagClass: "bg-amber-500/[0.07] text-amber-400/60 border-amber-500/15" },
-  blue:    { cardClass: "bg-blue-500/[0.04] border-blue-500/20 hover:border-blue-500/35",       accentClass: "text-blue-400",    badgeClass: "bg-blue-500/10 text-blue-400/80 border-blue-500/20",       tagClass: "bg-blue-500/[0.07] text-blue-400/60 border-blue-500/15" },
-  violet:  { cardClass: "bg-violet-500/[0.04] border-violet-500/20 hover:border-violet-500/35", accentClass: "text-violet-400",  badgeClass: "bg-violet-500/10 text-violet-400/80 border-violet-500/20", tagClass: "bg-violet-500/[0.07] text-violet-400/60 border-violet-500/15" },
-  emerald: { cardClass: "bg-emerald-500/[0.04] border-emerald-500/20 hover:border-emerald-500/35", accentClass: "text-emerald-400", badgeClass: "bg-emerald-500/10 text-emerald-400/80 border-emerald-500/20", tagClass: "bg-emerald-500/[0.07] text-emerald-400/60 border-emerald-500/15" },
-  pink:    { cardClass: "bg-pink-500/[0.04] border-pink-500/20 hover:border-pink-500/35",       accentClass: "text-pink-400",    badgeClass: "bg-pink-500/10 text-pink-400/80 border-pink-500/20",       tagClass: "bg-pink-500/[0.07] text-pink-400/60 border-pink-500/15" },
-  indigo:  { cardClass: "bg-indigo-500/[0.04] border-indigo-500/20 hover:border-indigo-500/35", accentClass: "text-indigo-400",  badgeClass: "bg-indigo-500/10 text-indigo-400/80 border-indigo-500/20", tagClass: "bg-indigo-500/[0.07] text-indigo-400/60 border-indigo-500/15" },
-  sky:     { cardClass: "bg-sky-500/[0.04] border-sky-500/20 hover:border-sky-500/35",         accentClass: "text-sky-400",     badgeClass: "bg-sky-500/10 text-sky-400/80 border-sky-500/20",         tagClass: "bg-sky-500/[0.07] text-sky-400/60 border-sky-500/15" },
-  rose:    { cardClass: "bg-rose-500/[0.04] border-rose-500/20 hover:border-rose-500/35",       accentClass: "text-rose-400",    badgeClass: "bg-rose-500/10 text-rose-400/80 border-rose-500/20",       tagClass: "bg-rose-500/[0.07] text-rose-400/60 border-rose-500/15" },
-  teal:    { cardClass: "bg-teal-500/[0.04] border-teal-500/20 hover:border-teal-500/35",       accentClass: "text-teal-400",    badgeClass: "bg-teal-500/10 text-teal-400/80 border-teal-500/20",       tagClass: "bg-teal-500/[0.07] text-teal-400/60 border-teal-500/15" },
+const shippedColorConfig: Record<string, { cardClass: string; accentClass: string; badgeClass: string; tagClass: string; ringClass: string; barClass: string }> = {
+  amber:   { cardClass: "bg-amber-500/[0.04] border-amber-500/20 hover:border-amber-500/35",       accentClass: "text-amber-400",   badgeClass: "bg-amber-500/10 text-amber-400/80 border-amber-500/20",       tagClass: "bg-amber-500/[0.07] text-amber-400/60 border-amber-500/15",   ringClass: "ring-amber-500/30",   barClass: "bg-gradient-to-r from-amber-500/60 to-amber-400/20" },
+  blue:    { cardClass: "bg-blue-500/[0.04] border-blue-500/20 hover:border-blue-500/35",           accentClass: "text-blue-400",    badgeClass: "bg-blue-500/10 text-blue-400/80 border-blue-500/20",           tagClass: "bg-blue-500/[0.07] text-blue-400/60 border-blue-500/15",       ringClass: "ring-blue-500/30",    barClass: "bg-gradient-to-r from-blue-500/60 to-blue-400/20" },
+  violet:  { cardClass: "bg-violet-500/[0.04] border-violet-500/20 hover:border-violet-500/35",     accentClass: "text-violet-400",  badgeClass: "bg-violet-500/10 text-violet-400/80 border-violet-500/20",     tagClass: "bg-violet-500/[0.07] text-violet-400/60 border-violet-500/15", ringClass: "ring-violet-500/30",  barClass: "bg-gradient-to-r from-violet-500/60 to-violet-400/20" },
+  emerald: { cardClass: "bg-emerald-500/[0.04] border-emerald-500/20 hover:border-emerald-500/35",   accentClass: "text-emerald-400", badgeClass: "bg-emerald-500/10 text-emerald-400/80 border-emerald-500/20",   tagClass: "bg-emerald-500/[0.07] text-emerald-400/60 border-emerald-500/15", ringClass: "ring-emerald-500/30", barClass: "bg-gradient-to-r from-emerald-500/60 to-emerald-400/20" },
+  pink:    { cardClass: "bg-pink-500/[0.04] border-pink-500/20 hover:border-pink-500/35",           accentClass: "text-pink-400",    badgeClass: "bg-pink-500/10 text-pink-400/80 border-pink-500/20",           tagClass: "bg-pink-500/[0.07] text-pink-400/60 border-pink-500/15",       ringClass: "ring-pink-500/30",    barClass: "bg-gradient-to-r from-pink-500/60 to-pink-400/20" },
+  indigo:  { cardClass: "bg-indigo-500/[0.04] border-indigo-500/20 hover:border-indigo-500/35",     accentClass: "text-indigo-400",  badgeClass: "bg-indigo-500/10 text-indigo-400/80 border-indigo-500/20",     tagClass: "bg-indigo-500/[0.07] text-indigo-400/60 border-indigo-500/15", ringClass: "ring-indigo-500/30",  barClass: "bg-gradient-to-r from-indigo-500/60 to-indigo-400/20" },
+  sky:     { cardClass: "bg-sky-500/[0.04] border-sky-500/20 hover:border-sky-500/35",             accentClass: "text-sky-400",     badgeClass: "bg-sky-500/10 text-sky-400/80 border-sky-500/20",             tagClass: "bg-sky-500/[0.07] text-sky-400/60 border-sky-500/15",         ringClass: "ring-sky-500/30",     barClass: "bg-gradient-to-r from-sky-500/60 to-sky-400/20" },
+  rose:    { cardClass: "bg-rose-500/[0.04] border-rose-500/20 hover:border-rose-500/35",           accentClass: "text-rose-400",    badgeClass: "bg-rose-500/10 text-rose-400/80 border-rose-500/20",           tagClass: "bg-rose-500/[0.07] text-rose-400/60 border-rose-500/15",       ringClass: "ring-rose-500/30",    barClass: "bg-gradient-to-r from-rose-500/60 to-rose-400/20" },
+  teal:    { cardClass: "bg-teal-500/[0.04] border-teal-500/20 hover:border-teal-500/35",           accentClass: "text-teal-400",    badgeClass: "bg-teal-500/10 text-teal-400/80 border-teal-500/20",           tagClass: "bg-teal-500/[0.07] text-teal-400/60 border-teal-500/15",       ringClass: "ring-teal-500/30",    barClass: "bg-gradient-to-r from-teal-500/60 to-teal-400/20" },
 };
 
 const SHIPPED_INITIAL = 6;
 
 function MidnightShipped() {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
+
   const visible = showAll ? SHIPPED_PROJECTS : SHIPPED_PROJECTS.slice(0, SHIPPED_INITIAL);
+  const selected = SHIPPED_PROJECTS.find((p) => p.id === selectedId) ?? null;
+
+  const handleSelect = (id: string) => setSelectedId((prev) => (prev === id ? null : id));
 
   return (
     <section id="shipped" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -734,6 +739,7 @@ function MidnightShipped() {
           <p className="mt-2 text-white/18 text-xs tracking-wide">Click any card to read more</p>
         </motion.div>
 
+        {/* Card grid — fixed height, no in-place expansion */}
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -743,80 +749,46 @@ function MidnightShipped() {
         >
           {visible.map((project) => {
             const style = shippedColorConfig[project.color] ?? shippedColorConfig.amber;
-            const isOpen = expandedId === project.id;
+            const isSelected = selectedId === project.id;
             return (
               <motion.div
                 key={project.id}
                 variants={tileAnim}
-                layout
-                className={`rounded-2xl border transition-all duration-300 cursor-pointer ${style.cardClass}`}
-                onClick={() => setExpandedId(isOpen ? null : project.id)}
+                className={`rounded-2xl border transition-all duration-200 cursor-pointer select-none ${
+                  isSelected
+                    ? `${style.cardClass} ring-1 ${style.ringClass}`
+                    : `${style.cardClass}`
+                }`}
+                onClick={() => handleSelect(project.id)}
               >
-                <div className="p-5">
+                <div className="p-5 h-full flex flex-col">
                   <div className="flex items-start justify-between gap-2 mb-4">
                     <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${style.badgeClass}`}>
                       {project.era}
                     </span>
-                    <ChevronDown
-                      size={14}
-                      className={`${style.accentClass} shrink-0 mt-0.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                    <ArrowUpRight
+                      size={13}
+                      className={`shrink-0 mt-0.5 transition-opacity duration-200 ${isSelected ? `${style.accentClass} opacity-100` : "text-white/20 opacity-60"}`}
                     />
                   </div>
                   <h3 className="text-base font-bold text-white mb-1">{project.title}</h3>
                   <p className={`text-xs font-medium ${style.accentClass} mb-3`}>{project.roleLabel}</p>
-                  <p className="text-sm text-white/45 leading-relaxed mb-4">{project.tagline}</p>
-                  <div className={`text-xs font-semibold ${style.accentClass} opacity-80`}>{project.impact}</div>
-
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pt-4 mt-4 border-t border-white/[0.06]">
-                          <p className="text-sm text-white/55 leading-relaxed mb-4">{project.body}</p>
-                          <div className="flex flex-wrap gap-1.5 mb-4">
-                            {project.tags.map((tag) => (
-                              <span key={tag} className={`px-2 py-0.5 rounded text-[10px] font-medium border ${style.tagClass}`}>{tag}</span>
-                            ))}
-                          </div>
-                          {project.refs.length > 0 && (
-                            <div className="flex flex-col gap-1.5">
-                              {project.refs.map((ref) => (
-                                <a
-                                  key={ref.url}
-                                  href={ref.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={(e) => e.stopPropagation()}
-                                  className={`inline-flex items-center gap-1.5 text-xs ${style.accentClass} hover:opacity-100 opacity-70 underline underline-offset-2 transition-opacity`}
-                                >
-                                  <ArrowUpRight size={10} />
-                                  {ref.label}
-                                </a>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <p className="text-sm text-white/45 leading-relaxed flex-1">{project.tagline}</p>
+                  <p className={`mt-4 text-xs font-semibold ${style.accentClass} opacity-75`}>{project.impact}</p>
                 </div>
               </motion.div>
             );
           })}
         </motion.div>
 
+        {/* Show more */}
         {!showAll && SHIPPED_PROJECTS.length > SHIPPED_INITIAL && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-8 text-center"
+            className="mt-6 text-center"
           >
             <button
               onClick={() => setShowAll(true)}
@@ -827,6 +799,85 @@ function MidnightShipped() {
             </button>
           </motion.div>
         )}
+
+        {/* Detail inspector panel — appears below the grid */}
+        <AnimatePresence mode="wait">
+          {selected && (() => {
+            const style = shippedColorConfig[selected.color] ?? shippedColorConfig.amber;
+            return (
+              <motion.div
+                key={selected.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className={`mt-6 rounded-2xl border overflow-hidden ${style.cardClass}`}
+              >
+                {/* Colored top bar */}
+                <div className={`h-0.5 w-full ${style.barClass}`} />
+
+                <div className="p-6 sm:p-8">
+                  <div className="flex items-start justify-between gap-4 mb-5">
+                    <div>
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${style.badgeClass}`}>
+                          {selected.era}
+                        </span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-black text-white">{selected.title}</h3>
+                      <p className={`text-sm font-medium ${style.accentClass} mt-1`}>{selected.roleLabel}</p>
+                    </div>
+                    <button
+                      onClick={() => setSelectedId(null)}
+                      className="shrink-0 p-1.5 rounded-lg bg-white/[0.04] text-white/30 hover:text-white/70 hover:bg-white/[0.08] transition-all"
+                      aria-label="Close detail"
+                    >
+                      <ChevronDown size={14} />
+                    </button>
+                  </div>
+
+                  {/* Impact metric */}
+                  <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border mb-5 ${style.badgeClass}`}>
+                    <Zap size={11} />
+                    <span className="text-xs font-semibold">{selected.impact}</span>
+                  </div>
+
+                  {/* Body */}
+                  <p className="text-sm sm:text-base text-white/60 leading-relaxed mb-6">{selected.body}</p>
+
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {selected.tags.map((tag) => (
+                        <span key={tag} className={`px-2 py-0.5 rounded text-[10px] font-medium border ${style.tagClass}`}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Refs */}
+                    {selected.refs.length > 0 && (
+                      <div className="flex flex-col gap-1.5 sm:ml-auto shrink-0">
+                        {selected.refs.map((ref) => (
+                          <a
+                            key={ref.url}
+                            href={ref.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`inline-flex items-center gap-1.5 text-xs ${style.accentClass} hover:opacity-100 opacity-60 transition-opacity`}
+                          >
+                            <ArrowUpRight size={11} />
+                            {ref.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })()}
+        </AnimatePresence>
       </div>
     </section>
   );
