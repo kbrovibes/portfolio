@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { Mail, RefreshCw } from "lucide-react";
+import { Mail } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, SHIPPED_PROJECTS } from "@/lib/portfolio-data";
 import { BLOG_POSTS } from "@/lib/blog-data";
@@ -54,10 +54,10 @@ function TerminalNav() {
   return (
     <div style={{ ...MONO, background: "#000", borderBottom: `1px solid ${BORDER}`, position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 48, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ color: GREEN, fontSize: 12 }}>
+        <a href="/" style={{ color: GREEN, fontSize: 12, textDecoration: "none" }}>
           <span style={{ color: GRAY }}>[</span>kbro ~<span style={{ color: GRAY }}>]</span>
           <span style={{ color: WHITE, marginLeft: 8 }}>$ portfolio --interactive</span>
-        </span>
+        </a>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer"
             style={{ color: GRAY, display: "flex", textDecoration: "none" }}
@@ -74,12 +74,6 @@ function TerminalNav() {
             aria-label="Email">
             <Mail size={15} />
           </a>
-          <button
-            onClick={() => window.location.reload()}
-            style={{ background: "none", border: "none", cursor: "pointer", color: GRAY, display: "flex", padding: 0 }}
-            aria-label="Refresh page">
-            <RefreshCw size={15} />
-          </button>
         </div>
       </div>
     </div>

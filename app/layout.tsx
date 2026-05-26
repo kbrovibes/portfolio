@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ServiceWorker from "@/components/ServiceWorker";
+import PullToRefresh from "@/components/PullToRefresh";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -48,6 +49,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans">
         <ServiceWorker />
+        <PullToRefresh />
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

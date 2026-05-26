@@ -189,14 +189,15 @@ function MidnightNav() {
     >
       <motion.div style={{ opacity: 1 }} className="hidden" />
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between border-b border-white/[0.04]">
-        <motion.span
+        <motion.a
+          href="/"
           initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-sm font-semibold tracking-wide text-white/80"
+          className="text-sm font-semibold tracking-wide text-white/80 hover:text-white transition-colors duration-200"
         >
           KR<span className="text-violet-400">.</span>
-        </motion.span>
+        </motion.a>
         <motion.div
           initial={{ opacity: 0, x: 16 }}
           animate={{ opacity: 1, x: 0 }}
@@ -218,9 +219,6 @@ function MidnightNav() {
             className="text-white/40 hover:text-white/90 transition-colors" aria-label="Download Resume" title="Download Resume">
             <Download size={16} />
           </a>
-          <button onClick={() => window.location.reload()} className="text-white/40 hover:text-white/90 transition-colors" aria-label="Refresh page">
-            <RefreshCw size={15} />
-          </button>
         </motion.div>
       </div>
     </motion.nav>
