@@ -274,7 +274,7 @@ function MidnightHero() {
 
           {/* Mobile: centered bubble + name — in document flow, never overlaps */}
           <motion.div variants={fadeUp} className="flex flex-col items-center text-center mb-8 lg:hidden">
-            <div className="relative w-[172px] h-[172px] rounded-full overflow-hidden mb-5"
+            <div className="relative w-[206px] h-[206px] rounded-full overflow-hidden mb-5"
               style={{ boxShadow: "0 0 0 1.5px rgba(139,92,246,0.28), 0 0 0 6px rgba(139,92,246,0.07), 0 20px 52px rgba(0,0,0,0.65)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -327,7 +327,7 @@ function MidnightHero() {
             <span className="text-white/20"> · </span>
             <span className="text-white/55 font-medium">ex-AWS Engineering Leader</span>
             <span className="text-white/20"> · </span>
-            <span className="text-white/30 italic">I stay close to the metal — the best managers can still read the diff</span>
+            <span className="text-white/30 italic">org design is just distributed systems with humans</span>
           </motion.p>
 
           {/* Location */}
