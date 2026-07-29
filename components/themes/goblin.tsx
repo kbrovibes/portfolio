@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { PERSONAL } from "@/lib/portfolio-data";
 import ThemeToggle from "@/components/ThemeToggle";
 import ShareTheme from "@/components/ShareTheme";
@@ -204,7 +204,7 @@ function GoblinNav() {
       <div style={{ maxWidth: 1080, margin: "0 auto", padding: "0 20px", height: 58, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <a href="/" style={{ textDecoration: "none", color: INK, fontWeight: 800, fontSize: 18, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ fontSize: 22 }}>🧌</span>
-          kbro<span style={{ color: PINK }}>.exe</span>
+          kbro
         </a>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", fontSize: 22 }} aria-label="LinkedIn">💼</a>
@@ -437,45 +437,27 @@ function GoblinHacks() {
 
 /* ── bangers (shipped) ───────────────────────────────────────────────────── */
 function GoblinBangers() {
-  const [open, setOpen] = useState<number | null>(0);
   return (
     <section style={{ ...FUN, position: "relative", zIndex: 1, maxWidth: 1080, margin: "0 auto", padding: "44px 20px" }}>
       <Heading bg={YELLOW}>🏆 certified bangers (no cap)</Heading>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 16 }}>
-        {BANGERS.map((b, i) => {
-          const isOpen = open === i;
-          return (
-            <motion.div
-              key={i}
-              custom={i}
-              variants={pop}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              onClick={() => setOpen(isOpen ? null : i)}
-              style={{ ...sticker(i % 2 ? -1 : 1), padding: "16px 18px", cursor: "pointer" }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <span style={{ fontSize: 30 }}>{b.emoji}</span>
-                <span style={{ fontSize: 18, fontWeight: 900, color: INK }}>{b.title}</span>
-                <span style={{ marginLeft: "auto", fontSize: 14, color: INK, opacity: 0.5 }}>{isOpen ? "−" : "+"}</span>
-              </div>
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.p
-                    initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                    animate={{ opacity: 1, height: "auto", marginTop: 10 }}
-                    exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                    transition={{ duration: 0.2 }}
-                    style={{ fontSize: 14, color: INK, opacity: 0.82, lineHeight: 1.5, overflow: "hidden" }}
-                  >
-                    {b.note}
-                  </motion.p>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          );
-        })}
+        {BANGERS.map((b, i) => (
+          <motion.div
+            key={i}
+            custom={i}
+            variants={pop}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            style={{ ...sticker(i % 2 ? -1 : 1), padding: "16px 18px" }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
+              <span style={{ fontSize: 30 }}>{b.emoji}</span>
+              <span style={{ fontSize: 18, fontWeight: 900, color: INK }}>{b.title}</span>
+            </div>
+            <p style={{ fontSize: 14, color: INK, opacity: 0.82, lineHeight: 1.5, margin: 0 }}>{b.note}</p>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
