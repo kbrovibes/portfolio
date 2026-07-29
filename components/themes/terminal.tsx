@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Mail } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import ShareTheme from "@/components/ShareTheme";
 import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, SHIPPED_PROJECTS } from "@/lib/portfolio-data";
 import { BLOG_POSTS } from "@/lib/blog-data";
 
@@ -136,7 +137,10 @@ function TerminalHero() {
           <div style={{ color: GREEN, fontSize: 14, marginBottom: 10 }}>
             kbro:~$ <span style={{ color: "#fff" }}>set-theme</span>
           </div>
-          <ThemeToggle />
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12 }}>
+            <ThemeToggle />
+            <ShareTheme variant="terminal" />
+          </div>
         </motion.div>
       </div>
     </section>

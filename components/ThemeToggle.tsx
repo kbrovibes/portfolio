@@ -4,6 +4,8 @@ import { useTheme } from "./ThemeProvider";
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const isMidnight = theme === "midnight";
+  const isTerminal = theme === "terminal";
+  const isGoblin = theme === "goblin";
 
   const base: React.CSSProperties = {
     padding: "4px 10px",
@@ -41,12 +43,22 @@ export default function ThemeToggle() {
         onClick={() => setTheme("terminal")}
         style={{
           ...base,
-          fontFamily: !isMidnight ? '"Courier New", monospace' : "inherit",
-          background: !isMidnight ? "rgba(0,255,65,0.15)" : "transparent",
-          color: !isMidnight ? "#00ff41" : "rgba(255,255,255,0.3)",
+          fontFamily: isTerminal ? '"Courier New", monospace' : "inherit",
+          background: isTerminal ? "rgba(0,255,65,0.15)" : "transparent",
+          color: isTerminal ? "#00ff41" : "rgba(255,255,255,0.3)",
         }}
       >
         &gt;_ Terminal
+      </button>
+      <button
+        onClick={() => setTheme("goblin")}
+        style={{
+          ...base,
+          background: isGoblin ? "linear-gradient(90deg,#ff2d95,#ffd400)" : "transparent",
+          color: isGoblin ? "#111" : "rgba(255,255,255,0.3)",
+        }}
+      >
+        🧌 Goblin
       </button>
     </div>
   );

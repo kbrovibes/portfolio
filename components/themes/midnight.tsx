@@ -4,6 +4,7 @@ import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import ShareTheme from "@/components/ShareTheme";
 import { PERSONAL, TIMELINE, EDUCATION, PROJECTS, SHIPPED_PROJECTS } from "@/lib/portfolio-data";
 import { BLOG_POSTS } from "@/lib/blog-data";
 
@@ -337,9 +338,10 @@ function MidnightHero() {
           </motion.div>
 
           {/* Theme toggle */}
-          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
+          <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-3 mb-8">
             <span className="text-[11px] text-white/25 uppercase tracking-widest">View as</span>
             <ThemeToggle />
+            <ShareTheme variant="midnight" />
           </motion.div>
 
           {/* CTAs — minimal two-row */}
