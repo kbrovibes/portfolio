@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- macOS launchd agent. Edit the two ABSOLUTE paths below, then:
+       cp com.kbro.ubr-thursday-watcher.plist ~/Library/LaunchAgents/
+       launchctl load ~/Library/LaunchAgents/com.kbro.ubr-thursday-watcher.plist
+     Unload with `launchctl unload` to stop polling entirely. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.kbro.ubr-thursday-watcher</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/node</string>
+    <string>/ABSOLUTE/PATH/TO/portfolio/automation/ubr-thursday-watcher/watch.mjs</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/ABSOLUTE/PATH/TO/portfolio/automation/ubr-thursday-watcher</string>
+  <key>StartInterval</key>
+  <integer>300</integer>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>StandardOutPath</key>
+  <string>/tmp/ubr-watcher.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/ubr-watcher.err.log</string>
+</dict>
+</plist>

@@ -1,0 +1,19 @@
+{
+  "portalUrl": "https://my.universalbadmintonrating.com/badminton_events",
+  "venueMatch": "NWBC",
+  "eventWeekday": 4,
+  "resumeWeekday": 6,
+  "watchNames": ["Kiran Iyer", "Vasu Chimmad"],
+  "whatsappGroup": "JSB",
+  "notifyOnBothSigned": true,
+  "cdpUrl": "http://127.0.0.1:9222",
+  "stateFile": "state.json",
+  "selectors": {
+    "eventCard": null,
+    "signupCount": null,
+    "rosterRow": null,
+    "registerButton": null
+  },
+  "openKeywords": ["register", "sign up", "signup", "join event", "rsvp"],
+  "closedKeywords": ["registration closed", "registration is closed", "not open yet", "opens on", "opens at", "coming soon", "cancelled", "canceled"]
+}

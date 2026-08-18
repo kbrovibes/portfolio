@@ -1,0 +1,16 @@
+{
+  "name": "ubr-thursday-watcher",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Polls the UBR portal for the weekly Thursday NWBC event and posts a WhatsApp notice to the JSB group when registration opens.",
+  "main": "watch.mjs",
+  "scripts": {
+    "check": "node watch.mjs --dry-run",
+    "calibrate": "node watch.mjs --calibrate",
+    "once": "node watch.mjs --force"
+  },
+  "dependencies": {
+    "playwright-core": "^1.50.0"
+  }
+}
