@@ -214,7 +214,7 @@ export const PROJECTS: Project[] = [
     title: "Superhero Stories",
     repoName: "superhero-stories",
     description:
-      "482 original superhero stories across Marvel, DC, and the Avengers, as a fully static web app. No death, no tragedy \u2014 written for a seven-year-old audience.",
+      "Hundreds of original superhero stories across Marvel, DC, and the Avengers, as a fully static web app. No death, no tragedy \u2014 written for a seven-year-old audience.",
     app: "https://superhero-stories.vercel.app",
     page: "https://kbrovibes.github.io/superhero-stories/",
     repo: "https://github.com/kbrovibes/superhero-stories",
