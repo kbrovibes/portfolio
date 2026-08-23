@@ -2,9 +2,9 @@
 
 import { motion, type Variants, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowRight, ArrowUpRight, Mail, GraduationCap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, GraduationCap, FileText } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
-import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
+import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, HUB_URL } from "@/lib/portfolio-data";
 
 // ── Color constants ───────────────────────────────────────────────────────────
 
@@ -42,6 +42,16 @@ const sectionIn: Variants = {
   hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
+
+// ── Reusable: GitHubIcon ──────────────────────────────────────────────────────
+
+function GitHubIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.627-5.373-12-12-12z"/>
+    </svg>
+  );
+}
 
 // ── Reusable: ToolCallRow ─────────────────────────────────────────────────────
 
@@ -596,7 +606,7 @@ function ClaudeProjects() {
             style={{ display: "flex", gap: 16, alignItems: "baseline" }}
           >
             <span style={{ color: C.dim }}>drwxr-xr-x</span>
-            <span style={{ color: C.orange, minWidth: 100 }}>{p.id}/</span>
+            <span style={{ color: C.orange, minWidth: 100 }}>{p.repoName}/</span>
             <span style={{ color: "rgba(255,255,255,0.35)" }}>{p.description.split(".")[0]}</span>
           </motion.div>
         ))}
@@ -623,91 +633,142 @@ function ClaudeProjects() {
           gap: 12,
         }}
       >
-        {PROJECTS.map((p) => {
-          const isActive = !!p.url;
-          return (
+        {PROJECTS.map((p) => (
+          <div
+            key={p.id}
+            style={{
+              background: C.surface,
+              border: `1px solid ${C.border}`,
+              borderRadius: 8,
+              padding: "20px",
+              transition: "background 0.2s, border-color 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.background = C.surfaceHover;
+              (e.currentTarget as HTMLElement).style.borderColor = C.borderHover;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.background = C.surface;
+              (e.currentTarget as HTMLElement).style.borderColor = C.border;
+            }}
+          >
             <div
-              key={p.id}
               style={{
-                background: C.surface,
-                border: `1px solid ${C.border}`,
-                borderRadius: 8,
-                padding: "20px",
-                transition: "background 0.2s, border-color 0.2s",
-                cursor: isActive ? "pointer" : "default",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = C.surfaceHover;
-                (e.currentTarget as HTMLElement).style.borderColor = C.borderHover;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = C.surface;
-                (e.currentTarget as HTMLElement).style.borderColor = C.border;
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 8,
               }}
             >
-              <div
+              <span
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginBottom: 8,
+                  fontFamily: C.mono,
+                  fontWeight: 700,
+                  fontSize: 15,
+                  color: C.orange,
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: C.mono,
-                    fontWeight: 700,
-                    fontSize: 15,
-                    color: isActive ? C.orange : C.medium,
-                  }}
-                >
-                  {p.title}
-                </span>
-                {p.url && (
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: C.dim, display: "flex" }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <ArrowUpRight size={14} />
-                  </a>
-                )}
-              </div>
-              <p
-                style={{
-                  fontSize: 13,
-                  color: "rgba(255,255,255,0.50)",
-                  lineHeight: 1.6,
-                  marginBottom: 12,
-                }}
-              >
-                {p.description}
-              </p>
-              {p.tags.length > 0 && (
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                  {p.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      style={{
-                        fontFamily: C.mono,
-                        fontSize: 10,
-                        color: C.dim,
-                        background: "rgba(255,255,255,0.05)",
-                        border: `1px solid rgba(255,255,255,0.08)`,
-                        borderRadius: 4,
-                        padding: "2px 7px",
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
+                {p.title}
+              </span>
             </div>
-          );
-        })}
+            <p
+              style={{
+                fontSize: 13,
+                color: "rgba(255,255,255,0.50)",
+                lineHeight: 1.6,
+                marginBottom: 12,
+              }}
+            >
+              {p.description}
+            </p>
+            {p.tags.length > 0 && (
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 14 }}>
+                {p.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    style={{
+                      fontFamily: C.mono,
+                      fontSize: 10,
+                      color: C.dim,
+                      background: "rgba(255,255,255,0.05)",
+                      border: `1px solid rgba(255,255,255,0.08)`,
+                      borderRadius: 4,
+                      padding: "2px 7px",
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+            <div
+              style={{
+                display: "flex",
+                gap: 14,
+                alignItems: "center",
+                fontFamily: C.mono,
+                fontSize: 11,
+                paddingTop: 12,
+                borderTop: `1px solid ${C.border}`,
+              }}
+            >
+              {p.app && (
+                <a
+                  href={p.app}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${p.title} app`}
+                  style={{ color: C.orange, display: "inline-flex", alignItems: "center", gap: 4, textDecoration: "none" }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <ArrowUpRight size={12} /> app
+                </a>
+              )}
+              <a
+                href={p.page}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${p.title} project page`}
+                style={{ color: C.cyan, display: "inline-flex", alignItems: "center", gap: 4, textDecoration: "none" }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <FileText size={12} /> page
+              </a>
+              <a
+                href={p.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${p.title} source on GitHub`}
+                style={{ color: C.medium, display: "inline-flex", alignItems: "center", gap: 4, textDecoration: "none" }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <GitHubIcon size={12} /> src
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ marginTop: 20 }}>
+        <ToolCallRow name="open" args="~/projects/index.html" time="1ms" />
+        <a
+          href={HUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="See all projects"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 6,
+            marginTop: 8,
+            fontFamily: C.mono,
+            fontSize: 13,
+            color: C.orange,
+            textDecoration: "none",
+          }}
+        >
+          {HUB_URL} <ArrowUpRight size={13} />
+        </a>
       </div>
     </motion.section>
   );

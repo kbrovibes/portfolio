@@ -3,7 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Mail } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
-import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, TECH_GROUPS } from "@/lib/portfolio-data";
+import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, TECH_GROUPS, HUB_URL } from "@/lib/portfolio-data";
 
 const BG = "#08001a";
 const PINK = "#FF006E";
@@ -187,24 +187,43 @@ function NeonProjects() {
           return (
             <motion.div key={p.id} variants={fadeUp}
               style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${c}30`, borderRadius: 12, padding: "24px", transition: "box-shadow 0.3s" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
+              <div style={{ marginBottom: 12 }}>
                 <h3 style={{ fontSize: 20, fontWeight: 900, color: c, textShadow: `0 0 8px ${c}60` }}>{p.title}</h3>
-                {p.url && (
-                  <a href={p.url} target="_blank" rel="noopener noreferrer" style={{ color: c, border: `1px solid ${c}60`, padding: 4, borderRadius: 6, display: "flex" }}>
-                    <ArrowUpRight size={14} />
-                  </a>
-                )}
               </div>
               <p style={{ fontSize: 13, color: DIM, lineHeight: 1.6, marginBottom: 16 }}>{p.description}</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16 }}>
                 {p.tags.map((t) => (
                   <span key={t} style={{ fontSize: 10, fontWeight: 600, border: `1px solid ${c}40`, padding: "2px 10px", borderRadius: 999, color: c, background: `${c}10` }}>{t}</span>
                 ))}
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {p.app && (
+                  <a href={p.app} target="_blank" rel="noopener noreferrer" aria-label={`Open ${p.title} app`}
+                    style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: BG, background: c, boxShadow: `0 0 10px ${c}90`, padding: "4px 12px", borderRadius: 999, textDecoration: "none" }}>
+                    App
+                  </a>
+                )}
+                <a href={p.page} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} project page`}
+                  style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: c, border: `1px solid ${c}80`, boxShadow: `0 0 6px ${c}40`, padding: "4px 12px", borderRadius: 999, textDecoration: "none" }}>
+                  Page
+                </a>
+                <a href={p.repo} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} source on GitHub`}
+                  style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: c, border: `1px solid ${c}80`, boxShadow: `0 0 6px ${c}40`, padding: "4px 12px", borderRadius: 999, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                  <GitHubIcon size={11} /> Src
+                </a>
               </div>
             </motion.div>
           );
         })}
       </div>
+
+      <motion.a variants={fadeUp} href={HUB_URL} target="_blank" rel="noopener noreferrer" aria-label="See all projects"
+        style={{ marginTop: 20, display: "flex", alignItems: "center", justifyContent: "center", gap: 10, border: `1px solid ${CYAN}80`, boxShadow: `0 0 16px ${CYAN}50`, borderRadius: 999, padding: "14px 24px", textDecoration: "none" }}>
+        <span style={{ fontSize: 14, fontWeight: 900, color: CYAN, textShadow: `0 0 8px ${CYAN}80`, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          See all projects — kbrovibes.github.io
+        </span>
+        <ArrowUpRight size={16} color={CYAN} />
+      </motion.a>
     </motion.section>
   );
 }

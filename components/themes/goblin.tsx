@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { PERSONAL } from "@/lib/portfolio-data";
+import { PERSONAL, PROJECTS, HUB_URL } from "@/lib/portfolio-data";
 import ThemeToggle from "@/components/ThemeToggle";
 import ShareTheme from "@/components/ShareTheme";
 
@@ -145,13 +145,17 @@ const BANGERS = [
   { emoji: "🌍", title: "26-region expansion", note: "made launching a new region require zero code. GovCloud, China, the works. lazy → scalable pipeline." },
 ];
 
-const GREMLINS = [
-  { emoji: "📈", title: "stonkbro", desc: "options-trading copilot. definitely not financial advice.", url: "https://stonkbro.vercel.app" },
-  { emoji: "🏸", title: "snobaddy", desc: "badminton court scheduler for my sports club.", url: "https://snobaddy.vercel.app" },
-  { emoji: "🧾", title: "taxbro", desc: "asks the AI scary tax questions so i don't have to.", url: null },
-  { emoji: "🦸", title: "superhero-stories", desc: "108 original superhero stories. yes, one hundred and eight.", url: "https://github.com/kbrovibes/superhero-stories" },
-  { emoji: "🎨", title: "this very page", desc: "the goofy portfolio you're reading. hi.", url: "https://github.com/kbrovibes/portfolio" },
-];
+/** goofy one-liners keyed by project id — falls back to the real description. */
+const GREMLIN_QUIPS: Record<string, string> = {
+  stylecheck: "an AI that dresses me. shows me wearing the fit BEFORE i put it on. sorcery.",
+  stonkbro: "options-trading copilot. definitely not financial advice. definitely financial vibes.",
+  marketmath: "20 years of SEC filings, judged harshly. tells you what the price is secretly assuming.",
+  opencourt: "run a whole badminton tournament from your phone. brackets! champions! no ads!",
+  snobaddy: "badminton court scheduler for my sports club. nobody asked. everybody uses it.",
+  wisesplit: "splitwise but free forever and the settle-up math is actually smarter. petty revenge project.",
+  "superhero-stories": "108 original superhero stories. yes. one hundred and eight. for my kids.",
+  "bro-toolkit": "one command to make a fresh mac feel like home. one command to undo it all.",
+};
 
 /* ── decorative floating blobs ───────────────────────────────────────────── */
 function Blobs() {
@@ -468,28 +472,70 @@ function GoblinGremlins() {
   return (
     <section style={{ ...FUN, position: "relative", zIndex: 1, maxWidth: 1080, margin: "0 auto", padding: "44px 20px" }}>
       <Heading bg={PURPLE}>🛸 weekend gremlin projects</Heading>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
-        {GREMLINS.map((g, i) => {
-          const inner = (
-            <>
-              <div style={{ fontSize: 32, marginBottom: 6 }}>{g.emoji}</div>
-              <div style={{ fontSize: 18, fontWeight: 900, color: INK }}>
-                {g.title} {g.url && <span style={{ fontSize: 13, color: PINK }}>↗</span>}
-              </div>
-              <p style={{ fontSize: 14, color: INK, opacity: 0.8, lineHeight: 1.45, margin: "6px 0 0" }}>{g.desc}</p>
-            </>
-          );
-          const style = { ...sticker(i % 2 ? 1.2 : -1.2), padding: "16px 18px", textDecoration: "none", display: "block" } as React.CSSProperties;
+      <p style={{ ...FUN, fontSize: 14, color: INK, opacity: 0.75, margin: "-6px 0 18px", lineHeight: 1.5 }}>
+        each one has a real app, a real write-up, and real source code. i have a problem.
+      </p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 16 }}>
+        {PROJECTS.map((p, i) => {
+          const linkStyle: React.CSSProperties = {
+            ...FUN,
+            fontSize: 12,
+            fontWeight: 800,
+            color: INK,
+            textDecoration: "none",
+            background: "#fff",
+            border: `2px solid ${INK}`,
+            borderRadius: 999,
+            padding: "3px 10px",
+            display: "inline-block",
+          };
           return (
-            <motion.div key={i} custom={i} variants={pop} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              {g.url ? (
-                <a href={g.url} target="_blank" rel="noopener noreferrer" style={style}>{inner}</a>
-              ) : (
-                <div style={style}>{inner}</div>
-              )}
+            <motion.div key={p.id} custom={i} variants={pop} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <div style={{ ...sticker(i % 2 ? 1.2 : -1.2), padding: "16px 18px", display: "flex", flexDirection: "column", height: "100%" }}>
+                <div style={{ fontSize: 32, marginBottom: 6 }}>{p.emoji}</div>
+                <div style={{ fontSize: 18, fontWeight: 900, color: INK }}>{p.title}</div>
+                <p style={{ fontSize: 14, color: INK, opacity: 0.8, lineHeight: 1.45, margin: "6px 0 12px", flex: 1 }}>
+                  {GREMLIN_QUIPS[p.id] ?? p.description}
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                  {p.app && (
+                    <a href={p.app} target="_blank" rel="noopener noreferrer" style={linkStyle}>
+                      🚀 app
+                    </a>
+                  )}
+                  <a href={p.page} target="_blank" rel="noopener noreferrer" style={linkStyle}>
+                    📖 page
+                  </a>
+                  <a href={p.repo} target="_blank" rel="noopener noreferrer" style={linkStyle}>
+                    🐙 code
+                  </a>
+                </div>
+              </div>
             </motion.div>
           );
         })}
+      </div>
+      <div style={{ textAlign: "center", marginTop: 22 }}>
+        <a
+          href={HUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            ...FUN,
+            display: "inline-block",
+            textDecoration: "none",
+            background: `linear-gradient(120deg, ${PINK}, ${ORANGE})`,
+            border: `3px solid ${INK}`,
+            borderRadius: 999,
+            padding: "10px 22px",
+            fontWeight: 900,
+            fontSize: 15,
+            color: "#fff",
+            textShadow: `1.5px 1.5px 0 ${INK}`,
+          }}
+        >
+          🗂️ see the whole shelf →
+        </a>
       </div>
     </section>
   );

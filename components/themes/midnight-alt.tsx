@@ -2,12 +2,9 @@
 
 import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen, Shirt, Calculator, Trophy, Receipt, Terminal, Pencil, FileText, Palette } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, Shuffle, ChevronDown, Download, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen, Shirt, Calculator, Trophy, Receipt, Terminal, type LucideIcon, Pencil, FileText, Palette } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import ShareTheme from "@/components/ShareTheme";
-import { PERSONAL, TIMELINE, EDUCATION, PROJECTS, SHIPPED_PROJECTS, HUB_URL } from "@/lib/portfolio-data";
-import type { Project } from "@/lib/portfolio-data";
+import { PERSONAL, TIMELINE, EDUCATION, PROJECTS, SHIPPED_PROJECTS, HUB_URL, type Project } from "@/lib/portfolio-data";
 import { BLOG_POSTS } from "@/lib/blog-data";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
@@ -250,56 +247,39 @@ function MidnightHero() {
       <div aria-hidden className="pointer-events-none absolute top-1/3 right-1/4 w-[350px] h-[350px] rounded-full"
         style={{ background: "radial-gradient(circle, rgba(0,130,251,0.12) 0%, transparent 65%)", filter: "blur(60px)", animation: "float-orb-3 14s ease-in-out infinite" }}
       />
-      {/* Desktop ghost portrait — fades out on mobile */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden opacity-0 lg:opacity-100 transition-opacity duration-500">
+      {/* Portrait — right-anchored ghost, all breakpoints, smaller on mobile */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute right-0 top-[17%] h-[65%] w-[52%]"
+          className="absolute right-[-3%] top-[10%] h-[58%] w-[46%] lg:right-0 lg:top-[17%] lg:h-[65%] lg:w-[52%]"
           style={{
-            maskImage: "radial-gradient(ellipse 78% 82% at 62% 34%, black 22%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.2) 72%, transparent 88%)",
-            WebkitMaskImage: "radial-gradient(ellipse 78% 82% at 62% 34%, black 22%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.2) 72%, transparent 88%)",
+            maskImage: "radial-gradient(ellipse 70% 74% at 62% 34%, black 18%, rgba(0,0,0,0.82) 32%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.12) 65%, transparent 80%)",
+            WebkitMaskImage: "radial-gradient(ellipse 70% 74% at 62% 34%, black 18%, rgba(0,0,0,0.82) 32%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.12) 65%, transparent 80%)",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/photo/profile-headshot.png"
+            src="/photo/profile-alt.jpg"
             alt=""
-            className="absolute right-0 top-0 h-full w-full object-cover object-center"
-            style={{ opacity: 0.7, filter: "contrast(1.25) brightness(1.15) saturate(1.1)" }}
+            className="absolute right-0 top-0 h-full w-full object-cover object-top scale-[0.72] origin-[58%_12%] lg:scale-100 lg:origin-center"
+            style={{ opacity: 0.52, filter: "grayscale(100%) contrast(1.2) brightness(1.1)" }}
           />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(59,130,246,0.06) 50%, rgba(236,72,153,0.05) 100%)", mixBlendMode: "color" }} />
-          <div className="absolute inset-x-0 top-0 h-[22%]" style={{ background: "linear-gradient(to bottom, #0a0a12 0%, transparent 100%)" }} />
-          <div className="absolute inset-x-0 bottom-0 h-[22%]" style={{ background: "linear-gradient(to top, #0a0a12 0%, transparent 100%)" }} />
+          {/* stronger violet tint to pull colour photo into the dark palette */}
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.35) 0%, rgba(59,130,246,0.18) 50%, rgba(236,72,153,0.14) 100%)", mixBlendMode: "color" }}
+          />
+          {/* edge softeners — more aggressive for colour photo */}
+          <div className="absolute inset-x-0 top-0 h-[35%]" style={{ background: "linear-gradient(to bottom, #0a0a12 0%, transparent 100%)" }} />
+          <div className="absolute inset-x-0 bottom-0 h-[35%]" style={{ background: "linear-gradient(to top, #0a0a12 0%, transparent 100%)" }} />
+          <div className="absolute inset-y-0 left-0 w-[22%] lg:hidden" style={{ background: "linear-gradient(to right, #0a0a12 0%, transparent 100%)" }} />
         </div>
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
-        <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl">
+        <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl pr-[36%] lg:pr-0">
 
-          {/* Mobile: centered bubble + name — in document flow, never overlaps */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center text-center mb-8 lg:hidden">
-            <div className="relative w-[206px] h-[206px] rounded-full overflow-hidden mb-5"
-              style={{ boxShadow: "0 0 0 1.5px rgba(139,92,246,0.28), 0 0 0 6px rgba(139,92,246,0.07), 0 20px 52px rgba(0,0,0,0.65)" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/photo/profile-headshot.png"
-                alt="Karthik Rajan"
-                className="w-full h-full object-cover"
-                style={{ objectPosition: "center 8%", opacity: 0.88, filter: "contrast(1.2) brightness(1.1) saturate(1.1)" }}
-              />
-              <div className="absolute inset-0 rounded-full"
-                style={{ background: "radial-gradient(circle, transparent 40%, rgba(10,10,18,0.4) 70%, rgba(10,10,18,0.9) 100%)" }} />
-            </div>
-            <h1 className="text-5xl font-black leading-[0.9] tracking-[-2.5px]">
-              <span className="text-white">{PERSONAL.firstName}</span>
-              <br />
-              <span style={{ background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 55%, #3B82F6 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                {PERSONAL.lastName}
-              </span>
-            </h1>
-          </motion.div>
-
-          {/* Desktop name */}
-          <motion.h1 variants={fadeUp} className="hidden lg:block text-[92px] font-black leading-[0.92] tracking-[-3px] mb-5">
+          {/* Name */}
+          <motion.h1 variants={fadeUp} className="text-5xl sm:text-7xl lg:text-[92px] font-black leading-[0.92] tracking-[-3px] mb-5">
             <span className="text-white">{PERSONAL.firstName}</span>
             <br />
             <span style={{ background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 55%, #3B82F6 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
@@ -330,7 +310,7 @@ function MidnightHero() {
             <span className="text-white/20"> · </span>
             <span className="text-white/55 font-medium">ex-AWS Engineering Leader</span>
             <span className="text-white/20"> · </span>
-            <span className="text-white/30 italic">org design is just distributed systems with humans</span>
+            <span className="text-white/30 italic">I stay close to the metal — the best managers can still read the diff</span>
           </motion.p>
 
           {/* Location */}
@@ -340,10 +320,9 @@ function MidnightHero() {
           </motion.div>
 
           {/* Theme toggle */}
-          <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-3 mb-8">
+          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
             <span className="text-[11px] text-white/25 uppercase tracking-widest">View as</span>
             <ThemeToggle />
-            <ShareTheme variant="midnight" />
           </motion.div>
 
           {/* CTAs — minimal two-row */}
@@ -1046,12 +1025,11 @@ function MidnightBlog() {
 
 // ── BentoBox ──────────────────────────────────────────────────────────────────
 
-const PROJECT_ICONS: Record<string, LucideIcon> = {
+const ALT_PROJECT_ICONS: Record<string, LucideIcon> = {
   Shirt, ChartLine, Calculator, Trophy, Shuffle, Receipt, BookOpen, Terminal,
-  Pencil, FileText, Palette,
 };
 
-const PROJECT_TONE: Record<string, { tile: string; iconBg: string; icon: string; tag: string; link: string }> = {
+const ALT_PROJECT_TONE: Record<string, { tile: string; iconBg: string; icon: string; tag: string; link: string }> = {
   amber:   { tile: "hover:border-amber-500/30 hover:bg-amber-500/[0.03]",     iconBg: "bg-amber-500/10",   icon: "text-amber-400",   tag: "bg-amber-500/10 text-amber-400/80 border-amber-500/15",     link: "hover:text-amber-400 hover:bg-amber-500/10" },
   emerald: { tile: "hover:border-emerald-500/30 hover:bg-emerald-500/[0.03]", iconBg: "bg-emerald-500/10", icon: "text-emerald-400", tag: "bg-emerald-500/10 text-emerald-400/80 border-emerald-500/15", link: "hover:text-emerald-400 hover:bg-emerald-500/10" },
   blue:    { tile: "hover:border-blue-500/30 hover:bg-blue-500/[0.03]",       iconBg: "bg-blue-500/10",    icon: "text-blue-400",    tag: "bg-blue-500/10 text-blue-400/80 border-blue-500/15",       link: "hover:text-blue-400 hover:bg-blue-500/10" },
@@ -1062,27 +1040,19 @@ const PROJECT_TONE: Record<string, { tile: string; iconBg: string; icon: string;
   violet:  { tile: "hover:border-violet-500/30 hover:bg-violet-500/[0.03]",   iconBg: "bg-violet-500/10",  icon: "text-violet-400",  tag: "bg-violet-500/10 text-violet-400/80 border-violet-500/15", link: "hover:text-violet-400 hover:bg-violet-500/10" },
 };
 
-function ProjectCard({ p }: { p: Project }) {
-  const tone = PROJECT_TONE[p.color] ?? PROJECT_TONE.violet;
-  const Icon = PROJECT_ICONS[p.icon] ?? Rocket;
+function AltProjectCard({ p }: { p: Project }) {
+  const tone = ALT_PROJECT_TONE[p.color] ?? ALT_PROJECT_TONE.violet;
+  const Icon = ALT_PROJECT_ICONS[p.icon] ?? Rocket;
 
   return (
-    <motion.div
-      variants={tileAnim}
-      className={`group relative flex flex-col rounded-2xl p-4 border overflow-hidden bg-white/[0.02] border-white/[0.07] transition-all duration-300 ${tone.tile}`}
-    >
+    <motion.div variants={tileAnim} className={`group relative flex flex-col rounded-2xl p-4 border overflow-hidden bg-white/[0.02] border-white/[0.07] transition-all duration-300 ${tone.tile}`}>
       <div className="flex items-start justify-between mb-3">
         <div className={`p-2 rounded-xl ${tone.iconBg}`}>
           <Icon size={16} className={tone.icon} />
         </div>
         {p.app && (
-          <a
-            href={p.app}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Open ${p.title}`}
-            className={`p-1.5 rounded-lg bg-white/[0.04] text-white/30 transition-all group-hover:scale-105 ${tone.link}`}
-          >
+          <a href={p.app} target="_blank" rel="noopener noreferrer" aria-label={`Open ${p.title}`}
+            className={`p-1.5 rounded-lg bg-white/[0.04] text-white/30 transition-all group-hover:scale-105 ${tone.link}`}>
             <ArrowUpRight size={14} />
           </a>
         )}
@@ -1099,7 +1069,7 @@ function ProjectCard({ p }: { p: Project }) {
 
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-3 border-t border-white/[0.06] text-[11px] font-medium">
         {p.app && (
-          <a href={p.app} target="_blank" rel="noopener noreferrer" className={`inline-flex items-center gap-1 text-white/45 transition-colors hover:text-white`}>
+          <a href={p.app} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-white/45 transition-colors hover:text-white">
             <ArrowUpRight size={11} /> Open app
           </a>
         )}
@@ -1128,14 +1098,13 @@ function MidnightBento() {
           </h2>
           <p className="mt-3 text-white/30 text-sm max-w-xl leading-relaxed">
             Vibe coded on free time — mostly to make my own life easier. Claude at the core, shipped to prod because why not.
-            Every one of them has a project page and open source behind it.
           </p>
         </motion.div>
 
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-auto">
           {PROJECTS.map((p) => (
-            <ProjectCard key={p.id} p={p} />
+            <AltProjectCard key={p.id} p={p} />
           ))}
 
           {/* All projects hub */}
@@ -1145,7 +1114,7 @@ function MidnightBento() {
               <span className="text-base font-bold text-white">rovibes</span>
             </div>
             <p className="text-xs text-white/40 leading-relaxed mb-3">
-              The whole shelf in one place — every project with its app, its write-up, and its source. Weekend vibe-coding, zero stakeholders, zero meetings.
+              GitHub org for weekend vibe-coding sessions. Every project with its app, its write-up, and its source. Zero stakeholders, zero meetings.
             </p>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] font-medium">
               <a href={HUB_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-violet-400 hover:text-violet-300 transition-colors">
@@ -1205,7 +1174,7 @@ function MidnightFooter() {
 
 // ── Default export ────────────────────────────────────────────────────────────
 
-export default function MidnightTheme() {
+export default function MidnightThemeAlt() {
   return (
     <>
       <MidnightNav />

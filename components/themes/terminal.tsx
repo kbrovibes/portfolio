@@ -5,7 +5,7 @@ import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Mail } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import ShareTheme from "@/components/ShareTheme";
-import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, SHIPPED_PROJECTS } from "@/lib/portfolio-data";
+import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, SHIPPED_PROJECTS, HUB_URL } from "@/lib/portfolio-data";
 import { BLOG_POSTS } from "@/lib/blog-data";
 
 const MONO: React.CSSProperties = {
@@ -18,6 +18,7 @@ const SOFT = "#86efac";     // secondary output — values, company names
 const GRAY = "#6b7280";     // metadata — dates, locations, permissions
 const BORDER = "#1a3a2a";   // card borders (dark green-tinted)
 const BORDER_DIM = "#1a1a1a"; // subtle borders
+const CYAN = "#38bdf8";     // links — app / page / source
 
 const lineIn: Variants = {
   hidden: { opacity: 0, x: -8 },
@@ -280,25 +281,42 @@ function TerminalProjects() {
       viewport={{ once: true, margin: "-60px" }}
       style={{ ...MONO, paddingLeft: 24, paddingRight: 24, paddingBottom: 60, maxWidth: 1100, margin: "0 auto" }}
     >
-      <p style={{ color: GREEN, fontSize: 15, marginBottom: 8 }}>kbro:~$ ls ~/side-projects/</p>
+      <p style={{ color: GREEN, fontSize: 15, marginBottom: 8 }}>kbro:~$ ls -l ~/side-projects/</p>
       <p style={{ color: GRAY, fontSize: 12, marginBottom: 16 }}># personal projects — vibe coded on free time, mostly to scratch my own itch</p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         {PROJECTS.map((p, i) => (
           <motion.div key={p.id} custom={i} variants={lineIn} initial="hidden" whileInView="visible" viewport={{ once: true }}
-            style={{ display: "flex", alignItems: "baseline", gap: 16, fontSize: 14 }}>
-            <span style={{ color: GRAY, flexShrink: 0 }}>drwxr-xr-x</span>
-            {p.url ? (
-              <a href={p.url} target="_blank" rel="noopener noreferrer"
-                style={{ color: GREEN, fontWeight: 700, textDecoration: "none", minWidth: 120 }}>
-                {p.title}/
+            style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 16, fontSize: 14, flexWrap: "wrap" }}>
+              <span style={{ color: GRAY, flexShrink: 0 }}>drwxr-xr-x</span>
+              <span style={{ color: GREEN, fontWeight: 700, minWidth: 150 }}>{p.repoName}/</span>
+              <span style={{ color: GRAY, fontSize: 13, flex: 1, minWidth: 240 }}>{p.description}</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 14, fontSize: 12, paddingLeft: 106, flexWrap: "wrap" }}>
+              <span style={{ color: GRAY }}>└─</span>
+              {p.app && (
+                <a href={p.app} target="_blank" rel="noopener noreferrer" style={{ color: CYAN, textDecoration: "none" }}>
+                  --app
+                </a>
+              )}
+              <a href={p.page} target="_blank" rel="noopener noreferrer" style={{ color: CYAN, textDecoration: "none" }}>
+                --page
               </a>
-            ) : (
-              <span style={{ color: GREEN, fontWeight: 700, minWidth: 120 }}>{p.title}/</span>
-            )}
-            <span style={{ color: GRAY, fontSize: 13 }}>{p.description}</span>
+              <a href={p.repo} target="_blank" rel="noopener noreferrer" style={{ color: CYAN, textDecoration: "none" }}>
+                --src
+              </a>
+              <span style={{ color: GRAY, opacity: 0.7 }}>{p.tags.join(" · ")}</span>
+            </div>
           </motion.div>
         ))}
       </div>
+      <p style={{ color: GREEN, fontSize: 15, margin: "22px 0 6px" }}>kbro:~$ open ~/side-projects/index.html</p>
+      <p style={{ fontSize: 13 }}>
+        <a href={HUB_URL} target="_blank" rel="noopener noreferrer" style={{ color: CYAN, textDecoration: "none" }}>
+          {HUB_URL}
+        </a>
+        <span style={{ color: GRAY }}>  # every project, one grid</span>
+      </p>
     </motion.section>
   );
 }

@@ -105,60 +105,179 @@ export const EDUCATION = {
   detail: "CGPA 8.47/10 · Winner, Mobme Codejam 2011",
 };
 
-export const PROJECTS = [
+export const HUB_URL = "https://kbrovibes.github.io/";
+
+export type Project = {
+  id: string;
+  title: string;
+  repoName: string;
+  description: string;
+  /** Live, usable app. Null when the project isn't a hosted web app. */
+  app: string | null;
+  /** Project landing page hosted on GitHub Pages. */
+  page: string;
+  /** Source repository. */
+  repo: string;
+  tags: string[];
+  color: string;
+  icon: string;
+  emoji: string;
+};
+
+export const PROJECTS: Project[] = [
+  {
+    id: "stylecheck",
+    title: "Hanger Management",
+    repoName: "stylecheck",
+    description:
+      "AI personal stylist. Catalogues every piece you own, builds a photoreal mannequin of you, and shows you wearing the outfit before you get dressed.",
+    app: "https://hangermanagement.vercel.app",
+    page: "https://kbrovibes.github.io/stylecheck/",
+    repo: "https://github.com/kbrovibes/stylecheck",
+    tags: ["Next.js 16", "Supabase", "Gemini", "Vercel"],
+    color: "amber",
+    icon: "Shirt",
+    emoji: "\u{1F454}",
+  },
   {
     id: "stonkbro",
-    title: "stonkbro",
+    title: "Stonk Bro",
+    repoName: "stonkbro",
     description:
-      "AI-powered options trading copilot. Live market data, PMCC scanner, real signals — built with Claude + Yahoo Finance.",
-    url: "https://stonkbro.vercel.app",
-    tags: ["Next.js", "Claude AI", "Supabase", "Vercel"],
+      "Options-trading copilot for premium sellers. Live chains, a PMCC scanner, AI research, position tracking, and roll/close signals. Definitely not financial advice.",
+    app: "https://stonkbro.vercel.app",
+    page: "https://kbrovibes.github.io/stonkbro/",
+    repo: "https://github.com/kbrovibes/stonkbro",
+    tags: ["Next.js", "Claude AI", "Supabase", "Yahoo Finance"],
     color: "emerald",
+    icon: "ChartLine",
+    emoji: "\u{1F4C8}",
+  },
+  {
+    id: "marketmath",
+    title: "Market Math",
+    repoName: "marketmath",
+    description:
+      "Fundamentals dashboard for the S&P 500. Twenty years of as-filed 10-K data, reverse DCF, transparent quality scores \u2014 every number traceable to an SEC filing.",
+    app: "https://marketmath-theta.vercel.app",
+    page: "https://kbrovibes.github.io/marketmath/",
+    repo: "https://github.com/kbrovibes/marketmath",
+    tags: ["Next.js", "Supabase", "SEC EDGAR", "Crons"],
+    color: "blue",
+    icon: "Calculator",
+    emoji: "\u{1F4CA}",
+  },
+  {
+    id: "opencourt",
+    title: "Open Court",
+    repoName: "opencourt",
+    description:
+      "Club badminton tournaments that don't feel like spreadsheets. Share a link, tap players into teams, and run the whole bracket from a phone at courtside.",
+    app: "https://opencourt-badminton.vercel.app",
+    page: "https://kbrovibes.github.io/opencourt/",
+    repo: "https://github.com/kbrovibes/opencourt",
+    tags: ["Next.js", "Supabase", "Realtime", "PWA"],
+    color: "sky",
+    icon: "Trophy",
+    emoji: "\u{1F3C6}",
   },
   {
     id: "snobaddy",
-    title: "snobaddy",
+    title: "Sno Baddy",
+    repoName: "snobaddy",
     description:
-      "Real-time sports club scheduling and court management. AI-assisted rotation and matchmaking.",
-    url: "https://snobaddy.vercel.app",
+      "A digital whiteboard for a Monday/Thursday badminton club in Snoqualmie. Sessions, check-ins, match generation, season leaderboards. Wildly over-engineered.",
+    app: "https://snobaddy.vercel.app",
+    page: "https://kbrovibes.github.io/snobaddy/",
+    repo: "https://github.com/kbrovibes/snobaddy",
     tags: ["Next.js", "Supabase", "Tailwind", "Realtime"],
     color: "pink",
+    icon: "Shuffle",
+    emoji: "\u{1F3F8}",
   },
   {
-    id: "taxbro",
-    title: "taxbro",
+    id: "wisesplit",
+    title: "Wise Split",
+    repoName: "wisesplit",
     description:
-      "AI-powered tax research assistant. Ask complex questions, get reasoning-backed answers. Built with Claude for accuracy-critical workflows.",
-    url: null,
-    tags: ["Claude AI", "Next.js", "TypeScript"],
-    color: "amber",
+      "Splitwise without the paywall. Debt-graph settle-up, natural-language quick add, multi-currency, offline PWA. Pure SVG, zero tracking, free forever.",
+    app: "https://kbrovibes.github.io/wisesplit/",
+    page: "https://kbrovibes.github.io/wisesplit/landing/",
+    repo: "https://github.com/kbrovibes/wisesplit",
+    tags: ["Next.js", "Supabase", "PWA", "GitHub Pages"],
+    color: "teal",
+    icon: "Receipt",
+    emoji: "\u{1F9FE}",
   },
   {
     id: "superhero-stories",
-    title: "superhero-stories",
+    title: "Superhero Stories",
+    repoName: "superhero-stories",
     description:
-      "108 original superhero stories across 20 heroes — fully static web app generated with AI. Marvel + DC + Avengers universes.",
-    url: "https://github.com/kbrovibes/superhero-stories",
-    tags: ["Claude AI", "Shell", "Static"],
+      "482 original superhero stories across Marvel, DC, and the Avengers, as a fully static web app. No death, no tragedy \u2014 written for a seven-year-old audience.",
+    app: "https://superhero-stories.vercel.app",
+    page: "https://kbrovibes.github.io/superhero-stories/",
+    repo: "https://github.com/kbrovibes/superhero-stories",
+    tags: ["Next.js", "Static Export", "Claude AI"],
     color: "indigo",
+    icon: "BookOpen",
+    emoji: "\u{1F9B8}",
+  },
+  {
+    id: "bro-toolkit",
+    title: "Bro Toolkit",
+    repoName: "bro-toolkit",
+    description:
+      "Portable Mac toolkit \u2014 Claude skills, zsh/tmux configs, and a kbro CLI. One command to set up a new machine, and one command to remove every trace.",
+    app: null,
+    page: "https://kbrovibes.github.io/bro-toolkit/",
+    repo: "https://github.com/kbrovibes/bro-toolkit",
+    tags: ["Shell", "Zsh", "Tmux", "Claude Skills"],
+    color: "violet",
+    icon: "Terminal",
+    emoji: "\u{1F9F0}",
+  },
+  {
+    id: "doodle-disaster",
+    title: "Doodle Disaster",
+    repoName: "doodle-disaster",
+    description:
+      "A multiplayer draw-and-guess party game. Short room codes, a live shared canvas, chat guessing, and bots to fill the room when your friends flake.",
+    app: "https://doodle-disaster.vercel.app",
+    page: "https://kbrovibes.github.io/doodle-disaster/",
+    repo: "https://github.com/kbrovibes/doodle-disaster",
+    tags: ["Next.js", "Canvas", "PWA"],
+    color: "rose",
+    icon: "Pencil",
+    emoji: "\u{1F58D}",
+  },
+  {
+    id: "taxbro",
+    title: "Tax Bro",
+    repoName: "taxbro",
+    description:
+      "A Claude Code assistant for US federal returns. Point it at a folder of W-2s, 1099s and receipts \u2014 it reads everything in one pass and builds a structured dashboard. Not tax advice.",
+    app: null,
+    page: "https://kbrovibes.github.io/taxbro/",
+    repo: "https://github.com/kbrovibes/taxbro",
+    tags: ["Claude Code", "TypeScript"],
+    color: "amber",
+    icon: "FileText",
+    emoji: "\u{1F9FE}",
   },
   {
     id: "portfolio",
-    title: "this portfolio",
+    title: "Portfolio",
+    repoName: "portfolio",
     description:
-      "The site you're looking at. Midnight dark theme, terminal CLI mode, framer-motion throughout. Built with Claude Code in live sessions.",
-    url: "https://github.com/kbrovibes/portfolio",
-    tags: ["Next.js", "Framer Motion", "Claude Code", "Tailwind"],
+      "This very site. One r\u00e9sum\u00e9 dataset rendered through completely different visual themes \u2014 a polished dark portfolio, a monospace CLI, and a deliberately goofy sticker mode.",
+    app: "https://karthikrajan.info",
+    page: "https://kbrovibes.github.io/portfolio/",
+    repo: "https://github.com/kbrovibes/portfolio",
+    tags: ["Next.js", "Framer Motion", "Tailwind"],
     color: "violet",
-  },
-  {
-    id: "kbrovibes",
-    title: "kbrovibes",
-    description:
-      "GitHub org for weekend vibe-coding sessions. Real tools, real data, real AI — zero stakeholders.",
-    url: "https://github.com/kbrovibes",
-    tags: [],
-    color: "violet",
+    icon: "Palette",
+    emoji: "\u{1F3A8}",
   },
 ];
 

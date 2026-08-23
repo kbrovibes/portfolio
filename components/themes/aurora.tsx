@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, FileText, Mail } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
-import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, TECH_GROUPS } from "@/lib/portfolio-data";
+import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, TECH_GROUPS, HUB_URL } from "@/lib/portfolio-data";
 
 const BG = "#020818";
 const TEAL = "#00c9a7";
@@ -212,11 +212,22 @@ function AuroraProjects() {
               style={{ background: `linear-gradient(135deg, ${c}08, ${BG})`, border: `1px solid ${c}20`, borderRadius: 16, padding: "24px", backdropFilter: "blur(12px)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                 <h3 style={{ fontSize: 20, fontWeight: 900, color: c }}>{p.title}</h3>
-                {p.url && (
-                  <a href={p.url} target="_blank" rel="noopener noreferrer" style={{ color: c, border: `1px solid ${c}40`, padding: 4, borderRadius: 6, display: "flex" }}>
-                    <ArrowUpRight size={14} />
+                <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
+                  {p.app && (
+                    <a href={p.app} target="_blank" rel="noopener noreferrer" aria-label={`Open ${p.title} app`}
+                      style={{ color: c, border: `1px solid ${c}40`, padding: 4, borderRadius: 6, display: "flex" }}>
+                      <ArrowUpRight size={14} />
+                    </a>
+                  )}
+                  <a href={p.page} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} project page`}
+                    style={{ color: c, border: `1px solid ${c}40`, padding: 4, borderRadius: 6, display: "flex" }}>
+                    <FileText size={14} />
                   </a>
-                )}
+                  <a href={p.repo} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} source on GitHub`}
+                    style={{ color: c, border: `1px solid ${c}40`, padding: 4, borderRadius: 6, display: "flex" }}>
+                    <GitHubIcon size={14} />
+                  </a>
+                </div>
               </div>
               <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.6, marginBottom: 16 }}>{p.description}</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
@@ -227,6 +238,14 @@ function AuroraProjects() {
             </motion.div>
           );
         })}
+        <motion.a href={HUB_URL} target="_blank" rel="noopener noreferrer" aria-label="See all projects" variants={gentle}
+          style={{ background: `linear-gradient(135deg, ${PURPLE}10, ${BG})`, border: `1px solid ${PURPLE}30`, borderRadius: 16, padding: "24px", backdropFilter: "blur(12px)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 8, textAlign: "center", textDecoration: "none" }}>
+          <span style={{ fontSize: 16, fontWeight: 900, color: PURPLE }}>See every project</span>
+          <span style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>The whole shelf — app, page, source</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 12, fontWeight: 700, color: PURPLE }}>
+            kbrovibes.github.io <ArrowUpRight size={12} />
+          </span>
+        </motion.a>
       </div>
     </motion.section>
   );

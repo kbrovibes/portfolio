@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import ThemeSelector from "@/components/ThemeSelector";
-import { PERSONAL, TIMELINE, EDUCATION, PROJECTS } from "@/lib/portfolio-data";
+import { PERSONAL, TIMELINE, EDUCATION, PROJECTS, HUB_URL } from "@/lib/portfolio-data";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -133,6 +133,27 @@ function OutputLine({
     <div style={{ color: dim ? C.textDim : C.text, lineHeight: "1.7" }}>
       {children}
     </div>
+  );
+}
+
+function FlagLink({ href, label, color }: { href: string; label: string; color: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${label.replace("--", "")} link: ${href}`}
+      style={{
+        color,
+        textDecoration: "none",
+        fontFamily: MONO,
+        fontSize: "13px",
+      }}
+      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.textDecoration = "underline")}
+      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.textDecoration = "none")}
+    >
+      {label}
+    </a>
   );
 }
 
@@ -579,7 +600,7 @@ function CliProjects() {
           <div key={p.id} style={{ marginBottom: i < PROJECTS.length - 1 ? "16px" : "0" }}>
             <OutputLine>
               <span style={{ color: C.textVeryDim }}>drwxr-xr-x </span>
-              <span style={{ color: C.textBright }}>{p.id}/</span>
+              <span style={{ color: C.textBright }}>{p.repoName}/</span>
             </OutputLine>
             <OutputLine>
               <span style={{ paddingLeft: "10px", color: C.textDim }}>
@@ -593,38 +614,33 @@ function CliProjects() {
                 </span>
               </OutputLine>
             )}
-            {p.url && (
-              <div style={{ paddingLeft: "10px" }}>
-                <span style={{ color: C.textDim }}>→ </span>
-                <a
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: C.orange,
-                    textDecoration: "none",
-                    fontFamily: MONO,
-                    fontSize: "13px",
-                  }}
-                  onMouseEnter={(e) =>
-                    ((e.currentTarget as HTMLElement).style.textDecoration = "underline")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.currentTarget as HTMLElement).style.textDecoration = "none")
-                  }
-                >
-                  {p.url}
-                </a>
-              </div>
-            )}
-            {!p.url && (
-              <OutputLine dim>
-                <span style={{ paddingLeft: "10px" }}>(not yet public)</span>
-              </OutputLine>
-            )}
+            <div style={{ paddingLeft: "10px", display: "flex", gap: "16px", flexWrap: "wrap" }}>
+              {p.app && (
+                <FlagLink href={p.app} label="--app" color={C.green} />
+              )}
+              <FlagLink href={p.page} label="--page" color={C.yellow} />
+              <FlagLink href={p.repo} label="--src" color={C.orange} />
+            </div>
           </div>
         ))}
       </OutputBox>
+
+      <div style={{ marginTop: "18px" }}>
+        <OutputLine>
+          <span style={{ color: C.textDim }}>→ </span>
+          <a
+            href={HUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="See all projects"
+            style={{ color: C.orange, textDecoration: "none", fontFamily: MONO, fontSize: "13px" }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.textDecoration = "underline")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.textDecoration = "none")}
+          >
+            --all-projects {HUB_URL}
+          </a>
+        </OutputLine>
+      </div>
 
       <motion.div
         initial={{ opacity: 0 }}

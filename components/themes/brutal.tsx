@@ -3,7 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Mail } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
-import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, TECH_GROUPS } from "@/lib/portfolio-data";
+import { PERSONAL, HERO_STATS, TIMELINE, EDUCATION, PROJECTS, TECH_GROUPS, HUB_URL } from "@/lib/portfolio-data";
 
 const BG = "#f0f0e8";
 const TEXT = "#0a0a0a";
@@ -146,24 +146,40 @@ function BrutalProjects() {
             style={{ border: BORDER, boxShadow: SHADOW, padding: "24px", borderRadius: 0, background: BG, display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
               <h3 style={{ fontSize: 22, fontWeight: 900, color: TEXT, textTransform: "uppercase" }}>{p.title}</h3>
-              {p.url && (
-                <a href={p.url} target="_blank" rel="noopener noreferrer"
-                  style={{ color: TEXT, border: `2px solid ${TEXT}`, padding: 4, display: "flex", alignItems: "center" }}>
-                  <ArrowUpRight size={16} />
-                </a>
-              )}
             </div>
             <p style={{ fontSize: 13, color: "#333", lineHeight: 1.6, marginBottom: 16, flex: 1 }}>{p.description}</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16 }}>
               {p.tags.map((t) => (
                 <span key={t} style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", border: `1.5px solid ${TEXT}`, padding: "2px 8px", borderRadius: 0, background: YELLOW }}>
                   {t}
                 </span>
               ))}
             </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {p.app && (
+                <a href={p.app} target="_blank" rel="noopener noreferrer" aria-label={`Open ${p.title} app`}
+                  style={{ fontSize: 11, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.06em", color: BG, background: RED, border: `2px solid ${TEXT}`, boxShadow: "2px 2px 0 #0a0a0a", padding: "6px 10px", textDecoration: "none" }}>
+                  APP
+                </a>
+              )}
+              <a href={p.page} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} project page`}
+                style={{ fontSize: 11, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.06em", color: TEXT, background: YELLOW, border: `2px solid ${TEXT}`, boxShadow: "2px 2px 0 #0a0a0a", padding: "6px 10px", textDecoration: "none" }}>
+                PAGE
+              </a>
+              <a href={p.repo} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} source code`}
+                style={{ fontSize: 11, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.06em", color: TEXT, background: BG, border: `2px solid ${TEXT}`, boxShadow: "2px 2px 0 #0a0a0a", padding: "6px 10px", textDecoration: "none" }}>
+                CODE
+              </a>
+            </div>
           </motion.div>
         ))}
       </motion.div>
+
+      <motion.a variants={reveal} href={HUB_URL} target="_blank" rel="noopener noreferrer" aria-label="See all projects"
+        style={{ marginTop: 20, display: "flex", alignItems: "center", justifyContent: "space-between", border: BORDER, boxShadow: SHADOW, padding: "20px 24px", background: TEXT, color: BG, textDecoration: "none" }}>
+        <span style={{ fontSize: 16, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.06em" }}>See every project — kbrovibes.github.io</span>
+        <ArrowUpRight size={20} />
+      </motion.a>
     </motion.section>
   );
 }
