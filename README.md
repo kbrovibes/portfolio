@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+My personal site. One file of career data, rendered by three completely different React themes.
 
-First, run the development server:
+**Live site:** [karthikrajan.info](https://karthikrajan.info)
+**Project page:** [kbrovibes.github.io/portfolio](https://kbrovibes.github.io/portfolio/)
+**All projects:** [kbrovibes.github.io](https://kbrovibes.github.io/)
+
+---
+
+## What it is
+
+Jobs, side projects, shipped systems and tech groups all live in `lib/portfolio-data.ts`; blog
+posts live in `lib/blog-data.ts`. Each theme is a separate component that imports those files and
+draws them its own way. Switching themes swaps the component, not the content.
+
+## Themes
+
+Three are wired into `app/page.tsx` and reachable from the switcher:
+
+| Theme | File | Look |
+|---|---|---|
+| `midnight` | `components/themes/midnight.tsx` | Default. Dark `#0a0a12`, violet/pink/blue gradient name, framer-motion, Tailwind. |
+| `terminal` | `components/themes/terminal.tsx` | CLI. Black, JetBrains Mono, every section a shell command. Inline styles only, no Tailwind. |
+| `goblin` | `components/themes/goblin.tsx` | Goofy. Cream paper, Comic Sans, sticker borders, the résumé rewritten as jokes. |
+
+`components/themes/` also holds `aurora`, `brutal`, `neon`, `claude-cli` and `claude-code`, which
+were built and then left out of the router. They are not reachable from the live site.
+
+## Theme switching
+
+`components/ThemeProvider.tsx` holds the active theme. On mount it reads, in order:
+
+1. a `?theme=` query parameter — this wins, and is how shared links work;
+2. `localStorage["portfolio-theme"]`.
+
+The choice is written back to `localStorage` and to `data-theme` on `<html>` (which
+`app/globals.css` uses to set the page background). `components/ShareTheme.tsx` copies
+`https://karthikrajan.info/?theme=<theme>` to the clipboard, or opens the native share sheet.
+
+## Also in here
+
+- `/blog` — a blog route with its own layout and metadata.
+- `app/manifest.ts` + `public/sw.js` — web manifest and a service worker that precaches the shell,
+  so the site installs to a home screen and opens standalone.
+- `public/karthik-rajan-resume.pdf` — downloads straight from the hero.
+
+## Running it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run build` for a production build.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Adding a section
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Every UI section must exist in **both** `components/themes/midnight.tsx` and
+`components/themes/terminal.tsx`. Terminal uses inline styles, not Tailwind, and shows images as
+modal-triggering links rather than inline. See `AGENTS.md`.
 
-## Learn More
+## Stack
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · framer-motion · lucide-react · deployed on
+Vercel. No database, no API routes, no accounts. The only stored state is the theme choice, in your
+own browser.

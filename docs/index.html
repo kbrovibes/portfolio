@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Portfolio — a résumé site with three themes</title>
+<meta name="description" content="My personal site: one file of career data, rendered by three separate React themes — a dark one, a terminal one, and a deliberately goofy one.">
+<meta name="author" content="Karthik Rajan">
+<meta name="color-scheme" content="dark">
+
+<link rel="canonical" href="https://kbrovibes.github.io/portfolio/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kbrovibes.github.io/portfolio/">
+<meta property="og:title" content="Portfolio — a résumé site with three themes">
+<meta property="og:description" content="One file of career data, rendered by three separate React themes: Midnight, Terminal, and Goblin Mode.">
+<meta property="og:image" content="https://kbrovibes.github.io/portfolio/media/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%97%90%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   THEME TOKENS — derived from app/globals.css and components/themes/midnight.tsx
+   (#0a0a12 page, #8B5CF6 violet, #EC4899 pink, #3B82F6 blue).
+   The app is dark-first, so this page is dark.
+   ========================================================================== */
+:root{
+  --bg:            #0a0a12;
+  --surface:       #14141f;
+  --surface-2:     #101019;
+  --ink:           #ffffff;
+  --muted:         #a2a2b8;
+  --accent:        #a78bfa;
+  --accent-ink:    #0a0a12;
+  --accent-2:      #ec4899;
+  --hairline:      #24243a;
+  --radius:        16px;
+  --shadow:        0 1px 2px rgba(0,0,0,.5), 0 22px 48px -26px rgba(139,92,246,.35);
+  --font-display:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:     "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:     "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme:    dark;
+}
+/* ==================== end theme tokens =================================== */
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{margin:0;line-height:1.1;letter-spacing:-.02em;font-weight:600}
+p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+::selection{background:rgba(139,92,246,.45);color:#fff}
+
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2)}
+.lede{color:var(--muted);font-size:17px;max-width:62ch}
+.band{background:var(--surface-2)}
+section{scroll-margin-top:80px}
+
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--accent-ink);
+  padding:12px 18px;z-index:99;border-radius:0 0 10px 0;font-weight:600}
+.skip:focus{left:0}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;
+  font-size:14px;font-weight:600;text-decoration:none;border:1px solid transparent;
+  transition:background .16s,color .16s,border-color .16s,transform .16s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{background:#fff;color:var(--bg)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--hairline)}
+.btn-ghost:hover{border-color:#4b4b6a}
+.btn-quiet{color:var(--muted);padding:11px 10px}
+.btn-quiet:hover{color:var(--ink)}
+.btn svg{width:15px;height:15px;flex:none;fill:currentColor}
+
+/* ---------- header ---------- */
+.site{position:sticky;top:0;z-index:40;background:rgba(10,10,18,.86);
+  backdrop-filter:saturate(1.6) blur(12px);border-bottom:1px solid var(--hairline)}
+.site .wrap{display:flex;align-items:center;gap:20px;height:62px}
+.wordmark{font-family:var(--font-display);font-size:19px;font-weight:800;letter-spacing:-.02em;
+  text-decoration:none;display:flex;align-items:baseline;gap:.5em}
+.wordmark b{font-weight:800}
+.wordmark span{font-size:13px;font-weight:400;color:var(--muted);letter-spacing:.02em}
+.site nav{display:flex;gap:22px;margin-left:auto;font-size:14px}
+.site nav a{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1.5px solid transparent}
+.site nav a:hover{color:var(--ink)}
+.site nav a[aria-current="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.site .links{display:flex;align-items:center;gap:6px;margin-left:auto}
+.site nav + .links{margin-left:16px}
+@media (max-width:900px){.site nav{display:none}.site .links .label-long{display:none}}
+@media (max-width:560px){.site .wrap{gap:10px;padding:0 16px}.btn{padding:9px 13px;font-size:13px}}
+
+/* ---------- hero ---------- */
+.hero{padding:72px 0 24px;position:relative;overflow:hidden}
+.hero .halo{position:absolute;pointer-events:none;border-radius:50%;filter:blur(70px);z-index:0}
+.hero .halo.a{top:-220px;left:-180px;width:620px;height:620px;background:radial-gradient(circle,rgba(139,92,246,.26) 0%,transparent 65%)}
+.hero .halo.b{top:120px;right:-200px;width:520px;height:520px;background:radial-gradient(circle,rgba(236,72,153,.18) 0%,transparent 65%)}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-size:clamp(34px,6.2vw,60px);max-width:15ch;font-weight:800}
+.hero h1 em{font-style:normal;font-weight:800;
+  background:linear-gradient(135deg,#8B5CF6 0%,#EC4899 55%,#3B82F6 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.hero .lede{margin-top:18px;font-size:clamp(16px,2.2vw,19px)}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;padding:0;list-style:none}
+.facts li{font-size:12.5px;color:var(--muted);border:1px solid var(--hairline);background:var(--surface);
+  border-radius:999px;padding:5px 12px}
+.hero-shot{margin-top:20px}
+
+/* ---------- frames ---------- */
+.frame{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);
+  box-shadow:var(--shadow);overflow:hidden}
+.frame .chrome{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--hairline);
+  background:var(--surface-2)}
+.frame .chrome i{width:9px;height:9px;border-radius:50%;background:var(--hairline);flex:none}
+.frame .chrome .url{margin-left:8px;font-family:var(--font-mono);font-size:11px;color:var(--muted);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.frame .media{aspect-ratio:16/10;background:var(--surface-2)}
+.frame .media > *{width:100%;height:100%;object-fit:cover;object-position:top center}
+.frame.phone{max-width:290px;border-radius:30px;padding:8px;margin-inline:auto}
+.frame.phone .media{aspect-ratio:9/19.5;border-radius:22px;overflow:hidden}
+
+/* ---------- theme recreations (CSS, not screenshots) ---------- */
+.miniwrap{container-type:inline-size;width:100%;height:100%;display:block}
+.mini{position:relative;width:100%;height:100%;overflow:hidden;font-size:15px;line-height:1.5}
+@supports (width:1cqw){.mini{font-size:2.05cqw}.mini.m-phone{font-size:5.2cqw}}
+.cap{margin-top:11px;font-family:var(--font-mono);font-size:11.5px;color:var(--muted);letter-spacing:.01em}
+.cap b{color:var(--accent);font-weight:400}
+
+/* --- Midnight recreation --- */
+.m-mid{background:#0a0a12;color:#fff;font-family:var(--font-body);padding:1.7em 2.2em}
+.m-mid .dots{position:absolute;inset:0;
+  background-image:radial-gradient(rgba(139,92,246,.20) .1em,transparent .1em);
+  background-size:1.8em 1.8em;
+  -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 30%,#000 20%,transparent 75%);
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 30%,#000 20%,transparent 75%)}
+.m-mid .orb{position:absolute;border-radius:50%;filter:blur(3em)}
+.m-mid .orb.o1{top:-8em;left:-7em;width:22em;height:22em;background:radial-gradient(circle,rgba(139,92,246,.30) 0%,transparent 65%)}
+.m-mid .orb.o2{bottom:-10em;right:-4em;width:20em;height:20em;background:radial-gradient(circle,rgba(236,72,153,.22) 0%,transparent 65%)}
+.m-mid .ghost{position:absolute;right:0;top:12%;height:74%;width:44%;object-fit:cover;object-position:center 12%;
+  opacity:.62;filter:contrast(1.2) brightness(1.08) saturate(1.05);
+  -webkit-mask-image:radial-gradient(ellipse 76% 80% at 62% 34%,#000 22%,rgba(0,0,0,.6) 55%,transparent 88%);
+  mask-image:radial-gradient(ellipse 76% 80% at 62% 34%,#000 22%,rgba(0,0,0,.6) 55%,transparent 88%)}
+.m-mid .body{position:relative;z-index:2;max-width:32em}
+.m-mid .nm{font-size:3.8em;font-weight:900;line-height:.92;letter-spacing:-.045em}
+.m-mid .grad{background:linear-gradient(135deg,#8B5CF6 0%,#EC4899 55%,#3B82F6 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.m-mid .role{display:flex;align-items:center;gap:.55em;margin-top:.9em;font-size:1.15em;font-weight:600;color:rgba(255,255,255,.66)}
+.m-mid .role b{color:#60a5fa;font-weight:600}
+.m-mid .pulse{width:.55em;height:.55em;border-radius:50%;background:#3B82F6;flex:none;
+  box-shadow:0 0 0 .28em rgba(59,130,246,.25)}
+.m-mid .txt{margin-top:.8em;font-size:.95em;font-weight:300;color:rgba(255,255,255,.5);line-height:1.55}
+.m-mid .txt b{color:rgba(255,255,255,.8);font-weight:500}
+.m-mid .viewas{display:flex;align-items:center;gap:.7em;margin-top:1.4em}
+.m-mid .lbl{font-size:.65em;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.m-mid .seg{display:inline-flex;align-items:center;gap:.15em;border-radius:999px;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);padding:.15em}
+.m-mid .seg i{font-style:normal;font-size:.62em;font-weight:600;letter-spacing:.03em;
+  padding:.35em .85em;border-radius:999px;color:rgba(255,255,255,.3);white-space:nowrap}
+.m-mid .seg i.on{background:rgba(139,92,246,.3);color:#c4b5fd}
+.m-mid .pills{display:flex;gap:.6em;margin-top:1.2em}
+.m-mid .pills span{font-size:.72em;font-weight:500;padding:.55em 1.15em;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7)}
+.m-mid .pills span.p2{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.08);color:rgba(255,255,255,.45)}
+.m-mid .secnav{display:flex;flex-wrap:wrap;gap:1.1em;margin-top:1.2em;font-size:.66em;color:rgba(255,255,255,.3);letter-spacing:.03em}
+
+/* --- Midnight: project bento recreation --- */
+.m-bento{background:#0a0a12;color:#fff;font-family:var(--font-body);padding:1.8em 2.2em}
+.m-bento .h{font-size:1.7em;font-weight:800;letter-spacing:-.03em}
+.m-bento .h .grad{background:linear-gradient(135deg,#8B5CF6 0%,#EC4899 55%,#3B82F6 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.m-bento .sub{font-size:.72em;color:rgba(255,255,255,.35);margin-top:.4em}
+.m-bento .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.75em;margin-top:1.2em}
+.m-bento .tile{border-radius:.85em;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);padding:.8em .85em}
+.m-bento .tile .e{font-size:1.15em}
+.m-bento .tile .t{font-size:.78em;font-weight:600;margin-top:.35em;letter-spacing:-.01em}
+.m-bento .tile .d{font-size:.6em;color:rgba(255,255,255,.4);margin-top:.25em;line-height:1.45}
+.m-bento .tile .tg{display:flex;gap:.3em;margin-top:.5em;flex-wrap:wrap}
+.m-bento .tile .tg i{font-style:normal;font-size:.52em;padding:.25em .6em;border-radius:999px;
+  background:rgba(139,92,246,.14);color:#c4b5fd;border:1px solid rgba(139,92,246,.2)}
+.m-bento .tile .lk{display:flex;gap:.7em;margin-top:.55em;font-size:.55em;color:#60a5fa}
+
+/* --- Terminal recreation --- */
+.m-term{background:#000;color:#d4d4d4;font-family:var(--font-mono);padding:0}
+.m-term .tnav{border-bottom:1px solid #1a3a2a;padding:.75em 1.4em;font-size:.78em}
+.m-term .tbody{padding:1.3em 1.4em}
+.m-term p{font-size:.9em;line-height:1.55;white-space:pre-wrap;word-break:break-word}
+.m-term .g{color:#00ff41}
+.m-term .w{color:#d4d4d4}
+.m-term .s{color:#86efac}
+.m-term .d{color:#6b7280}
+.m-term .c{color:#38bdf8}
+.m-term .big{font-size:3.4em;font-weight:900;color:#00ff41;letter-spacing:-.03em;line-height:1.05;margin:.1em 0 .12em}
+.m-term .cur{display:inline-block;width:.55em;height:1em;background:#00ff41;vertical-align:-.15em;
+  animation:blink 1.05s step-end infinite}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.m-term .row{display:flex;gap:1em;font-size:.82em;line-height:1.7;flex-wrap:nowrap}
+.m-term .row .nm{color:#00ff41;font-weight:700;min-width:9.5em}
+.m-term .row .ds{color:#6b7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.m-term .sub{padding-left:7.4em;font-size:.72em;color:#6b7280;display:flex;gap:.9em}
+
+/* --- Goblin recreation --- */
+.m-gob{background:#fff8e7;color:#1a1030;padding:0;
+  font-family:"Comic Sans MS","Comic Neue","Chalkboard SE","Marker Felt",system-ui,sans-serif}
+.m-gob .blob{position:absolute;border-radius:50%;filter:blur(3.2em);opacity:.3}
+.m-gob .blob.b1{top:-4em;left:-4em;width:16em;height:16em;background:#ff2d95}
+.m-gob .blob.b2{bottom:-5em;right:-4em;width:17em;height:17em;background:#00d4ff}
+.m-gob .gnav{position:relative;z-index:2;border-bottom:.19em solid #1a1030;background:rgba(255,248,231,.85);
+  padding:.7em 1.4em;display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:.95em}
+.m-gob .gnav .ic{display:flex;gap:.5em;font-size:1.05em}
+.m-gob .gbody{position:relative;z-index:2;padding:1.3em 1.4em;text-align:center}
+.m-gob .avwrap{position:relative;width:7.2em;height:7.2em;margin:0 auto .7em}
+.m-gob .av{width:100%;height:100%;border-radius:1.5em;
+  border:.3em solid #fff;outline:.24em solid #1a1030;box-shadow:.5em .5em 0 #1a1030;
+  overflow:hidden;transform:rotate(-3deg)}
+.m-gob .av img{width:100%;height:100%;object-fit:cover}
+.m-gob .crown{position:absolute;top:-.7em;right:-.5em;font-size:1.9em;z-index:3;line-height:1}
+.m-gob .nm{font-size:3.2em;font-weight:900;letter-spacing:-.03em;line-height:1}
+.m-gob .nm .grad{background:linear-gradient(90deg,#ff2d95,#ff7a00,#a855f7);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.m-gob .pill{display:inline-block;margin-top:.6em;background:#ffd400;border:.19em solid #1a1030;
+  border-radius:999px;box-shadow:.25em .25em 0 #1a1030;padding:.35em 1em;font-size:.95em;font-weight:800;
+  transform:rotate(-1.5deg)}
+.m-gob .blurb{max-width:26em;margin:.9em auto 0;font-size:.82em;opacity:.82;line-height:1.5}
+.m-gob .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.8em;margin-top:1.1em;text-align:left}
+.m-gob .cd{background:#fff;border:.19em solid #1a1030;border-radius:1em;box-shadow:.35em .35em 0 #1a1030;padding:.75em .8em}
+.m-gob .cd .e{font-size:1.4em}
+.m-gob .cd .t{font-size:.78em;font-weight:800;margin-top:.2em}
+.m-gob .cd .n{font-size:.62em;margin-top:.3em;opacity:.75;line-height:1.45}
+.m-gob .cd:nth-child(1){transform:rotate(-1.6deg)}
+.m-gob .cd:nth-child(2){transform:rotate(1.2deg)}
+.m-gob .cd:nth-child(3){transform:rotate(-.7deg)}
+
+/* --- phone recreation (midnight mobile hero) --- */
+.m-phone{background:#0a0a12;color:#fff;font-family:var(--font-body);padding:2.4em 1.4em;text-align:center}
+.m-phone .bub{width:9.5em;height:9.5em;border-radius:50%;overflow:hidden;margin:0 auto 1.1em;
+  box-shadow:0 0 0 .08em rgba(139,92,246,.3),0 0 0 .32em rgba(139,92,246,.08)}
+.m-phone .bub img{width:100%;height:100%;object-fit:cover;object-position:center 8%;opacity:.9}
+.m-phone .nm{font-size:2.5em;font-weight:900;line-height:.92;letter-spacing:-.045em}
+.m-phone .grad{background:linear-gradient(135deg,#8B5CF6 0%,#EC4899 55%,#3B82F6 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.m-phone .role{margin-top:.9em;font-size:.85em;font-weight:600;color:rgba(255,255,255,.6)}
+.m-phone .seg{display:inline-flex;gap:.15em;border-radius:999px;margin-top:1.2em;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);padding:.15em}
+.m-phone .seg i{font-style:normal;font-size:.55em;font-weight:600;padding:.4em .7em;border-radius:999px;color:rgba(255,255,255,.3)}
+.m-phone .seg i.on{background:rgba(139,92,246,.3);color:#c4b5fd}
+.m-phone .txt{margin-top:.7em;font-size:.7em;font-weight:300;color:rgba(255,255,255,.45);line-height:1.55}
+.m-phone .secnav{display:flex;flex-wrap:wrap;justify-content:center;gap:.9em;margin-top:1.2em;font-size:.6em;color:rgba(255,255,255,.3)}
+.m-phone .share{margin-top:1em;font-size:.6em;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);border-radius:999px;padding:.5em 1em;display:inline-block}
+.m-phone .url{margin-top:1.1em;font-family:var(--font-mono);font-size:.52em;color:#c4b5fd;word-break:break-all}
+
+/* ---------- theme switcher above the hero frame ---------- */
+.switch{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:34px}
+.switch .lab{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.swbtn{font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;
+  padding:8px 15px;border-radius:999px;border:1px solid var(--hairline);background:var(--surface);
+  color:var(--muted);transition:background .16s,color .16s,border-color .16s}
+.swbtn:hover{color:var(--ink);border-color:#4b4b6a}
+.swbtn[aria-pressed="true"]{background:rgba(139,92,246,.22);border-color:rgba(139,92,246,.5);color:#c4b5fd}
+
+/* ---------- section head ---------- */
+.head{max-width:70ch}
+.head h2{font-size:clamp(26px,3.6vw,38px);margin-top:10px}
+.head p{margin-top:14px;color:var(--muted);font-size:17px}
+.pad{padding:76px 0}
+.pad-sm{padding:56px 0}
+
+/* ---------- what it is ---------- */
+.what{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
+.what p + p{margin-top:14px}
+.what .prose{font-size:17.5px;color:var(--muted)}
+.what .prose strong{font-weight:600;color:var(--ink)}
+.what .prose code{font-family:var(--font-mono);font-size:.88em;color:var(--accent)}
+.forwho{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);padding:22px 24px}
+.forwho h3{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.forwho ul{margin:14px 0 0;padding-left:0;list-style:none;display:grid;gap:12px}
+.forwho li{display:flex;gap:10px;font-size:15px;color:var(--muted)}
+.forwho li b{color:var(--ink);font-weight:600}
+.forwho li::before{content:"";flex:none;width:6px;height:6px;margin-top:9px;border-radius:50%;background:var(--accent)}
+@media (max-width:860px){.what{grid-template-columns:1fr;gap:32px}}
+
+/* ---------- carousel ---------- */
+.tour{padding:76px 0 64px;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+.tour .bar{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  margin-top:34px;gap:0;overscroll-behavior-x:contain}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;scroll-snap-stop:always;
+  display:grid;grid-template-columns:1.25fr 1fr;gap:52px;align-items:center;padding:0 24px}
+.slide .copy h3{font-size:clamp(24px,3.4vw,36px);margin-top:8px;font-weight:800}
+.slide .copy h3 em{font-style:normal;font-weight:800;
+  background:linear-gradient(135deg,#8B5CF6 0%,#EC4899 55%,#3B82F6 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.slide .copy p{margin-top:14px;color:var(--muted);font-size:16.5px;max-width:44ch}
+.slide .copy ul{margin:18px 0 0;padding-left:0;list-style:none;display:grid;gap:8px;font-size:14.5px;color:var(--muted)}
+.slide .copy li::before{content:"— ";color:var(--accent)}
+.slide .copy code{font-family:var(--font-mono);font-size:.9em;color:var(--accent)}
+.controls{display:flex;align-items:center;gap:14px;margin-top:30px;justify-content:center}
+.dots{display:flex;gap:8px}
+.dot{width:8px;height:8px;padding:0;border:0;border-radius:999px;background:rgba(255,255,255,.24);
+  cursor:pointer;transition:width .2s,background .2s}
+.dot[aria-current="true"]{width:26px;background:var(--accent)}
+.arrow,.pause{width:34px;height:34px;display:grid;place-items:center;border-radius:999px;cursor:pointer;
+  border:1px solid var(--hairline);background:var(--surface);color:var(--ink)}
+.arrow:hover,.pause:hover{border-color:#4b4b6a}
+.arrow svg,.pause svg{width:14px;height:14px;fill:currentColor}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media (max-width:900px){
+  .slide{grid-template-columns:1fr;gap:26px;padding:0 20px}
+  .slide .shot{order:-1}
+  .slide .copy p{max-width:none}
+}
+
+/* ---------- steps ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;margin-top:38px;
+  background:var(--hairline);border:1px solid var(--hairline);border-radius:var(--radius);overflow:hidden}
+.step{background:var(--bg);padding:26px 24px}
+.step .n{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--accent-2);letter-spacing:.08em}
+.step h3{font-size:17px;margin-top:12px}
+.step p{margin-top:8px;font-size:14.5px;color:var(--muted)}
+.step code{font-family:var(--font-mono);font-size:.9em;color:var(--accent)}
+
+/* ---------- features ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:38px}
+.card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);padding:22px}
+.card h3{font-size:16px;display:flex;align-items:center;gap:9px}
+.card h3 svg{width:16px;height:16px;fill:none;stroke:var(--accent);stroke-width:1.7;flex:none}
+.card p{margin-top:9px;font-size:14.5px;color:var(--muted)}
+.card code{font-family:var(--font-mono);font-size:.9em;color:var(--accent)}
+
+/* ---------- stack ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;padding:0;list-style:none}
+.chips li{font-family:var(--font-mono);font-size:12.5px;background:var(--surface);border:1px solid var(--hairline);
+  border-radius:999px;padding:6px 13px;color:var(--muted)}
+.note{margin-top:22px;font-size:14.5px;color:var(--muted);max-width:64ch}
+.note code{font-family:var(--font-mono);font-size:.9em;color:var(--accent)}
+
+/* ---------- faq ---------- */
+.faq{margin-top:34px;border-top:1px solid var(--hairline);max-width:78ch}
+.faq details{border-bottom:1px solid var(--hairline)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 2px;font-weight:600;font-size:16px;
+  display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent);font-weight:400;font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{padding:0 2px 20px;color:var(--muted);font-size:15.5px;max-width:66ch}
+.faq code{font-family:var(--font-mono);font-size:.9em;color:var(--accent)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--hairline);background:var(--surface-2);padding:52px 0 40px}
+.foot{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start}
+.foot .links{display:flex;flex-wrap:wrap;gap:8px}
+.foot small{display:block;color:var(--muted);font-size:13px;line-height:1.7}
+.foot a.plain{color:var(--muted)}
+.foot a.plain:hover{color:var(--ink)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .btn:hover{transform:none}
+}
+@media (min-width:1px){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap">
+    <a class="wordmark" href="#top"><b>Portfolio</b><span>personal site</span></a>
+
+    <nav aria-label="Page sections">
+      <a href="#what">What it is</a>
+      <a href="#tour">Tour</a>
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="links">
+      <a class="btn btn-primary" href="https://karthikrajan.info" rel="noopener">Open the app</a>
+      <a class="btn btn-ghost" href="https://github.com/kbrovibes/portfolio" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.18-.89-1.18-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        <span class="label-long">View source</span>
+      </a>
+      <a class="btn btn-quiet" href="https://kbrovibes.github.io/">All projects</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ══ 1. HERO ══════════════════════════════════════════════════════ -->
+<section id="top" class="hero">
+  <span class="halo a" aria-hidden="true"></span>
+  <span class="halo b" aria-hidden="true"></span>
+  <div class="wrap">
+    <p class="eyebrow">Personal site</p>
+    <h1>One résumé, rendered three <em>different</em> ways.</h1>
+    <p class="lede">My own site. The same career data — jobs, side projects, writing — is drawn by three separate React components: a dark visual theme, a terminal theme, and a deliberately silly one.</p>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="https://karthikrajan.info" rel="noopener">Open the app</a>
+      <a class="btn btn-ghost" href="https://github.com/kbrovibes/portfolio" rel="noopener">View source on GitHub</a>
+      <a class="btn btn-quiet" href="https://kbrovibes.github.io/">← Back to all projects</a>
+    </div>
+
+    <ul class="facts">
+      <li>Next.js 16 · React 19</li>
+      <li>3 themes wired live</li>
+      <li>Installs as a PWA</li>
+      <li>One data file</li>
+    </ul>
+
+    <div class="switch">
+      <span class="lab" id="swlab">View as</span>
+      <button class="swbtn" type="button" data-theme="mid" aria-pressed="true" aria-describedby="swlab">🌙 Midnight</button>
+      <button class="swbtn" type="button" data-theme="term" aria-pressed="false" aria-describedby="swlab">&gt;_ Terminal</button>
+      <button class="swbtn" type="button" data-theme="gob" aria-pressed="false" aria-describedby="swlab">🧌 Goblin</button>
+    </div>
+
+    <div class="hero-shot frame">
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url" data-url>karthikrajan.info</span></div>
+      <div class="media">
+        <div class="miniwrap">
+
+          <div class="mini m-mid" data-pane="mid" role="img" aria-label="Midnight theme: gradient surname over a dark dotted field, role line, and the three-way View as switch">
+            <span class="dots" aria-hidden="true"></span>
+            <span class="orb o1" aria-hidden="true"></span>
+            <span class="orb o2" aria-hidden="true"></span>
+            <img class="ghost" src="media/headshot.jpg" alt="Karthik Rajan portrait faded into the right edge of the dark hero" fetchpriority="high" decoding="async">
+            <div class="body">
+              <div class="nm">Karthik<br><span class="grad">Rajan</span></div>
+              <div class="role"><span class="pulse"></span>Engineering Manager, Blob Storage <b>@ Meta</b></div>
+              <div class="txt">Leading the engineering teams behind Meta&rsquo;s <b>Data Transfer Infrastructure</b> — moving <b>exabytes</b> reliably, one byte at a time.</div>
+              <div class="viewas">
+                <span class="lbl">View as</span>
+                <span class="seg"><i class="on">🌙 Midnight</i><i>&gt;_ Terminal</i><i>🧌 Goblin</i></span>
+              </div>
+              <div class="pills"><span class="p1">✉ Get in touch</span><span class="p2">↓ Resume</span></div>
+              <div class="secnav"><span>Career</span><span>How I Lead</span><span>Shipped</span><span>Projects</span><span>Blog</span></div>
+            </div>
+          </div>
+
+          <div class="mini m-term" data-pane="term" role="img" aria-label="Terminal theme: green shell prompts printing the same name, role and career statistics" hidden>
+            <div class="tnav"><span class="d">[</span><span class="g">kbro ~</span><span class="d">]</span> <span class="w">$ portfolio --interactive</span></div>
+            <div class="tbody">
+              <p class="g">kbro:~$ cat /etc/motd</p>
+              <p class="big">KARTHIK RAJAN</p>
+              <p class="g">&nbsp;&nbsp;Engineering Manager, Storage Infra @ Meta</p>
+              <p class="s">&nbsp;&nbsp;Data Transfer Infra — moving 1EB one byte at a time</p>
+              <p>&nbsp;</p>
+              <p class="g">kbro:~$ uptime</p>
+              <p class="s">&nbsp;up 15+ yrs&nbsp; |&nbsp; team: 25+ engineers&nbsp; |&nbsp; arr delta: $100M+&nbsp; |&nbsp; infra: 30K+ servers</p>
+              <p>&nbsp;</p>
+              <p class="g">kbro:~$ set-theme <span class="w">midnight | terminal | goblin</span></p>
+              <p class="g">kbro:~$ <span class="cur"></span></p>
+            </div>
+          </div>
+
+          <div class="mini m-gob" data-pane="gob" role="img" aria-label="Goblin theme: cream paper, comic lettering, sticker avatar and a yellow job-title pill" hidden>
+            <span class="blob b1" aria-hidden="true"></span>
+            <span class="blob b2" aria-hidden="true"></span>
+            <div class="gnav"><span>🧌 kbro</span><span class="ic"><span>💼</span><span>🐙</span><span>✉️</span></span></div>
+            <div class="gbody">
+              <div class="avwrap">
+                <div class="av">
+                  <img src="media/goblin-avatar.jpg" alt="Pop-art illustrated avatar of Karthik used by the Goblin Mode theme" loading="lazy" decoding="async">
+                </div>
+                <span class="crown" aria-hidden="true">👑</span>
+              </div>
+              <div class="nm">KARTHIK <span class="grad">RAJAN</span></div>
+              <div class="pill">Professional Byte Herder (tap me →)</div>
+              <div class="blurb">Engineering Manager at Meta. I move <b>one exabyte</b> of data around, allegedly one byte at a time. Spent 14 years at Amazon making graph databases go <i>brrr</i>. This is my résumé, but honest. 🫡</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <p class="cap"><b>Note:</b> the panel above is a CSS recreation of each theme, built from the colour and font constants in <code>components/themes/</code>. It is not a screenshot. The real thing is at karthikrajan.info.</p>
+  </div>
+</section>
+
+<!-- ══ 2. WHAT IT IS ════════════════════════════════════════════════ -->
+<section id="what" class="pad">
+  <div class="wrap what">
+    <div>
+      <p class="eyebrow">What it is</p>
+      <h2 style="font-size:clamp(26px,3.6vw,38px);margin-top:10px">A résumé site that renders three ways</h2>
+      <div class="prose" style="margin-top:18px">
+        <p>A personal site is a solved problem, which is exactly why building one is dull. This one started as an ordinary dark portfolio and turned into an argument with myself about how much of a website is layout and how much is personality. So I built the same site three times.</p>
+        <p>Every job, project, shipped system and blog post lives in one TypeScript file, <code>lib/portfolio-data.ts</code>. Each theme is a separate component that imports that file and draws it its own way. Switching themes swaps the component, not the content, and the choice is saved and shareable as a URL.</p>
+      </div>
+    </div>
+    <aside class="forwho">
+      <h3>Who it&rsquo;s for</h3>
+      <ul>
+        <li><span><b>Recruiters and hiring managers.</b> Career history, shipped work and a PDF résumé, on one page.</span></li>
+        <li><span><b>Engineers reading the source.</b> A working example of one data model driving three unrelated UIs.</span></li>
+        <li><span><b>Not for anyone wanting a template.</b> It is hard-coded to one career — mine. There is no CMS and no config file to fill in.</span></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ══ 3. TOUR ══════════════════════════════════════════════════════ -->
+<section id="tour" class="tour band"
+         aria-roledescription="carousel" aria-label="Theme tour">
+  <div class="wrap bar">
+    <div class="head">
+      <p class="eyebrow">Tour</p>
+      <h2>Three themes, one data file</h2>
+    </div>
+    <div class="controls" style="margin-top:0">
+      <button class="arrow" data-prev type="button" aria-controls="track" aria-label="Previous slide">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2 4.5 8l6 6 1.4-1.4L7.3 8l4.6-4.6z"/></svg></button>
+      <button class="arrow" data-next type="button" aria-controls="track" aria-label="Next slide">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2 4.1 3.4 8.7 8l-4.6 4.6L5.5 14l6-6z"/></svg></button>
+      <button class="pause" data-toggle type="button" aria-label="Pause automatic slide rotation" aria-pressed="false">
+        <svg viewBox="0 0 16 16" aria-hidden="true" data-icon><rect x="4" y="3" width="3" height="10" rx="1"/><rect x="9" y="3" width="3" height="10" rx="1"/></svg></button>
+    </div>
+  </div>
+
+  <div class="track" id="track" tabindex="0" role="group" aria-label="Slides, use arrow keys">
+
+    <article class="slide" role="group" aria-roledescription="slide" aria-label="1 of 4: Midnight, the default theme">
+      <div class="shot">
+        <div class="frame">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url">karthikrajan.info/#projects</span></div>
+          <div class="media">
+            <div class="miniwrap">
+              <div class="mini m-bento" role="img" aria-label="Midnight theme project grid with emoji tiles, tech tags and app, page and source links">
+                <div class="h">Side <span class="grad">Projects</span></div>
+                <div class="sub">Vibe coded on free time, mostly to scratch my own itch.</div>
+                <div class="tiles">
+                  <div class="tile"><div class="e">👔</div><div class="t">Hanger Management</div><div class="d">AI stylist that shows the fit before you put it on.</div><div class="tg"><i>Next.js 16</i><i>Gemini</i></div><div class="lk"><span>app →</span><span>page →</span><span>src →</span></div></div>
+                  <div class="tile"><div class="e">📈</div><div class="t">Stonk Bro</div><div class="d">Options copilot over real chains. Not advice.</div><div class="tg"><i>Claude AI</i><i>Supabase</i></div><div class="lk"><span>app →</span><span>page →</span><span>src →</span></div></div>
+                  <div class="tile"><div class="e">📊</div><div class="t">Market Math</div><div class="d">SEC filings, judged harshly, every number traceable.</div><div class="tg"><i>SEC EDGAR</i><i>Crons</i></div><div class="lk"><span>app →</span><span>page →</span><span>src →</span></div></div>
+                  <div class="tile"><div class="e">🏆</div><div class="t">Open Court</div><div class="d">Club badminton tournaments, run from a phone.</div><div class="tg"><i>Realtime</i><i>PWA</i></div><div class="lk"><span>app →</span><span>page →</span><span>src →</span></div></div>
+                  <div class="tile"><div class="e">🧾</div><div class="t">Wise Split</div><div class="d">Bill splitting with smarter settle-up math.</div><div class="tg"><i>PWA</i><i>Pages</i></div><div class="lk"><span>app →</span><span>page →</span><span>src →</span></div></div>
+                  <div class="tile"><div class="e">🧰</div><div class="t">Bro Toolkit</div><div class="d">One command to make a fresh Mac feel like home.</div><div class="tg"><i>Shell</i><i>Tmux</i></div><div class="lk"><span>page →</span><span>src →</span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="cap">CSS recreation of the Midnight project grid — palette and type taken from <code>midnight.tsx</code>.</p>
+      </div>
+      <div class="copy">
+        <p class="eyebrow">Theme 01</p>
+        <h3>The <em>default</em> one</h3>
+        <p>Dark, violet, framer-motion. Floating orbs behind a dot grid, a gradient surname over a masked portrait, then career, shipped systems, and a grid of side projects that links to each one&rsquo;s app, landing page and source.</p>
+        <ul>
+          <li>Tailwind classes, gradient text, scroll reveals</li>
+          <li>Career timeline, shipped work, blog teasers</li>
+          <li>Project grid pointing at every other repo</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="slide" role="group" aria-roledescription="slide" aria-label="2 of 4: Terminal, the CLI theme">
+      <div class="shot">
+        <div class="frame">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url">karthikrajan.info/?theme=terminal</span></div>
+          <div class="media">
+            <div class="miniwrap">
+              <div class="mini m-term" role="img" aria-label="Terminal theme listing side projects as an ls output with app, page and source flags">
+                <div class="tnav"><span class="d">[</span><span class="g">kbro ~</span><span class="d">]</span> <span class="w">$ portfolio --interactive</span></div>
+                <div class="tbody">
+                  <p class="g">kbro:~$ ls -l ~/side-projects/</p>
+                  <p class="d"># personal projects — vibe coded on free time, mostly to scratch my own itch</p>
+                  <p>&nbsp;</p>
+                  <div class="row"><span class="d">drwxr-xr-x</span><span class="nm">stylecheck/</span><span class="ds">AI stylist — see the fit before you wear it</span></div>
+                  <div class="sub"><span>└─</span><span class="c">--app</span><span class="c">--page</span><span class="c">--src</span></div>
+                  <div class="row"><span class="d">drwxr-xr-x</span><span class="nm">stonkbro/</span><span class="ds">options copilot over real option chains</span></div>
+                  <div class="sub"><span>└─</span><span class="c">--app</span><span class="c">--page</span><span class="c">--src</span></div>
+                  <div class="row"><span class="d">drwxr-xr-x</span><span class="nm">marketmath/</span><span class="ds">SEC filings, scored, every number traceable</span></div>
+                  <div class="sub"><span>└─</span><span class="c">--app</span><span class="c">--page</span><span class="c">--src</span></div>
+                  <div class="row"><span class="d">drwxr-xr-x</span><span class="nm">opencourt/</span><span class="ds">club badminton tournaments from a phone</span></div>
+                  <div class="sub"><span>└─</span><span class="c">--app</span><span class="c">--page</span><span class="c">--src</span></div>
+                  <p>&nbsp;</p>
+                  <p class="g">kbro:~$ open ~/side-projects/index.html</p>
+                  <p><span class="c">https://kbrovibes.github.io/</span><span class="d">&nbsp; # every project, one grid</span></p>
+                  <p class="g">kbro:~$ <span class="cur"></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="cap">CSS recreation of the Terminal theme — colours lifted from <code>terminal.tsx</code>.</p>
+      </div>
+      <div class="copy">
+        <p class="eyebrow">Theme 02</p>
+        <h3>The same data, <em>piped</em></h3>
+        <p>Every section becomes a shell command. Career is <code>cat career.log</code>, side projects are <code>ls -l ~/side-projects/</code>, and each project&rsquo;s three links become <code>--app</code>, <code>--page</code> and <code>--src</code> flags on the line below it.</p>
+        <ul>
+          <li>Inline style objects only, no Tailwind</li>
+          <li>Green prompt, cyan links, grey metadata</li>
+          <li>Images become links, because terminals</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="slide" role="group" aria-roledescription="slide" aria-label="3 of 4: Goblin Mode, the goofy theme">
+      <div class="shot">
+        <div class="frame">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url">karthikrajan.info/?theme=goblin</span></div>
+          <div class="media">
+            <div class="miniwrap">
+              <div class="mini m-gob" role="img" aria-label="Goblin theme sticker cards rewriting shipped projects as jokes on cream paper">
+                <span class="blob b1" aria-hidden="true"></span>
+                <span class="blob b2" aria-hidden="true"></span>
+                <div class="gnav"><span>🧌 kbro</span><span class="ic"><span>💼</span><span>🐙</span><span>✉️</span></span></div>
+                <div class="gbody">
+                  <div class="nm">CERTIFIED <span class="grad">BANGERS</span></div>
+                  <div class="blurb">Things I shipped that I will absolutely keep bringing up at parties.</div>
+                  <div class="cards">
+                    <div class="cd"><div class="e">🥇</div><div class="t">Amazon Neptune</div><div class="n">was the FIRST engineer. built the Control Plane. it runs 30K+ servers. no big deal *flips hair*</div></div>
+                    <div class="cd"><div class="e">📊</div><div class="t">Neptune Analytics</div><div class="n">shipped a whole graph engine at re:Invent 2023 with an ETL pipeline 80x faster. eighty. x.</div></div>
+                    <div class="cd"><div class="e">🤖</div><div class="t">GraphRAG + Bedrock</div><div class="n">made the AI smarter by teaching it to follow the graph instead of vibing.</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="cap">CSS recreation of Goblin Mode — sticker borders and palette from <code>goblin.tsx</code>.</p>
+      </div>
+      <div class="copy">
+        <p class="eyebrow">Theme 03</p>
+        <h3>The <em>goofy</em> one</h3>
+        <p>Comic Sans, cream paper, 3px ink borders and hard offset shadows. The same career, rewritten as jokes: &ldquo;turned 1 engineer into 15 like some kind of sourdough starter.&rdquo; Click the job title and it cycles through four worse ones.</p>
+        <ul>
+          <li>Spring-loaded stickers via framer-motion</li>
+          <li>Same résumé data, different captions</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="slide" role="group" aria-roledescription="slide" aria-label="4 of 4: Shareable theme links and the mobile layout">
+      <div class="shot">
+        <div class="frame phone">
+          <div class="media">
+            <div class="miniwrap">
+              <div class="mini m-phone" role="img" aria-label="Mobile layout: circular portrait above the gradient name, theme switch and share button">
+                <div class="bub"><img src="media/headshot.jpg" alt="Circular portrait of Karthik Rajan at the top of the mobile hero" loading="lazy" decoding="async"></div>
+                <div class="nm">Karthik<br><span class="grad">Rajan</span></div>
+                <div class="role">Engineering Manager, Blob Storage @ Meta</div>
+                <div class="txt">Leading the teams behind Meta&rsquo;s Data Transfer Infrastructure — moving exabytes, one byte at a time.</div>
+                <div class="seg"><i class="on">🌙 Midnight</i><i>&gt;_</i><i>🧌</i></div>
+                <div class="share">Share this look</div>
+                <div class="url">karthikrajan.info/?theme=goblin</div>
+                <div class="secnav"><span>Career</span><span>Shipped</span><span>Projects</span><span>Blog</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="cap" style="text-align:center">CSS recreation of the mobile hero layout.</p>
+      </div>
+      <div class="copy">
+        <p class="eyebrow">Sharing</p>
+        <h3>Send someone a <em>look</em></h3>
+        <p>The theme you are on is a URL. &ldquo;Share this look&rdquo; copies <code>karthikrajan.info/?theme=goblin</code>, or opens the native share sheet on phones that have one. Opening that link lands you in that theme, ahead of any saved preference.</p>
+        <ul>
+          <li>Choice persists in localStorage</li>
+          <li>Separate hero layout below the large breakpoint</li>
+        </ul>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="controls">
+    <div class="dots" aria-label="Choose a slide">
+      <button class="dot" type="button" aria-current="true"  aria-label="Slide 1"></button>
+      <button class="dot" type="button" aria-current="false" aria-label="Slide 2"></button>
+      <button class="dot" type="button" aria-current="false" aria-label="Slide 3"></button>
+      <button class="dot" type="button" aria-current="false" aria-label="Slide 4"></button>
+    </div>
+  </div>
+  <p class="sr" aria-live="polite" data-live></p>
+</section>
+
+<!-- ══ 4. HOW IT WORKS ══════════════════════════════════════════════ -->
+<section id="how" class="pad">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">How it works</p>
+      <h2>What happens when you flip the switch</h2>
+      <p>Four steps, in the order a first-time visitor actually meets them.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><p class="n">01</p><h3>Midnight loads</h3><p>The dark theme renders first. On mount, a saved preference or a <code>?theme=</code> parameter takes over — the parameter wins.</p></div>
+      <div class="step"><p class="n">02</p><h3>Pick a look</h3><p>The &ldquo;View as&rdquo; switch in the hero offers Midnight, Terminal and Goblin. Each one is a different component, not a restyled copy.</p></div>
+      <div class="step"><p class="n">03</p><h3>It sticks</h3><p>The choice is written to localStorage and onto <code>data-theme</code> on the html element, so your next visit opens the same way.</p></div>
+      <div class="step"><p class="n">04</p><h3>Share the look</h3><p>&ldquo;Share this look&rdquo; copies a link with the current theme in the query string, so whoever opens it sees what you saw.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5. FEATURES ══════════════════════════════════════════════════ -->
+<section id="features" class="pad band">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Features</p>
+      <h2>What&rsquo;s actually in it</h2>
+    </div>
+    <div class="grid">
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/></svg>Three live themes</h3><p>Midnight, Terminal and Goblin Mode are wired into the page router. Five more theme files sit in the repo, unrouted.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>One data file</h3><p>Jobs, projects, shipped systems and tech groups all come from <code>lib/portfolio-data.ts</code>. No theme owns its own copy.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17l6-5-6-5M12 19h8"/></svg>A CLI in inline styles</h3><p>The Terminal theme uses no Tailwind at all — every rule is an inline style object, which keeps its look self-contained.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Shareable theme links</h3><p>One button copies a <code>?theme=</code> URL, or opens the native share sheet where the browser supports it.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a7 7 0 0114 0M12 5v14"/></svg>Motion throughout</h3><p>framer-motion drives the hero stagger, the scroll reveals, and Goblin Mode&rsquo;s spring-loaded stickers.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h9l3 3v13H6z"/><path d="M9 12h6M9 16h4"/></svg>A blog</h3><p>A <code>/blog</code> route with its own layout and metadata. One post so far: &ldquo;K1: Logging Out&rdquo;, on leaving Amazon.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg>Installs to a phone</h3><p>A generated web manifest plus a service worker that precaches the shell, so it opens standalone from a home screen.</p></div>
+      <div class="card"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>Résumé download</h3><p>The PDF lives in <code>public/</code> and downloads straight from the hero. No form, no email gate.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 6. BUILT WITH ════════════════════════════════════════════════ -->
+<section id="stack" class="pad-sm">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Built with</p>
+      <h2>The stack, and where the data lives</h2>
+    </div>
+    <ul class="chips">
+      <li>Next.js 16</li><li>React 19</li><li>TypeScript</li><li>Tailwind CSS v4</li><li>framer-motion</li><li>lucide-react</li><li>Vercel</li>
+    </ul>
+    <p class="note">Deployed on Vercel at karthikrajan.info. There is no database, no API route and no sign-in — every word on the site is a string in the repo. The only state stored anywhere is your theme choice, in your own browser.</p>
+  </div>
+</section>
+
+<!-- ══ 7. FAQ ═══════════════════════════════════════════════════════ -->
+<section id="faq" class="pad-sm">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">FAQ</p>
+      <h2>Reasonable questions</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Can I use it as a template?</summary><p>Not really. There is no config file and no CMS — my name, jobs and projects are hard-coded in <code>lib/portfolio-data.ts</code>. Fork it and the first thing you do is rewrite that file.</p></details>
+      <details><summary>Does it track me?</summary><p>No analytics or tag scripts ship with it. The dependency list is Next, React, framer-motion and lucide-react. The one thing stored is your theme choice, in your browser.</p></details>
+      <details><summary>Why are there theme files that never load?</summary><p>Aurora, Neon, Brutal and two Claude-CLI themes were built and then left out of the router. They are still in <code>components/themes/</code>; the switch only exposes three.</p></details>
+      <details><summary>Does it work on a phone?</summary><p>Yes. The hero has its own mobile layout, and the manifest and service worker let it install to a home screen and open standalone.</p></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="wordmark" href="#top" style="text-decoration:none"><b>Portfolio</b><span>personal site</span></a>
+      <small style="margin-top:12px">
+        Built by <a class="plain" href="https://karthikrajan.info" rel="noopener">Karthik Rajan</a>.<br>
+        Last updated <time datetime="2026-08">August 2026</time>.
+      </small>
+    </div>
+    <div class="links">
+      <a class="btn btn-primary" href="https://karthikrajan.info" rel="noopener">Open the app</a>
+      <a class="btn btn-ghost" href="https://github.com/kbrovibes/portfolio" rel="noopener">View source on GitHub</a>
+      <a class="btn btn-ghost" href="https://kbrovibes.github.io/">All projects</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /* ---------- 1. Carousel ---------- */
+  var track = document.getElementById("track");
+  if (track) {
+    var slides = Array.prototype.slice.call(track.querySelectorAll(".slide"));
+    var dots   = Array.prototype.slice.call(document.querySelectorAll(".dot"));
+    var live   = document.querySelector("[data-live]");
+    var toggle = document.querySelector("[data-toggle]");
+    var index  = 0;
+    var paused = false;
+    var resting = true;
+    var timer  = null;
+    var AUTOPLAY_MS = 6500;
+
+    function label(i) {
+      var s = slides[i];
+      var h = s && s.querySelector(".copy h3");
+      return "Slide " + (i + 1) + " of " + slides.length + (h ? ": " + h.textContent.trim() : "");
+    }
+
+    function paint(i) {
+      index = i;
+      dots.forEach(function (d, n) { d.setAttribute("aria-current", n === i ? "true" : "false"); });
+      if (live) live.textContent = label(i);
+    }
+
+    function goTo(i, smooth) {
+      var n = (i + slides.length) % slides.length;
+      track.scrollTo({
+        left: n * track.clientWidth,
+        behavior: smooth && !reduce.matches ? "smooth" : "auto"
+      });
+      paint(n);
+    }
+
+    var raf = null;
+    track.addEventListener("scroll", function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = null;
+        var n = Math.round(track.scrollLeft / track.clientWidth);
+        if (n !== index && slides[n]) paint(n);
+      });
+    }, { passive: true });
+
+    dots.forEach(function (d, n) {
+      d.addEventListener("click", function () { rest(false); goTo(n, true); });
+    });
+    var prev = document.querySelector("[data-prev]");
+    var next = document.querySelector("[data-next]");
+    if (prev) prev.addEventListener("click", function () { rest(false); goTo(index - 1, true); });
+    if (next) next.addEventListener("click", function () { rest(false); goTo(index + 1, true); });
+
+    track.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { e.preventDefault(); rest(false); goTo(index + 1, true); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); rest(false); goTo(index - 1, true); }
+      else if (e.key === "Home") { e.preventDefault(); rest(false); goTo(0, true); }
+      else if (e.key === "End") { e.preventDefault(); rest(false); goTo(slides.length - 1, true); }
+    });
+
+    var PLAY = '<path d="M4 2.5v11l9-5.5z"></path>';
+    var PAUSE = '<rect x="4" y="3" width="3" height="10" rx="1"></rect><rect x="9" y="3" width="3" height="10" rx="1"></rect>';
+
+    function rest(v) { resting = v; }
+
+    function tick() {
+      if (paused || !resting || document.hidden) return;
+      goTo(index + 1, true);
+    }
+
+    function start() {
+      stop();
+      if (reduce.matches) return;
+      timer = setInterval(tick, AUTOPLAY_MS);
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    function setPaused(v) {
+      paused = v;
+      if (toggle) {
+        toggle.setAttribute("aria-pressed", v ? "true" : "false");
+        toggle.setAttribute("aria-label", v ? "Resume automatic slide rotation" : "Pause automatic slide rotation");
+        var icon = toggle.querySelector("[data-icon]");
+        if (icon) icon.innerHTML = v ? PLAY : PAUSE;
+      }
+    }
+
+    if (toggle) {
+      if (reduce.matches) { toggle.hidden = true; }
+      toggle.addEventListener("click", function () { setPaused(!paused); });
+    }
+
+    ["pointerenter", "pointerdown", "focusin"].forEach(function (ev) {
+      track.addEventListener(ev, function () { rest(false); });
+    });
+    ["pointerleave", "focusout"].forEach(function (ev) {
+      track.addEventListener(ev, function () { rest(true); });
+    });
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stop(); else start();
+    });
+    reduce.addEventListener("change", function () { start(); if (toggle) toggle.hidden = reduce.matches; });
+
+    var rt = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(rt);
+      rt = setTimeout(function () { goTo(index, false); }, 120);
+    });
+
+    paint(0);
+    start();
+  }
+
+  /* ---------- 2. Hero theme switcher ---------- */
+  var swBtns = Array.prototype.slice.call(document.querySelectorAll(".swbtn"));
+  var panes  = Array.prototype.slice.call(document.querySelectorAll("[data-pane]"));
+  var urlBox = document.querySelector("[data-url]");
+  var URLS = { mid: "karthikrajan.info", term: "karthikrajan.info/?theme=terminal", gob: "karthikrajan.info/?theme=goblin" };
+
+  swBtns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var want = b.getAttribute("data-theme");
+      swBtns.forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      panes.forEach(function (p) { p.hidden = p.getAttribute("data-pane") !== want; });
+      if (urlBox && URLS[want]) urlBox.textContent = URLS[want];
+    });
+  });
+
+  /* ---------- 3. Header scroll-spy ---------- */
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".site nav a"));
+  var targets = navLinks
+    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+    .filter(Boolean);
+
+  if (targets.length && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(function (a) {
+          a.setAttribute("aria-current", a.getAttribute("href") === "#" + entry.target.id ? "true" : "false");
+        });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+    targets.forEach(function (t) { io.observe(t); });
+  }
+})();
+</script>
+</body>
+</html>
