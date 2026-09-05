@@ -2,7 +2,7 @@
 
 import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, Shuffle, ChevronDown, Download, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen, Shirt, Calculator, Trophy, Receipt, Terminal, type LucideIcon, Pencil, FileText, Palette } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, Shuffle, ChevronDown, Download, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen, Shirt, Calculator, Trophy, Receipt, Terminal, type LucideIcon, Pencil, FileText, Palette, Home } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { PERSONAL, TIMELINE, EDUCATION, PROJECTS, SHIPPED_PROJECTS, HUB_URL, type Project } from "@/lib/portfolio-data";
 import { BLOG_POSTS } from "@/lib/blog-data";
@@ -1026,7 +1026,7 @@ function MidnightBlog() {
 // ── BentoBox ──────────────────────────────────────────────────────────────────
 
 const ALT_PROJECT_ICONS: Record<string, LucideIcon> = {
-  Shirt, ChartLine, Calculator, Trophy, Shuffle, Receipt, BookOpen, Terminal,
+  Shirt, ChartLine, Calculator, Trophy, Shuffle, Receipt, BookOpen, Terminal, Home,
 };
 
 const ALT_PROJECT_TONE: Record<string, { tile: string; iconBg: string; icon: string; tag: string; link: string }> = {

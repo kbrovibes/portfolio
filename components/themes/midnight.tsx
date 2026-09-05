@@ -2,7 +2,7 @@
 
 import { useState, Fragment } from "react";
 import { motion, useScroll, useTransform, type Variants, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen, Shirt, Calculator, Trophy, Receipt, Terminal, Pencil, FileText, Palette } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, MapPin, Zap, ChartLine, DollarSign, Shuffle, ChevronDown, Download, RefreshCw, Users, Layers, TrendingUp, Rocket, BookOpen, Shirt, Calculator, Trophy, Receipt, Terminal, Pencil, FileText, Palette, Home } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import ShareTheme from "@/components/ShareTheme";
@@ -1048,7 +1048,7 @@ function MidnightBlog() {
 
 const PROJECT_ICONS: Record<string, LucideIcon> = {
   Shirt, ChartLine, Calculator, Trophy, Shuffle, Receipt, BookOpen, Terminal,
-  Pencil, FileText, Palette,
+  Pencil, FileText, Palette, Home,
 };
 
 const PROJECT_TONE: Record<string, { tile: string; iconBg: string; icon: string; tag: string; link: string }> = {

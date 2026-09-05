@@ -155,6 +155,7 @@ const GREMLIN_QUIPS: Record<string, string> = {
   wisesplit: "splitwise but free forever and the settle-up math is actually smarter. petty revenge project.",
   "superhero-stories": "108 original superhero stories. yes. one hundred and eight. for my kids.",
   "bro-toolkit": "one command to make a fresh mac feel like home. one command to undo it all.",
+  "pixel-agents-house": "my claude code sessions as tiny people doing chores in my actual house. idle ones nap. this is fine.",
 };
 
 /* ── decorative floating blobs ───────────────────────────────────────────── */

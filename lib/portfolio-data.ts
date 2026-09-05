@@ -238,6 +238,20 @@ export const PROJECTS: Project[] = [
     emoji: "\u{1F9F0}",
   },
   {
+    id: "pixel-agents-house",
+    title: "Pixel Agents House",
+    repoName: "pixel-agents-house",
+    description:
+      "Every live Claude Code session becomes a pixel character doing chores in my actual house. Idle agents nap on the couch. Built for a wall monitor, reachable from any device on the wifi.",
+    app: "https://kbrovibes.github.io/pixel-agents-house/app/?demo=8&labels=1",
+    page: "https://kbrovibes.github.io/pixel-agents-house/",
+    repo: "https://github.com/kbrovibes/pixel-agents-house",
+    tags: ["Node.js", "Canvas", "WebSocket", "GitHub Pages"],
+    color: "indigo",
+    icon: "Home",
+    emoji: "\u{1F3E0}",
+  },
+  {
     id: "doodle-disaster",
     title: "Doodle Disaster",
     repoName: "doodle-disaster",
